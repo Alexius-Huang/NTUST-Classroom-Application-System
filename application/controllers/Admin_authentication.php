@@ -21,11 +21,9 @@ class Admin_authentication extends WEB_Controller {
       $this->form_validation->set_error_delimiters('<br>', '');
       if ($this->form_validation->run() == FALSE) {
         $view['warning_message'] = '帳號或密碼錯誤，請再試一次!';
-      } else {
-        if ( ! $admin = $this->admin_model->admin_signin(trim($account), trim($password))) {
-          $view['warning_message'] = '帳號或密碼錯誤，請再試一次!';
-        } else redirect('admin/main');
-      }
+      } else if ( ! $admin = $this->admin_model->admin_signin(trim($account), trim($password))) {
+        $view['warning_message'] = '帳號或密碼錯誤，請再試一次!';
+      } else redirect('admin/main');
     } elseif ($this->input->post('account') === '' || $this->input->post('password')) {
       $view['warning_message'] = '欄位有空，請再試一次!';
     }
