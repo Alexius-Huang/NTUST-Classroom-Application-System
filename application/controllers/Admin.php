@@ -14,6 +14,7 @@ class Admin extends WEB_Controller {
     // Set default template
     $this->output->set_template('admin');
 
+    $this->load->model('classroom_model');
   }
 
   public function main() {
@@ -53,15 +54,24 @@ class Admin extends WEB_Controller {
       'username' => 'admin',
       'page' => 'classroom'
     );
+
+    $view['table_columns'] = array(
+      'name'     => array('name' => '場地名稱', 'class' => ''),
+      'disabled' => array('name' => '狀態',    'class' => 'hidden-xs'),
+      'toggle'   => array('name' => '切換狀態', 'class' => ''),
+      'config'   => array('name' => '設定',    'class' => '')
+    );
+    $view['classrooms'] = $this->classroom_model->get_classrooms();
     $this->load->view('admin/classroom_view', $view);
   }
 
-  public function config() {
+  public function classroom_edit($id = '0') {
+    if ($id === '0') { redirect(base_url().'admin/classroom'); }
     $view = array(
       'username' => 'admin',
-      'page' => 'config'
+      'page' => 'classroom_edit'
     );
-    $this->load->view('admin/config_view', $view);
+    $this->load->view('admin/classroom_edit_view', $view);
   }
 
 }

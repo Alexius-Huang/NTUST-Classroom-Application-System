@@ -8,7 +8,7 @@
       <div class="icon">
         <i class="ion ion-ios-paper"></i>
       </div>
-      <a href="?page=apply" class="small-box-footer">前往審核申請 <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+      <a href="<?php echo base_url(); ?>admin/apply" class="small-box-footer">前往審核申請 <i class="fa fa-fw fa-arrow-circle-right"></i></a>
     </div>
   </div>
   <div class="col-lg-3 col-xs-6">
@@ -20,7 +20,7 @@
       <div class="icon">
         <i class="ion ion-android-pin"></i>
       </div>
-      <a href="?page=classroom" class="small-box-footer">前往場地設定 <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+      <a href="<?php echo base_url(); ?>admin/classroom" class="small-box-footer">前往場地設定 <i class="fa fa-fw fa-arrow-circle-right"></i></a>
     </div>
   </div>
   <div class="col-lg-3 col-xs-6">
@@ -32,7 +32,7 @@
       <div class="icon">
         <i class="ion ion-ios-paper"></i>
       </div>
-      <a href="?page=application" class="small-box-footer">前往申請記錄 <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+      <a href="<?php echo base_url(); ?>admin/application" class="small-box-footer">前往申請記錄 <i class="fa fa-fw fa-arrow-circle-right"></i></a>
     </div>
   </div>
   <div class="col-lg-3 col-xs-6">
@@ -44,7 +44,7 @@
       <div class="icon">
         <i class="ion ion-ios-paper"></i>
       </div>
-      <a href="?page=application" class="small-box-footer">前往申請記錄 <i class="fa fa-fw fa-arrow-circle-right"></i></a>
+      <a href="<?php echo base_url(); ?>admin/application" class="small-box-footer">前往申請記錄 <i class="fa fa-fw fa-arrow-circle-right"></i></a>
     </div>
   </div>
 </div>

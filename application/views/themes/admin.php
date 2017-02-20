@@ -9,6 +9,34 @@
   <meta name="msapplication-navbutton-color" content="#3b8ab8" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  
+  <?php
+    if(!empty($meta))
+    foreach($meta as $name=>$content){
+      echo "\n\t\t";
+      ?><meta name="<?php echo $name; ?>" content="<?php echo $content; ?>" /><?php
+        }
+    echo "\n";
+
+    if(!empty($canonical))
+    {
+      echo "\n\t\t";
+      ?><link rel="canonical" href="<?php echo $canonical?>" /><?php
+
+    }
+    echo "\n\t";
+
+    foreach($css as $file){
+      echo "\n\t\t";
+      ?><link rel="stylesheet" href="<?php echo $file; ?>" type="text/css" /><?php
+    } echo "\n\t";
+
+    foreach($js as $file){
+        echo "\n\t\t";
+        ?><script src="<?php echo $file; ?>"></script><?php
+    } echo "\n\t";
+  ?>
+  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css" />
@@ -19,6 +47,7 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/skins/_all-skins.min.css" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets//css/pending.css" />
   <link rel="icon" type="image/png" href="<?php echo base_url(); ?>assets//images/logo.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/6.4.2/sweetalert2.min.css">
   <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -36,6 +65,7 @@
   <script src="<?php echo base_url(); ?>assets/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/bootstrap-confirmation.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/sweetalert2/6.4.2/sweetalert2.min.js"></script>
   <style>
     @media (min-width: 768px) {
       .main-header .sidebar-toggle {
