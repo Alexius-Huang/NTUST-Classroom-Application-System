@@ -34,4 +34,19 @@ class Admin extends WEB_Controller {
       redirect(base_url() . 'admin');
     } else $this->classroom_model->delete_classroom($classroom_id);
   }
+
+  public function delete_classroom_rules_by_classroom_id($classroom_id = '0') {
+    if ($classroom_id === '0' || ! $classroom = $this->classroom_model->get_classroom($classroom_id)) {
+      redirect(base_url() . 'admin');
+    } else foreach($this->classroom_model->get_classroom_rules_by_classroom_id($classroom_id) as $rule) {
+      $this->classroom_model->delete_classroom_rule($rule['id']);
+    }
+  }
+
+  public function delete_classroom_rule($classroom_rule_id = '0') {
+    if ($classroom_rule_id === '0' || ! $classroom_rule = $this->classroom_model->get_classroom_rule($classroom_rule_id)) {
+      redirect(base_url().'admin');
+    } else $this->classroom_model->delete_classroom_rule($classroom_rule_id);
+  }
+
 }

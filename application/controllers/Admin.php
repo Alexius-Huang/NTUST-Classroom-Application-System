@@ -72,6 +72,7 @@ class Admin extends WEB_Controller {
       'page' => 'classroom_edit'
     );
     $view['classroom'] = $this->classroom_model->get_classroom($id);
+    $view['classroom_rules'] = $this->classroom_model->get_classroom_rules_by_classroom_id($id);
     $this->load->view('admin/classroom_edit_view', $view);
   }
 

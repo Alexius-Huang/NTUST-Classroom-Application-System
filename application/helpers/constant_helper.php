@@ -27,9 +27,9 @@ if ( ! function_exists('classroom_rule_type')) {
       '2' => '依星期不開放'
     );
     if ($with_icon) {
-      $rules['0'] = render_icon('calendar-o').$rules['0'];
-      $rules['1'] = render_icon('calendar').$rules['1'];
-      $rules['2'] = render_icon('calendar-check-o').$rules['2'];
+      $rules['0'] = render_icon('calendar-o').' '.$rules['0'];
+      $rules['1'] = render_icon('calendar').' '.$rules['1'];
+      $rules['2'] = render_icon('calendar-check-o').' '.$rules['2'];
     }
 
     if ($rules[$type_id]) {

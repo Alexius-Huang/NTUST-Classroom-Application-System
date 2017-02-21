@@ -13,8 +13,9 @@ class Classroom_model extends CI_Model {
     return $query->result_array();
   }
 
-  function get_classroom_rules($where = array()) {
-    $this->db->where($where);
+  function get_classroom_rules_by_classroom_id($classroom_id = '0') {
+    if ($classroom_id == '0') { return FALSE; }
+    $this->db->where(array('classroom_id' => $classroom_id));
     $this->db->order_by('id', 'asc');
     $query = $this->db->get('ClassroomRule');
     return $query->result_array();
@@ -27,6 +28,21 @@ class Classroom_model extends CI_Model {
       $this->db->where('id', $id);
       $this->db->limit(1);
       $query = $this->db->get('Classroom');
+      if ($query->num_rows() == 1) {
+        return $query->row_array();
+      } else {
+        return FALSE;
+      }
+    }
+  }
+
+  function get_classroom_rule($id = '0') {
+    if ($id == '0') {
+      return FALSE;
+    } else {
+      $this->db->where('id', $id);
+      $this->db->limit(1);
+      $query = $this->db->get('ClassroomRule');
       if ($query->num_rows() == 1) {
         return $query->row_array();
       } else {
@@ -83,5 +99,11 @@ class Classroom_model extends CI_Model {
     $this->db->where('id', $id);
     $this->db->limit(1);
     $this->db->delete('Classroom');
+  }
+
+  function delete_classroom_rule($id) {
+    $this->db->where('id', $id);
+    $this->db->limit(1);
+    $this->db->delete('ClassroomRule');
   }
 }
