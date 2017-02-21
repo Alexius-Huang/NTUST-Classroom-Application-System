@@ -23,7 +23,7 @@
           </div><!-- /.form-group -->
         </div><!-- /.box-body -->
         <div class="box-footer">
-          <button class="btn btn-primary" type="submit">儲存</button>
+          <button class="btn btn-primary" type="submit"><?php echo render_icon('save'); ?> 儲存</button>
         </div><!-- /.box-footer -->
       </form><!-- /.form -->
     </div><!-- /.box -->

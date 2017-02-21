@@ -28,7 +28,7 @@ class Admin_authentication extends WEB_Controller {
       $view['warning_message'] = '欄位有空，請再試一次!';
     }
 
-    $this->load->view('admin_authentication/signin_view', $view);
+    $this->load->view('authentication/admin_signin_view', $view);
   }
 
   public function signout() {
