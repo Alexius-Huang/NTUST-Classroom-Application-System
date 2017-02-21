@@ -33,18 +33,21 @@
               <tr id="row-<?php echo $classroom['id']; ?>">
                 <td><?php echo $classroom['id']; ?></td>
                 <td><?php echo $classroom['name']; ?></td>
-                <td id="state-<?php echo $classroom['id']; ?>"><?php echo ($classroom['disabled'] == 0 ? '已啟用' : '停用中'); ?></td>
-                <td><span data-id="<?php echo $classroom['id']; ?>"
-                          data-type="switch"
-                          data-state="<?php echo $classroom['disabled']; ?>"
-                          data-classroom="<?php echo $classroom['name']; ?>"
-                          class="btn btn-<?php echo ($classroom['disabled'] == 0 ? 'danger' : 'primary'); ?>">
-                      <?php echo ($classroom['disabled'] == 0 ? '停用' : '啟用') ?>
-                    </span>
+                <td <?php if ($classroom['disabled'] == 0) { echo 'class="label-primary"'; } ?> id="state-<?php echo $classroom['id']; ?>">
+                  <?php echo ($classroom['disabled'] == 0 ? render_icon('eye').' 已啟用' : render_icon('eye-slash').' 停用中'); ?>
+                </td>
+                <td>
+                  <span data-id="<?php echo $classroom['id']; ?>"
+                        data-type="switch"
+                        data-state="<?php echo $classroom['disabled']; ?>"
+                        data-classroom="<?php echo $classroom['name']; ?>"
+                        class="btn btn-<?php echo ($classroom['disabled'] == 0 ? 'danger' : 'primary'); ?>">
+                    <?php echo ($classroom['disabled'] == 0 ? render_icon('toggle-on').' 停用' : render_icon('toggle-off').' 啟用') ?>
+                  </span>
                 </td>
                 <td>
                   <span data-id="<?php echo $classroom['id']; ?>" data-type="destroy" data-classroom="<?php echo $classroom['name']; ?>" class="btn btn-danger">刪除場地</span>
-                  <span data-id="<?php echo $classroom['id']; ?>" data-type="edit" class="btn btn-primary">詳細設定</span>
+                  <span data-id="<?php echo $classroom['id']; ?>" data-type="edit" class="btn btn-primary"><?php echo render_icon('sliders'); ?> 詳細設定</span>
                 </td>
               </tr>
             <?php endforeach; ?>

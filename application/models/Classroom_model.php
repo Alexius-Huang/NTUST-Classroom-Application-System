@@ -13,6 +13,13 @@ class Classroom_model extends CI_Model {
     return $query->result_array();
   }
 
+  function get_classroom_rules($where = array()) {
+    $this->db->where($where);
+    $this->db->order_by('id', 'asc');
+    $query = $this->db->get('ClassroomRule');
+    return $query->result_array();
+  }
+
   function get_classroom($id = '0') {
     if ($id == '0') {
       return FALSE;
@@ -35,7 +42,27 @@ class Classroom_model extends CI_Model {
       'created_at' => time(),
       'updated_at' => time()
     );
-    $this->db->insert('Classroom', $data);
+    $this->db->insert('Classroom', $insert);
+    $id = $this->db->insert_id();
+    return $id;
+  }
+  
+  function create_classroom_rule($data) {
+    $insert = array(
+      'classroom_id' => $data['classroom_id'],
+      'type'         => $data['type'],
+      'start'        => $data['start'],
+      'end'          => $data['end'],
+      'weekday'      => $data['weekday'],
+      'created_at'   => time(),
+      'updated_at'   => time()
+    );
+
+    foreach (array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D') as $time) {
+      $insert['time'.$time] = $data['time'.$time];
+    }
+
+    $this->db->insert('ClassroomRule', $insert);
     $id = $this->db->insert_id();
     return $id;
   }

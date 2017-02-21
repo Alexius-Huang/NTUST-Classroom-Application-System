@@ -9,34 +9,7 @@
   <meta name="msapplication-navbutton-color" content="#3b8ab8" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  
-  <?php
-    if(!empty($meta))
-    foreach($meta as $name=>$content){
-      echo "\n\t\t";
-      ?><meta name="<?php echo $name; ?>" content="<?php echo $content; ?>" /><?php
-        }
-    echo "\n";
 
-    if(!empty($canonical))
-    {
-      echo "\n\t\t";
-      ?><link rel="canonical" href="<?php echo $canonical?>" /><?php
-
-    }
-    echo "\n\t";
-
-    foreach($css as $file){
-      echo "\n\t\t";
-      ?><link rel="stylesheet" href="<?php echo $file; ?>" type="text/css" /><?php
-    } echo "\n\t";
-
-    foreach($js as $file){
-        echo "\n\t\t";
-        ?><script src="<?php echo $file; ?>"></script><?php
-    } echo "\n\t";
-  ?>
-  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css" />
@@ -73,6 +46,34 @@
       }
     }
   </style>
+
+  <?php
+    if(!empty($meta))
+    foreach($meta as $name=>$content){
+      echo "\n\t\t";
+      ?><meta name="<?php echo $name; ?>" content="<?php echo $content; ?>" /><?php
+        }
+    echo "\n";
+
+    if(!empty($canonical))
+    {
+      echo "\n\t\t";
+      ?><link rel="canonical" href="<?php echo $canonical?>" /><?php
+
+    }
+    echo "\n\t";
+
+    foreach($css as $file){
+      echo "\n\t\t";
+      ?><link rel="stylesheet" href="<?php echo $file; ?>" type="text/css" /><?php
+    } echo "\n\t";
+
+    foreach($js as $file){
+        echo "\n\t\t";
+        ?><script src="<?php echo $file; ?>"></script><?php
+    } echo "\n\t";
+  ?>
+  
 </head>
 <body class="hold-transition skin-blue-light sidebar-mini page-<?php echo $page;?>">
   <div class="wrapper">
@@ -111,11 +112,11 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
           <li class="header">後台選單</li>
-          <li<?php echo ($page === 'main'                            ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/main"><i class="fa fa-fw fa-dashboard"></i> 後台首頁</a></li>
-          <li<?php echo ($page === 'apply'                           ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/apply"><i class="fa fa-fw fa-sticky-note-o"></i> 審核申請</a></li>
-          <li<?php echo ($page === 'application'                     ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/application"><i class="fa fa-fw fa-history"></i> 申請記錄</a></li>
-          <li<?php echo ($page === 'classroom' || $page === 'config' ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/classroom"><i class="fa fa-fw fa-cog"></i> 場地設定</a></li>
-          <li<?php echo ($page === 'notice'                          ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/notice"><i class="fa fa-fw fa-info-circle"></i> 申請須知</a></li>
+          <li<?php echo ($page === 'main'                                    ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/main"><i class="fa fa-fw fa-dashboard"></i> 後台首頁</a></li>
+          <li<?php echo ($page === 'apply'                                   ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/apply"><i class="fa fa-fw fa-sticky-note-o"></i> 審核申請</a></li>
+          <li<?php echo ($page === 'application'                             ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/application"><i class="fa fa-fw fa-history"></i> 申請記錄</a></li>
+          <li<?php echo ($page === 'classroom' || $page === 'classroom_edit' ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/classroom"><i class="fa fa-fw fa-cog"></i> 場地設定</a></li>
+          <li<?php echo ($page === 'notice'                                  ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/notice"><i class="fa fa-fw fa-info-circle"></i> 申請須知</a></li>
           <li class="header">返回借用系統</li>
           <li><a href="/"><i class="fa fa-fw fa-angle-double-left"></i> 返回借用系統</a></li>
         </ul>
@@ -134,8 +135,8 @@
         <ol class="breadcrumb">
           <li><a href="./"><i class="fa fa-fw fa-dashboard"></i> 管理後台</a></li>
           
-          <?php if ($page === 'config'): ?>
-            <li><a href="#"><?php echo admin_page_name('config'); ?></a></li>
+          <?php if ($page === 'classroom_edit'): ?>
+            <li><a href="#"><?php echo admin_page_name('classroom_edit'); ?></a></li>
             <li class="active"><a href="#"><?php echo admin_page_name('classroom'); ?></a></li>
           <?php else: ?>
             <li class="active"><a href="#"><?php echo admin_page_name($page); ?></a></li>
