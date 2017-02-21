@@ -43,6 +43,28 @@ $(document).ready(function() {
         location.href = '<?php echo base_url(); ?>' + 'admin/classroom_edit/' + data.id;
         break;
 
+      case 'edit-name':
+        swal({
+          title: '更改場地「' + data.classroom + '」名稱',
+          input: 'text',
+          showCancelButton: true,
+          inputValidator: function(value) {
+            return new Promise(function(resolve, reject) {
+              if (value) { resolve() } else reject('您必須填入場地之名稱！');
+            });
+          }
+        }).then(function(result) {
+          $.ajax({
+            type: 'post',
+            cache: false,
+            data: { 'name': result },
+            url: '<?php echo base_url(); ?>ajax/admin/change_classroom_name/' + data.id,
+            success: function() { location.href = '<?php echo base_url(); ?>admin/classroom'; },
+            error: function() { show_error_message(); }
+          });
+        });
+        break;
+
       /* 切換教室開放狀態 */
       case 'switch':
         swal({
@@ -67,26 +89,6 @@ $(document).ready(function() {
             error: function() { show_error_message(); }
           });
         }, function(dismiss) { /* DO NOTHING*/ });
-        break;
-
-      /* 毀滅教室 */
-      case 'destroy':
-        swal({
-          title: '您確定要刪除該場地： ' + data.classroom + ' ？',
-          showCancelButton: true,
-          confirmButtonText: '確定',
-          cancelButtonText: '取消',
-          confirmButtonColor: '#dd4b39',
-          cancelButtonColor: '#3c8dbc'
-        }).then(function() {
-          $.ajax({
-            type: 'post',
-            url: '<?php echo base_url(); ?>ajax/admin/destroy_classroom/' + data.id,
-            cache: false,
-            success: function() { location.reload(); },
-            error: function() { show_error_message(); }
-          })
-        }, function(dismiss) { /* DO NOTHING */ });
         break;
     }
   });

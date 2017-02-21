@@ -60,6 +60,27 @@ $(document).ready(function() {
     }, function(dismiss) { /* DO NOTHING */ });
   });
 
+  $('span#delete-classroom').on('click', function(event) {
+    event.preventDefault();
+    var data = $(this).data();
+    swal({
+      title: '您確定要刪除該場地： ' + data.classroom + ' ？',
+      showCancelButton: true,
+      confirmButtonText: '確定',
+      cancelButtonText: '取消',
+      confirmButtonColor: '#dd4b39',
+      cancelButtonColor: '#3c8dbc'
+    }).then(function() {
+      $.ajax({
+        type: 'post',
+        url: '<?php echo base_url(); ?>ajax/admin/delete_classroom/' + data.id,
+        cache: false,
+        success: function() { location.reload(); },
+        error: function() { show_error_message(); }
+      })
+    }, function(dismiss) { /* DO NOTHING */ });
+  });
+
   /* Datatable */
   $('table#rules').DataTable({
     lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, '顯示全部']],

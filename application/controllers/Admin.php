@@ -41,14 +41,6 @@ class Admin extends WEB_Controller {
     $this->load->view('admin/application_view', $view);
   }
 
-  public function notice() {
-    $view = array(
-      'username' => 'admin',
-      'page' => 'notice'
-    );
-    $this->load->view('admin/notice_view', $view);
-  }
-
   public function classroom() {
     $view = array(
       'username' => 'admin',
@@ -66,7 +58,7 @@ class Admin extends WEB_Controller {
   }
 
   public function classroom_edit($id = '0') {
-    if ($id === '0') { redirect(base_url().'admin/classroom'); }
+    if ($id === '0' OR ( ! $classroom = $this->classroom_model->get_classroom($id))) { redirect(base_url().'admin/classroom'); }
     $view = array(
       'username' => 'admin',
       'page' => 'classroom_edit'
@@ -77,7 +69,7 @@ class Admin extends WEB_Controller {
   }
 
   public function classroom_rule_create($id = '0') {
-    if ($id === '0') { redirect(base_url().'admin/classroom'); }
+    if ($id === '0' OR ( ! $classroom = $this->classroom_model->get_classroom($id))) { redirect(base_url().'admin/classroom'); }
     
     if ($post = $this->input->post()) {
       $insert = array();
@@ -128,6 +120,26 @@ class Admin extends WEB_Controller {
     $this->load->js('assets/datepicker/js/bootstrap-datepicker.min.js');
     $this->load->js('assets/datepicker/locales/bootstrap-datepicker.zh-TW.min.js');
     $this->load->view('admin/classroom_rule_create_view', $view);
+  }
+
+  public function notice_edit() {
+    $this->load->model('notice_model');   
+    $view = array(
+      'username' => 'admin',
+      'page' => 'notice',
+      'notice_updated' => FALSE
+    );
+
+    if ($post = $this->input->post()) {
+      $update = array('zh-tw' => $post['zh-tw'], 'en-us' => $post['en-us']);
+      $this->notice_model->update_notice($update);
+      $view['notice_updated'] = TRUE;
+    }
+
+    $view['notice'] = $this->notice_model->get_notice();
+
+    $this->load->js('https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js');
+    $this->load->view('admin/notice_edit_view', $view);
   }
 
 }

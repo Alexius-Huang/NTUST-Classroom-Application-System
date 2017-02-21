@@ -29,7 +29,13 @@ class Admin extends WEB_Controller {
     }
   }
 
-  public function destroy_classroom($classroom_id = '0') {
+  public function change_classroom_name($classroom_id = '0') {
+    if ($classroom_id === '0' || ! $classroom = $this->classroom_model->get_classroom($classroom_id)) {
+      redirect(base_url() . 'admin');
+    } else $this->classroom_model->update_classroom(array('name' => $this->input->post('name')), $classroom_id);
+  }
+
+  public function delete_classroom($classroom_id = '0') {
     if ($classroom_id === '0' || ! $classroom = $this->classroom_model->get_classroom($classroom_id)) {
       redirect(base_url() . 'admin');
     } else $this->classroom_model->delete_classroom($classroom_id);

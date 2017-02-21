@@ -112,11 +112,11 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
           <li class="header">後台選單</li>
-          <li<?php echo ($page === 'main'                                    ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/main"><i class="fa fa-fw fa-dashboard"></i> 後台首頁</a></li>
-          <li<?php echo ($page === 'apply'                                   ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/apply"><i class="fa fa-fw fa-sticky-note-o"></i> 審核申請</a></li>
-          <li<?php echo ($page === 'application'                             ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/application"><i class="fa fa-fw fa-history"></i> 申請記錄</a></li>
-          <li<?php echo ($page === 'classroom' || $page === 'classroom_edit' ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/classroom"><i class="fa fa-fw fa-cog"></i> 場地設定</a></li>
-          <li<?php echo ($page === 'notice'                                  ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/notice"><i class="fa fa-fw fa-info-circle"></i> 申請須知</a></li>
+          <li<?php echo ($page === 'main'                                    ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/main"><?php echo render_icon('dashboard'); ?> 後台首頁</a></li>
+          <li<?php echo ($page === 'apply'                                   ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/apply"><?php echo render_icon('sticky-note-o'); ?> 審核申請</a></li>
+          <li<?php echo ($page === 'application'                             ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/application"><?php echo render_icon('history'); ?> 申請記錄</a></li>
+          <li<?php echo ($page === 'classroom' || $page === 'classroom_edit' ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/classroom"><?php echo render_icon('cog'); ?> 場地設定</a></li>
+          <li<?php echo ($page === 'notice'                                  ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/notice_edit"><?php echo render_icon('info-circle'); ?> 申請須知</a></li>
           <li class="header">返回借用系統</li>
           <li><a href="/"><i class="fa fa-fw fa-angle-double-left"></i> 返回借用系統</a></li>
         </ul>
@@ -135,9 +135,12 @@
         <ol class="breadcrumb">
           <li><a href="./"><i class="fa fa-fw fa-dashboard"></i> 管理後台</a></li>
           
-          <?php if ($page === 'classroom_edit'): ?>
+          <?php if ($page === 'classroom_edit' || $page === 'classroom_rule_create'): ?>
             <li><a href="#"><?php echo admin_page_name('classroom_edit'); ?></a></li>
-            <li class="active"><a href="#"><?php echo admin_page_name('classroom'); ?></a></li>
+            <li <?php if ($page === 'classroom_edit') { echo 'class="active"'; } ?>><a href="#"><?php echo admin_page_name('classroom'); ?></a></li>
+            <?php if ($page === 'classroom_rule_create'): ?>
+              <li class="active"><a href="#"><?php echo admin_page_name($page); ?></a></li>
+            <?php endif; ?>
           <?php else: ?>
             <li class="active"><a href="#"><?php echo admin_page_name($page); ?></a></li>
           <?php endif; ?>

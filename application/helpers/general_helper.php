@@ -1,5 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+if ( ! function_exists('s')) {
+  function student_verify($studentID, $pw) {
+    return 0 != (new SoapClient("http://e-service.ntust.edu.tw/checkmember/service.asmx?wsdl"))->CheckStudent(json_decode(json_encode(array('StudentNo' => strtoupper($studentID), 'Stu_PassWord' => $pw))))->CheckStudentResult;
+  }
+}
+
 if ( ! function_exists('render_icon')) {
   function render_icon($icon_type) {
     return '<i class="fa fa-fw fa-'.$icon_type.'"></i>';

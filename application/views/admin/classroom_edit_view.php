@@ -52,6 +52,9 @@
           </tbody>
         </table>
       </div>
+      <div class="box-footer">
+        <span id="delete-classroom" data-id="<?php echo $classroom['id']; ?>" data-classroom="<?php echo $classroom['name']; ?>" class="btn btn-sm btn-danger"><?php echo render_icon('trash'); ?> 刪除此場地</span>
+      </div>
     </div>
 
     <?php $this->load->view('admin/js/classroom_edit_js.php'); ?>

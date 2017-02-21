@@ -41,13 +41,13 @@
                         data-type="switch"
                         data-state="<?php echo $classroom['disabled']; ?>"
                         data-classroom="<?php echo $classroom['name']; ?>"
-                        class="btn btn-<?php echo ($classroom['disabled'] == 0 ? 'danger' : 'primary'); ?>">
+                        class="btn btn-sm btn-<?php echo ($classroom['disabled'] == 0 ? 'danger' : 'primary'); ?>">
                     <?php echo ($classroom['disabled'] == 0 ? render_icon('toggle-on').' 停用' : render_icon('toggle-off').' 啟用') ?>
                   </span>
                 </td>
                 <td>
-                  <span data-id="<?php echo $classroom['id']; ?>" data-type="destroy" data-classroom="<?php echo $classroom['name']; ?>" class="btn btn-danger">刪除場地</span>
-                  <span data-id="<?php echo $classroom['id']; ?>" data-type="edit" class="btn btn-primary"><?php echo render_icon('sliders'); ?> 詳細設定</span>
+                  <span data-id="<?php echo $classroom['id']; ?>" data-type="edit-name" data-classroom="<?php echo $classroom['name']; ?>" class="btn btn-sm btn-primary"><?php echo render_icon('pencil'); ?> 場地更名</span>
+                  <span data-id="<?php echo $classroom['id']; ?>" data-type="edit" class="btn btn-sm btn-primary"><?php echo render_icon('sliders'); ?> 詳細設定</span>
                 </td>
               </tr>
             <?php endforeach; ?>

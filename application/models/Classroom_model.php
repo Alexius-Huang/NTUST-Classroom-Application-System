@@ -30,9 +30,7 @@ class Classroom_model extends CI_Model {
       $query = $this->db->get('Classroom');
       if ($query->num_rows() == 1) {
         return $query->row_array();
-      } else {
-        return FALSE;
-      }
+      } else return FALSE;
     }
   }
 
@@ -45,9 +43,7 @@ class Classroom_model extends CI_Model {
       $query = $this->db->get('ClassroomRule');
       if ($query->num_rows() == 1) {
         return $query->row_array();
-      } else {
-        return FALSE;
-      }
+      } else return FALSE;
     }
   }
 
