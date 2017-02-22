@@ -72,6 +72,7 @@ class Admin_model extends CI_Model {
           'id'          => $admin['id'],
           'account'     => $admin['account'],
           'status'      => $admin['status'],
+          'admin'       => TRUE,
           'last_signin' => time()
         );
         $this->session->set_userdata($admin_session);

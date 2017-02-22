@@ -64,21 +64,30 @@
             <img src="<?php echo base_url(); ?>assets/images/logo.png" class="img-circle" alt="NTUST Logo" />
           </div>
           <div class="pull-left info">
-            <p><a href="/zh-tw" class="site-title">學生活動大樓教室借用系統</a></p>
-            <p id="user_information"><span></span> 您好！</p>
-            <p id="not_login">您尚未登入。</p>
+            <p><a href="/" class="site-title">學生活動大樓教室借用系統</a></p>
+            <?php if ($this->session->userdata('signin')): ?>
+              <p id="user_information"><span><?php echo $this->session->userdata('studentID'); ?></span> 您好！</p>
+            <?php else: ?>
+              <p id="not_login">您尚未登入。</p>
+            <?php endif; ?>
           </div>
         </div>
         <ul class="sidebar-menu">
           <li class="header">借用功能</li>
-          <li class="nav-notice"><a href="notice.shtml"><?php echo render_icon('info-circle'); ?> 借用須知</a></li>
-          <li class="nav-apply"><a href="apply.shtml"><?php echo render_icon('file-text'); ?> 申請借用</a></li>
-          <li class="nav-cancel"><a href="cancel.shtml"><?php echo render_icon('trash'); ?> 取消借用</a></li>
-          <li class="nav-record"><a href="record.shtml"><?php echo render_icon('history'); ?> 借用記錄</a></li>
-          <li class="nav-status"><a href="status.shtml"><?php echo render_icon('calendar'); ?> 借用狀態查詢</a></li>
+          <?php if ($this->session->userdata('signin')): ?>
+            <li class="nav-notice"><a href="<?php echo base_url(); ?>main/apply_notice"><?php echo render_icon('info-circle'); ?> 借用須知</a></li>
+            <li class="nav-apply"><a href="<?php echo base_url(); ?>main/apply_new"><?php echo render_icon('file-text'); ?> 申請借用</a></li>
+            <li class="nav-cancel"><a href="<?php echo base_url(); ?>main/apply_delete"><?php echo render_icon('trash'); ?> 取消借用</a></li>
+            <li class="nav-record"><a href="<?php echo base_url(); ?>main/apply_record"><?php echo render_icon('history'); ?> 借用記錄</a></li>
+          <?php endif; ?>
+          <li class="nav-status"><a href="<?php echo base_url(); ?>main_authentication/classroom_status"><?php echo render_icon('calendar'); ?> 借用狀態查詢</a></li>
+
           <li class="header">帳號功能</li>
-          <li class="nav-login"><a href="login.shtml"><?php echo render_icon('sign-in'); ?> 登入</a></li>
-          <li class="nav-logout"><a href="javascript:logout();"><?php echo render_icon('sign-out'); ?> 登出</a></li>
+          <?php if ($this->session->userdata('signin')): ?>
+            <li class="nav-logout"><a href="<?php echo base_url(); ?>main_authentication/signout"><?php echo render_icon('sign-out'); ?> 登出</a></li>
+          <?php else: ?>
+            <li class="nav-login"><a href="<?php echo base_url(); ?>main_authentication/signin"><?php echo render_icon('sign-in'); ?> 登入</a></li>
+          <?php endif; ?>
         </ul>
       </section>
     </aside>

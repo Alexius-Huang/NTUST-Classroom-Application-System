@@ -16,7 +16,7 @@ class Main_session_model extends CI_Model {
   }
 
   function student_signout() {
-    $this->session->sess_destroy(); 
+    $this->session->sess_destroy();
   }
 
 }

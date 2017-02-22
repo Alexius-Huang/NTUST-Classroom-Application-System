@@ -17,15 +17,12 @@ class Main_authentication extends WEB_Controller {
   }
 
   public function signin() {
-    $view = array(
-      'signin_failure' => FALSE,
-      'signin_success' => FALSE
-    );
+    $view = array('signin_failure' => FALSE);
 
     if ($post = $this->input->post()) {
       if ($this->main_session_model->verify_student($post['studentID'], $post['password'])) {
         $this->main_session_model->student_signin($post['studentID']);
-        $view['signin_success'] = TRUE;
+        redirect('main/apply_notice');
       } else $view['signin_failure'] = TRUE;
     }
     $this->load->view('authentication/main_signin_view', $view);
@@ -37,7 +34,6 @@ class Main_authentication extends WEB_Controller {
   }
 
   // 教室借用狀態
-  public function status() {
-
+  public function classroom_status() {
   }
 }
