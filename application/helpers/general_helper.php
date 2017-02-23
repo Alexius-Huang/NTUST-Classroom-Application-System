@@ -6,6 +6,14 @@ if ( ! function_exists('render_icon')) {
   }
 }
 
+if ( ! function_exists('today')) {
+  function today($format = 'Y-m-d') { return date($format, strtotime('today')); }
+}
+
+if ( ! function_exists('get_datetime_from_timestamp')) {
+  function get_datetime_from_timestamp($timestamp, $format = 'Y-m-d H:i:s') { return date($format, $timestamp); }
+}
+
 if ( ! function_exists('get_ip')) {
   function get_ip() {
     if ( ! empty($_SERVER['HTTP_CLIENT_IP'])){

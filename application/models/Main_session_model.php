@@ -8,7 +8,7 @@ class Main_session_model extends CI_Model {
 
   function student_signin($studentID) {
     $session_data = array(
-      'studentID' => $studentID,
+      'studentID' => ucfirst($studentID),
       'signin'    => TRUE,
       'ip'        => get_ip()
     );

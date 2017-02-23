@@ -36,4 +36,23 @@ if ( ! function_exists('classroom_rule_type')) {
       return $rules[$type_id];
     } else return $rules;
   }
+
+  if ( ! function_exists('apply_state_type')) {
+    function apply_state_type($type_id, $with_icon = FALSE) {   
+      $type_list = array(
+        '0' => '審核中',
+        '1' => '已通過',
+        '2' => '已取消',
+        '4' => '已駁回'
+      );
+
+      if ($with_icon) {
+
+      }
+
+      if ($type_list[$type_id]) { 
+        return $type_list[$type_id];
+      } else return $type_list;
+    };
+  }
 }

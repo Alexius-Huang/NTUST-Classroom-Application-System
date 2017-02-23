@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/flag-icon.min.css" />
   <!--link rel="stylesheet" href="<?php echo base_url(); ?>assets/jquery-ui/jquery-ui.min.css" /-->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/main.css?v=f9f22a4" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/6.4.2/sweetalert2.min.css">
   <script> var lang = 'zh-tw'; </script>
   <!--[if lt IE 9]>
       <script src="<?php echo base_url(); ?>assets//oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -28,6 +29,33 @@
   <script src="<?php echo base_url(); ?>assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/dist/js/app.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/sweetalert2/6.4.2/sweetalert2.min.js"></script>
+  <?php
+    if(!empty($meta))
+    foreach($meta as $name=>$content){
+      echo "\n\t\t";
+      ?><meta name="<?php echo $name; ?>" content="<?php echo $content; ?>" /><?php
+        }
+    echo "\n";
+
+    if(!empty($canonical))
+    {
+      echo "\n\t\t";
+      ?><link rel="canonical" href="<?php echo $canonical?>" /><?php
+
+    }
+    echo "\n\t";
+
+    foreach($css as $file){
+      echo "\n\t\t";
+      ?><link rel="stylesheet" href="<?php echo $file; ?>" type="text/css" /><?php
+    } echo "\n\t";
+
+    foreach($js as $file){
+        echo "\n\t\t";
+        ?><script src="<?php echo $file; ?>"></script><?php
+    } echo "\n\t";
+  ?>
 </head>
 <body class="hold-transition skin-black-light sidebar-mini">
   <div class="wrapper">
@@ -75,18 +103,18 @@
         <ul class="sidebar-menu">
           <li class="header">借用功能</li>
           <?php if ($this->session->userdata('signin')): ?>
-            <li class="nav-notice"><a href="<?php echo base_url(); ?>main/apply_notice"><?php echo render_icon('info-circle'); ?> 借用須知</a></li>
-            <li class="nav-apply"><a href="<?php echo base_url(); ?>main/apply_new"><?php echo render_icon('file-text'); ?> 申請借用</a></li>
-            <li class="nav-cancel"><a href="<?php echo base_url(); ?>main/apply_delete"><?php echo render_icon('trash'); ?> 取消借用</a></li>
-            <li class="nav-record"><a href="<?php echo base_url(); ?>main/apply_record"><?php echo render_icon('history'); ?> 借用記錄</a></li>
+            <li class="nav-notice <?php if ($page === 'apply_notice') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_notice"><?php echo render_icon('info-circle'); ?> 借用須知</a></li>
+            <li class="nav-apply <?php if ($page === 'apply_new') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_new"><?php echo render_icon('file-text'); ?> 申請借用</a></li>
+            <li class="nav-cancel <?php if ($page === 'apply_delete') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_delete"><?php echo render_icon('trash'); ?> 取消申請</a></li>
+            <li class="nav-record <?php if ($page === 'apply_record') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_record"><?php echo render_icon('history'); ?> 借用記錄</a></li>
           <?php endif; ?>
-          <li class="nav-status"><a href="<?php echo base_url(); ?>main_authentication/classroom_status"><?php echo render_icon('calendar'); ?> 借用狀態查詢</a></li>
+          <li class="nav-status <?php if ($page === 'classroom_status') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/classroom_status"><?php echo render_icon('calendar'); ?> 借用狀態查詢</a></li>
 
           <li class="header">帳號功能</li>
           <?php if ($this->session->userdata('signin')): ?>
             <li class="nav-logout"><a href="<?php echo base_url(); ?>main_authentication/signout"><?php echo render_icon('sign-out'); ?> 登出</a></li>
           <?php else: ?>
-            <li class="nav-login"><a href="<?php echo base_url(); ?>main_authentication/signin"><?php echo render_icon('sign-in'); ?> 登入</a></li>
+            <li class="nav-login <?php if ($page === 'main_signin') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/signin"><?php echo render_icon('sign-in'); ?> 登入</a></li>
           <?php endif; ?>
         </ul>
       </section>
@@ -95,11 +123,9 @@
       <?php echo $output; ?>
     </main>
     <footer class="main-footer">
-        <div id="ie" class="label-warning"><!--[if lt IE 9]>本系統不支援低於 IE 9 之瀏覽器，若想獲得最佳使用體驗，請使用 Firefox 或其他瀏覽器（例如：Chrome、Safari、Opera）。<![endif]--></div>
-        <div id="copyright">Copyright <a href="<?php echo base_url() ?>admin_authentication/signin">&copy;</a> 2016 <a href="http://sg.ntust.link" title="國立臺灣科技大學學生會">NTUSTSG</a>. All rights reserved.</div>
+      <div id="ie" class="label-warning"><!--[if lt IE 9]>本系統不支援低於 IE 9 之瀏覽器，若想獲得最佳使用體驗，請使用 Firefox 或其他瀏覽器（例如：Chrome、Safari、Opera）。<![endif]--></div>
+      <div id="copyright">Copyright <a href="<?php echo base_url() ?>admin_authentication/signin">&copy;</a> 2016 <a href="http://sg.ntust.link" title="國立臺灣科技大學學生會">NTUSTSG</a>. All rights reserved.</div>
     </footer>
-    <script src="/js/api.js"></script>
-    <script src="/js/ga.js"></script>
   </div>
 </body>
 </html>
