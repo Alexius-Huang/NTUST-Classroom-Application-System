@@ -12,6 +12,7 @@ class Admin extends WEB_Controller {
     }
 
     $this->load->model('classroom_model');
+    $this->load->model('apply_model');
   }
 
   public function create_classroom() {
@@ -53,6 +54,18 @@ class Admin extends WEB_Controller {
     if ($classroom_rule_id === '0' || ! $classroom_rule = $this->classroom_model->get_classroom_rule($classroom_rule_id)) {
       redirect(base_url().'admin');
     } else $this->classroom_model->delete_classroom_rule($classroom_rule_id);
+  }
+
+  public function check_application() {
+    if ($id = $this->input->post('id') AND $mode = $this->input->post('mode')) {
+      $this->apply_model->check_apply($id, $mode);
+    } else redirect('admin/main');
+  }
+
+  public function check_applications() {
+    if ($idArray = $this->input->post('idArray') AND $mode = $this->input->post('mode')) {
+      $this->apply_model->check_applies($idArray, $mode);
+    } else redirect('admin/main');
   }
 
 }

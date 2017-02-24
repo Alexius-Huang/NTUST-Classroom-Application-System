@@ -15,6 +15,15 @@ class Main_session_model extends CI_Model {
     $this->session->set_userdata($session_data);
   }
 
+  function admin_signin() {
+    $session_data = array(
+      'studentID' => 'admin',
+      'signin'    => TRUE,
+      'ip'        => get_ip()
+    );
+    $this->session->set_userdata($session_data);
+  }
+
   function student_signout() {
     $this->session->sess_destroy();
   }

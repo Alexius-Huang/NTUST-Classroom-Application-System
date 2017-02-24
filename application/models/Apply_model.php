@@ -61,6 +61,42 @@ class Apply_model extends CI_Model {
     return $id;
   }
 
+  function check_apply($id = '0', $mode = NULL) {
+    if ($id === '0' OR is_null($mode)) {
+      return FALSE;
+    } else if ($apply = $this->get_apply($id)) {
+      $this->db->where('id', $apply['id']);
+      switch($mode) {
+        case 'approve': $update = array('status' => '1'); break;
+        case 'reject':  $update = array('status' => '4'); break;
+        case 'cancel':  $update = array('status' => '2'); break;
+        default: return FALSE;
+      }
+      $update['updated_at'] = time();
+      $this->db->update('Apply', $update);
+    } else return FALSE;
+  }
+
+  function check_applies($idArray = array(), $mode = NULL) {
+    if (empty($idArray) OR is_null($mode)) {
+      return FALSE;
+    } else {
+      foreach ($idArray as $id) {
+        if ($apply = $this->get_apply($id)) {
+          $this->db->where('id', $id);
+          switch($mode) {
+            case 'approve': $update = array('status' => '1'); break;
+            case 'reject':  $update = array('status' => '4'); break;
+            case 'cancel':  $update = array('status' => '2'); break;
+            default: continue;
+          }
+          $update['updated_at'] = time();
+          $this->db->update('Apply', $update);
+        } else continue;
+      }
+    }
+  }
+
   function delete_apply($id) {
     $this->db->where('id', $id);
     $this->db->limit(1);
