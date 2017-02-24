@@ -21,7 +21,14 @@ class Admin extends WEB_Controller {
   public function main() {
     $view = array(
       'username' => 'admin',
-      'page' => 'main'
+      'page' => 'main',
+      'await_applies' => $this->apply_model->get_applies(array('status' => '0')),
+      'available_classroom' => $this->classroom_model->get_classrooms(array('disabled' => '0')),
+      'classrooms' => $this->classroom_model->get_classrooms(),
+      'applies_in_current_month' => $this->apply_model->get_applies(array('month(date)' => date('m'), 'year(date)' => date('Y'))),
+      'applies_approved_in_current_month' => $this->apply_model->get_applies(array('status' => '1', 'month(date)' => date('m'), 'year(date)' => date('Y'))),
+      'applies_in_history' => $this->apply_model->get_applies(),
+      'applies_approved_in_history' => $this->apply_model->get_applies(array('status' => '1'))
     );
     $this->load->view('admin/main_view', $view);
   }
@@ -47,8 +54,14 @@ class Admin extends WEB_Controller {
   public function application() {
     $view = array(
       'username' => 'admin',
-      'page' => 'application'
+      'page' => 'application',
+      'applies' => $this->apply_model->get_applies()
     );
+    
+    foreach ($view['applies'] as $index => $apply) {
+      $view['applies'][$index]['classroom'] = $this->classroom_model->get_classroom($apply['classroom_id']);
+    }
+
     $this->load->view('admin/application_view', $view);
   }
 

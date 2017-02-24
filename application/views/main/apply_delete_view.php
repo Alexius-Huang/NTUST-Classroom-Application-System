@@ -17,12 +17,13 @@
           <?php if (count($applies) == 0): ?>您尚未有任何教室借用申請。<?php else : ?>
             <table id="datatable" class="table table-bordered table-striped">
               <thead>
-                <tr> <th>申請狀態</th> <th>借用地點</th> <th>借用日期</th> <th>借用時段</th> <th>刪除</th> </tr>
+                <tr> <th class="text-center">提出申請時間</th> <th class="text-center">申請狀態</th> <th class="text-center">借用地點</th> <th class="text-center">借用日期</th> <th class="text-center">借用時段</th> <th class="text-center">取消申請</th> </tr>
               </thead>
               <tbody>
                 <?php foreach ($applies as $apply): ?>
                   <?php if ($apply['status'] == 2 OR $apply['status'] == 4): continue; endif; ?>
                   <tr>
+                    <td><?php echo date('Y-m-d, H:i:s', $apply['created_at']) ?></td>
                     <?php
                       if ($apply['status'] == 0 AND ( ! $apply['past'])) {
                         echo '<td class="label-primary">'.render_icon('hourglass-start').'審核中</td>';
@@ -39,7 +40,7 @@
                         data-date="<?php echo $apply['date']; ?>"
                         data-time="<?php echo classroom_rule_display_time($apply); ?>"
                         class="btn btn-xs btn-danger btn-delete"
-                      ><?php echo render_icon('trash'); ?> 刪除</button>
+                      ><?php echo render_icon('times'); ?> 取消申請</button>
                     </td>
                   </tr>
                 <?php endforeach; ?>

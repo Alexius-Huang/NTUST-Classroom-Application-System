@@ -21,4 +21,11 @@ class Main extends WEB_Controller {
     } else redirect('main/index');
   }
 
+  public function apply_cancel() {
+    if ($id = $this->input->post('id')) {
+      $this->load->model('apply_model');
+      $this->apply_model->check_apply($id, 'cancel');
+    } else redirect('main/index');
+  }
+
 }

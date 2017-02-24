@@ -88,7 +88,7 @@ $(document).ready(function() {
     }).then(function() {
       post_check_application({ id: data.id, mode: 'approve' });
     }, function(dismiss) {
-      post_check_application({ id: data.id, mode: 'reject' });
+      if (dismiss === 'cancel') { post_check_application({ id: data.id, mode: 'reject' }); }
     });
   });
 });

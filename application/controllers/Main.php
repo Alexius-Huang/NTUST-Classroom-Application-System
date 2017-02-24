@@ -72,7 +72,7 @@ class Main extends WEB_Controller {
       'D' => '21:10 ~ 22:00',
     );
 
-    $view['classroom_available'] = $this->classroom_model->get_classrooms();
+    $view['classroom_available'] = $this->classroom_model->get_classrooms(array('disabled' => '0'));
 
     $this->load->js('http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js');
     $this->load->js('assets/datepicker/js/bootstrap-datepicker.min.js');

@@ -14,7 +14,7 @@ setInterval(function() {
 /* Datatable */
 $('table#datatable').dataTable({
   lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "顯示全部"]],
-  order: [[ 2, "desc" ], [ 3, "asc" ], [ 0, "asc" ], [ 1, "asc" ]],
+  order: [[0, 'desc']],
   language: {
     emptyTable:     "無資料可供顯示。",
     info:           "正在顯示第 _START_ 至 _END_ 筆資料，共 _TOTAL_ 筆",
@@ -43,7 +43,7 @@ $(document).ready(function() {
     event.preventDefault();
     var data = $(this).data();
     swal({
-      title: '您即將要刪除此場地申請',
+      title: '您即將要取消此場地申請',
       html: '<div class="box box-primary">' +
               '<div class="box-body">' +
                 '<p class="text-left">申請狀態：' + data.status + '</p>' +
@@ -60,9 +60,9 @@ $(document).ready(function() {
     }).then(function() {
       $.ajax({
         type: 'post',
-        data: { 'classroom_id': data.id },
+        data: { id: data.id },
         cache: false,
-        url: '<?php echo base_url(); ?>main/apply_delete',
+        url: '<?php echo base_url(); ?>ajax/main/apply_cancel',
         success: function() { location.reload(); },
         error: function() { show_error_message(); }
       });
