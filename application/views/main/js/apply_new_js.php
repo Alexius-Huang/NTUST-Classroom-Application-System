@@ -1,5 +1,43 @@
 <script>
 $(document).ready(function() {
+  function show_error_message(title, content) {
+    swal({
+      title: title ? title : '錯誤！',
+      type: 'error',
+      text: content ? content : '系統內部似乎出錯，請聯絡相關負責人員！'
+    });
+  }
+
+  var $time_cannot_select = [];
+  function get_time_state() {
+    $.ajax({
+      type: 'post',
+      data: { classroom_id: $classroomID, date: $date },
+      dataType: 'json',
+      cache: false,
+      url: '<?php echo base_url(); ?>ajax/main/get_time_state',
+      success: function(data) {
+        console.log(data);
+        var timeArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D'];
+        for (var time of timeArray) {
+          var label = $('label#time' + time);
+          var checkbox = $('input#time' + time);
+          if (data['time' + time] === 'disabled') {
+            label.addClass('disabled btn-danger');
+            label.removeClass('btn-default');
+            checkbox.addClass('disabled');
+          } else if (label.hasClass('disabled')) {
+            label.removeClass('disabled btn-danger');
+            label.addClass('btn-default');
+            checkbox.removeClass('disabled');
+          }
+        }
+      },
+      error: function() { show_error_message(); }
+    });
+  }
+
+  var $date = '', $classroomID = 0;
   /* Datepicker selection */
   $('#date').datepicker({
     format: "yyyy-mm-dd",
@@ -9,6 +47,13 @@ $(document).ready(function() {
     language: 'zh-TW'
   }).datepicker('setDate', moment().format('YYYY-MM-DD')).on('changeDate.datepicker', function(event) {
     $('#date').datepicker('hide');
+    $date = moment(event.date).format('YYYY-MM-DD');
+    if ($classroomID != 0 && $date !== '') { get_time_state(); }
+  });
+
+  $('select#classroom').change(function(event) {
+    $classroomID = event.target.value;
+    if ($classroomID != 0 && $date !== '') { get_time_state(); }
   });
 
   /* Cancel all time button  */
@@ -51,9 +96,9 @@ $(document).ready(function() {
     
     var assertTimeFieldShouldSelect = function() {
       return new Promise(function(resolve, reject){
-        if ($('input[name="times[]"]:checked').length != 0) {
+        if ($('input[name="times[]"]:checked:not(.disabled)').length != 0) {
           data['times'] = [];
-          $('input[name="times[]"]:checked').each(function() {
+          $('input[name="times[]"]:checked:not(.disabled)').each(function() {
             data['times'].push($(this).val());
           });
           resolve();
@@ -172,7 +217,15 @@ $(document).ready(function() {
             cancelButtonText: '取消',
             cancelButtonColor: '#dd4b39'
           }).then(function() {
-            $('form#form_apply').submit();
+            data.ajax = true;
+            $.ajax({
+              type: 'post',
+              cache: false,
+              data: data,
+              url: '<?php echo base_url(); ?>main/apply_new',
+              success: function() { window.location = '<?php echo base_url(); ?>main/apply_record'; },
+              error: function() { show_error_message(); }
+            });
           }, function(dismiss) { /* DO NOTHING */ });
         },
         error: function() { show_error_message(); }

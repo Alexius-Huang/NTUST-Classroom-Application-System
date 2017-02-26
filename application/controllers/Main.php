@@ -41,9 +41,9 @@ class Main extends WEB_Controller {
         'date'              => $post['date'],
         'organization'      => $post['organization'],
         'applicant'         => $post['applicant'],
-        'applicantPosition' => $post['applicant-position'],
+        'applicantPosition' => $post['applicantPosition'],
         'phone'             => $post['phone'],
-        'participantCount'  => $post['participant-count'],
+        'participantCount'  => $post['participantCount'],
         'purpose'           => $post['purpose']
       );
       foreach (array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D') as $time) {
@@ -51,7 +51,7 @@ class Main extends WEB_Controller {
       }
       
       if ($this->apply_model->create_apply($insert)) {
-        redirect('main/apply_record');
+        ( ! $post['ajax']) ? redirect('main/apply_record') : null;
       } else $view['apply_failure'] = TRUE;
     }
 

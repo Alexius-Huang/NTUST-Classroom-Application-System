@@ -9,7 +9,7 @@
 <section class="content">
   <div class="row">
     <div class="col-md-12">
-      <form id="form_apply" method="post" action="<?php echo base_url(); ?>main/apply_new" role="form">
+      <form id="form_apply" role="form">
       
         <?php if ($apply_failure): ?>
           <div id="apply_failure" class="alert alert-danger">
@@ -53,8 +53,8 @@
                 <div class="col-md-12">
                   <div class="input-group btn-group" id="time-field" data-toggle="buttons">
                     <?php foreach($timeArray as $time => $interval): ?>
-                      <label class="btn btn-flat btn-default">
-                        <input type="checkbox" name="times[]" value="<?php echo $time; ?>" />
+                      <label class="btn btn-flat btn-default" id="time<?php echo $time; ?>">
+                        <input type="checkbox" name="times[]" id="time<?php echo $time; ?>" value="<?php echo $time; ?>" />
                         <span class="label-time-name"><?php echo $time; ?></span>
                         <span class="label-time-period"><?php echo $interval; ?></span>
                       </label>
