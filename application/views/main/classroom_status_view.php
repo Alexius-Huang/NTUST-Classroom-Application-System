@@ -27,6 +27,7 @@
                 <?php endforeach; ?>
               </tr>
             </thead>
+            <tbody id="status-table-content"></tbody>
             <tfoot>
               <tr>
                 <th colspan="15">

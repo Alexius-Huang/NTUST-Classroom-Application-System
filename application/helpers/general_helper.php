@@ -52,6 +52,12 @@ if ( ! function_exists('get_weekday')) {
   }
 }
 
+if ( ! function_exists('get_weekday_array')) {
+  function get_weekday_array($binary) {
+    return str_split(strrev(str_pad((string)decbin($binary), 7, '0', STR_PAD_LEFT)));
+  }
+}
+
 if ( ! function_exists('classroom_rule_display_date')) {
   function classroom_rule_display_date($start, $end = NULL) {
     if (is_null($start)) { return FALSE; }

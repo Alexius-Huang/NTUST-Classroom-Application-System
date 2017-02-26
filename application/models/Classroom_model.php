@@ -13,12 +13,26 @@ class Classroom_model extends CI_Model {
     return $query->result_array();
   }
 
+  function get_classroom_rules($where = array()) {
+    $this->db->where($where);
+    $this->db->order_by('id', 'asc');
+    $query = $this->db->get('ClassroomRule');
+    return $query->result_array();
+  }
+
   function get_classroom_rules_by_classroom_id($classroom_id = '0') {
     if ($classroom_id == '0') { return FALSE; }
     $this->db->where(array('classroom_id' => $classroom_id));
     $this->db->order_by('id', 'asc');
     $query = $this->db->get('ClassroomRule');
     return $query->result_array();
+  }
+
+  function get_classroom_rules_by_date($date = '0') {
+    if ($date === '0') { return FALSE; }
+    $query = 'SELECT * FROM `ClassroomRule` WHERE `type` = 0 AND `start` = "'.$date.'" UNION SELECT * FROM `ClassroomRule` WHERE (`type` = 1 OR `type` = 2) AND ("'.$date.'" BETWEEN `start` AND `end`)';
+    $result = $this->db->query($query)->result_array();
+    return $result;
   }
 
   function get_classroom($id = '0') {
