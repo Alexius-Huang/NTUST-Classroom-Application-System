@@ -33,7 +33,8 @@ $(document).ready(function() {
       url: '<?php echo base_url(); ?>ajax/main/get_classroom_state_table',
       data: { without_auth: true, date: date },
       success: function(classrooms) {
-        //console.log(classrooms);
+        /* RENDER TABLE DATA */
+        console.log(classrooms);
         for (var classroom of classrooms) {
           var tableRow = document.createElement('tr');
           var header = document.createElement('th');
@@ -46,6 +47,17 @@ $(document).ready(function() {
                 tableData.className = 'label-danger';
                 tableData.innerHTML = '<?php echo render_icon('ban'); ?>'
                 break;
+                
+              case 'await':
+                tableData.className = 'label-primary';
+                tableData.innerHTML = '<?php echo render_icon('hourglass-start'); ?>'
+                break;
+
+              case 'checked':
+                tableData.className = 'label-success';
+                tableData.innerHTML = '<?php echo render_icon('check'); ?>'
+                break;
+                
               default: /* NOTHING */
             }
             tableRow.append(tableData);
@@ -57,6 +69,7 @@ $(document).ready(function() {
     })
   }
 
+  /* Datepicker */
   $('#status_calendar div.table').datepicker({
     format: "yyyy-mm-dd",
     weekStart: 0,

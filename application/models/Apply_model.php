@@ -23,6 +23,17 @@ class Apply_model extends CI_Model {
     return $query->result_array();
   }
 
+  function get_classroom_applies_with_date($classroom_id = '0', $date = '0') {
+    if ($classroom_id === '0' OR $date === '0') {
+      return FALSE;
+    }
+    $this->db->where('date', $date);
+    $this->db->where('classroom_id', $classroom_id);
+    $this->db->order_by('id', 'asc');
+    $query = $this->db->get('Apply');
+    return $query->result_array();
+  }
+
   function get_apply($id = '0') {
     if ($id == '0') {
       return FALSE;

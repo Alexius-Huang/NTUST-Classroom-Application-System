@@ -17,7 +17,7 @@ $(document).ready(function() {
       cache: false,
       url: '<?php echo base_url(); ?>ajax/main/get_time_state',
       success: function(data) {
-        console.log(data);
+        //console.log(data);
         var timeArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D'];
         for (var time of timeArray) {
           var label = $('label#time' + time);

@@ -12,6 +12,7 @@ class Main extends WEB_Controller {
     }
 
     $this->load->model('classroom_model');
+    $this->load->model('apply_model');
   }
 
   public function get_classroom_name() {
@@ -23,7 +24,6 @@ class Main extends WEB_Controller {
 
   public function apply_cancel() {
     if ($id = $this->input->post('id')) {
-      $this->load->model('apply_model');
       $this->apply_model->check_apply($id, 'cancel');
     } else redirect('main/index');
   }
@@ -33,7 +33,10 @@ class Main extends WEB_Controller {
       $classroom = $this->classroom_model->get_classroom($post['classroom_id']);
       $date = $post['date'];
       $weekday = strftime('%w', strtotime($date));
+      
       $rules = $this->classroom_model->get_classroom_rules_by_classroom_id($post['classroom_id']);
+      $applies = $this->apply_model->get_applies_by_date($date);
+      
       $timeArray = array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D');
       foreach ($rules as $rule) {
         switch((int)$rule['type']) {
@@ -63,7 +66,6 @@ class Main extends WEB_Controller {
             break;
         }
       }
-      
       echo json_encode($classroom);
     }
   }
@@ -75,6 +77,7 @@ class Main extends WEB_Controller {
       $timeArray = array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D');
       foreach ($classrooms as $index => $classroom) {
         $rules = $this->classroom_model->get_classroom_rules_by_classroom_id($classroom['id']);
+        $applies = $this->apply_model->get_classroom_applies_with_date($classroom['id'], $date);
         foreach ($rules as $rule) {
           switch((int)$rule['type']) {
             case 0:
@@ -101,6 +104,25 @@ class Main extends WEB_Controller {
                 }
               }
               break;
+          }
+        }
+
+        foreach ($applies as $apply) {
+          switch((int)$apply['status']) {
+            case 0:
+              foreach ($timeArray as $time) {
+                if ($apply['time'.$time] == 1 && ( ! isset($classrooms[$index]['time'.$time])))
+                  $classrooms[$index]['time'.$time] = 'await';
+              }
+              break;
+            case 1:
+              foreach ($timeArray as $time) {
+                if ($apply['time'.$time] == 1 && ( ! isset($classrooms[$index]['time'.$time])))
+                  $classrooms[$index]['time'.$time] = 'checked';
+              }
+              break;
+            case 4:
+            default: continue;
           }
         }
       }
