@@ -99,37 +99,77 @@ class Admin extends WEB_Controller {
       $insert = array();
       $insert['classroom_id'] = $id;
       $insert['type'] = $post['rule-type'];
-      switch($post['rule-type']) {
-        case '0':
+
+      $weekdayArray = array();
+      switch((int) $post['rule-type']) {
+        case 0:
           $insert['start']   = $post['date'];
           $insert['end']     = NULL;
           $insert['weekday'] = 0;
           break;
-        case '1':
+        case 1:
           $insert['start']   = $post['date-start'];
           $insert['end']     = $post['date-end'];
           $insert['weekday'] = 0;
           break;
-        case '2':
+        case 2:
           $insert['start']   = $post['date-start'];
           $insert['end']     = $post['date-end'];
           $insert['weekday'] = 0;
           foreach ($post['weekday'] as $weekday) {
             switch($weekday) {
-              case '日': $insert['weekday'] +=  1; break;
-              case '一': $insert['weekday'] +=  2; break;
-              case '二': $insert['weekday'] +=  4; break;
-              case '三': $insert['weekday'] +=  8; break;
-              case '四': $insert['weekday'] += 16; break;
-              case '五': $insert['weekday'] += 32; break;
-              case '六': $insert['weekday'] += 64; break;
+              case '日': $insert['weekday'] +=  1; $weekdayArray[] = 0; break;
+              case '一': $insert['weekday'] +=  2; $weekdayArray[] = 1; break;
+              case '二': $insert['weekday'] +=  4; $weekdayArray[] = 2; break;
+              case '三': $insert['weekday'] +=  8; $weekdayArray[] = 3; break;
+              case '四': $insert['weekday'] += 16; $weekdayArray[] = 4; break;
+              case '五': $insert['weekday'] += 32; $weekdayArray[] = 5; break;
+              case '六': $insert['weekday'] += 64; $weekdayArray[] = 6; break;
             }
           }
           break;
       }
 
-      $timeArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D'];
-      foreach ($timeArray as $time) { $insert['time'.$time] = in_array($time, $post['time']) ? 1 : 0; }
+      $this->load->model('apply_model');
+
+      foreach (TIME_ARRAY as $time) {
+        $insert['time'.$time] = in_array($time, $post['time']) ? 1 : 0;
+        if ($insert['time'.$time] == 1) {
+          switch($post['rule-type']) {
+            case 0:
+              $potential_applies = $this->apply_model->get_classroom_applies_with_date($id, $post['date'], array('time'.$time => 1));
+              if ( ! empty($potential_applies)) {
+                foreach ($potential_applies as $apply) { $this->apply_model->check_apply($apply['id'], 'reject'); }
+              }
+              break;
+            case 1:
+              $date = $post['date-start'];
+              $end_date = $post['date-end'];
+              while (strtotime($date) <= strtotime($end_date)) {
+                $potential_applies = $this->apply_model->get_classroom_applies_with_date($id, $date, array('time'.$time => 1));
+                if ( ! empty($potential_applies)) {
+                  foreach ($potential_applies as $apply) { $this->apply_model->check_apply($apply['id'], 'reject'); }
+                }
+                $date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
+              }
+              break;
+            case 2:
+              $date = $post['date-start'];
+              $end_date = $post['date-end'];
+              while (strtotime($date) <= strtotime($end_date)) {
+                $weekday = strftime('%w', strtotime($date));
+                if (in_array($weekday, $weekdayArray)) {
+                  $potential_applies = $this->apply_model->get_classroom_applies_with_date($id, $date, array('time'.$time => 1));
+                  if ( ! empty($potential_applies)) {
+                    foreach ($potential_applies as $apply) { $this->apply_model->check_apply($apply['id'], 'reject'); }
+                  }
+                }
+                $date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
+              }
+              break;
+          }
+        }
+      }
     
       if ($this->classroom_model->create_classroom_rule($insert)) { redirect(base_url().'admin/classroom_edit/'.$id ); }
     }

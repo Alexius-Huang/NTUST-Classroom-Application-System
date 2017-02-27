@@ -14,6 +14,7 @@
     <div class="box box-primary">
       <div class="box-header">
         <h3 class="box-title">新增不開放規則至場地「<?php echo $classroom['name']; ?>」</h3>
+        <p>若規則有衝突到場地申請，則<span style="color: red">自動駁回所有衝突之場地申請項目</span></p>
       </div>
       <div class="box-body">
         <form id="create-new-rule-form" action="<?php echo base_url(); ?>admin/classroom_rule_create/<?php echo $classroom['id']; ?>" method="post">
