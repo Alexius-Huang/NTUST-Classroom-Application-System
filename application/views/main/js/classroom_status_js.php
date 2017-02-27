@@ -55,9 +55,9 @@ $(document).ready(function() {
 
               case 'checked':
                 tableData.className = 'label-success';
-                tableData.innerHTML = '<?php echo render_icon('check'); ?>'
+                tableData.innerHTML = '<a href="#"><?php echo render_icon('check'); ?></a>'
                 break;
-                
+
               default: /* NOTHING */
             }
             tableRow.append(tableData);

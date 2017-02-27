@@ -57,8 +57,29 @@ class Admin extends WEB_Controller {
   }
 
   public function check_application() {
-    if ($id = $this->input->post('id') AND $mode = $this->input->post('mode')) {
+    if (  $id = $this->input->post('id')
+      AND $mode = $this->input->post('mode')
+      AND $apply = $this->apply_model->get_apply($id)
+    ) {
+      /* Approve the apply first */
       $this->apply_model->check_apply($id, $mode);
+
+      /* Reject other conflict applies */
+      foreach (TIME_ARRAY as $time) {
+        if ($apply['time'.$time] == 1) {
+          $potential_applies = $this->apply_model->get_applies(array(
+            'classroom_id' => $apply['classroom_id'],
+            'status'       => '0',
+            'time'.$time   => '1',
+            'date'         => $apply['date']
+          ));
+          if ( ! empty($potential_applies)) {
+            foreach ($potential_applies as $reject_apply) {
+              $this->apply_model->check_apply($reject_apply['id'], 'reject');
+            }
+          }
+        }
+      }
     } else redirect('admin/main');
   }
 

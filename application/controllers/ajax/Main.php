@@ -35,7 +35,7 @@ class Main extends WEB_Controller {
       $weekday = strftime('%w', strtotime($date));
       
       $rules = $this->classroom_model->get_classroom_rules_by_classroom_id($post['classroom_id']);
-      $applies = $this->apply_model->get_applies_by_date($date);
+      $applies = $this->apply_model->get_classroom_applies_with_date($classroom['id'], $date);
       
       $timeArray = array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D');
       foreach ($rules as $rule) {
@@ -64,6 +64,25 @@ class Main extends WEB_Controller {
               }
             }
             break;
+        }
+      }
+
+      foreach ($applies as $apply) {
+        switch((int)$apply['status']) {
+          case 0:
+            foreach ($timeArray as $time) {
+              if ($apply['time'.$time] == 1 && ( ! isset($classroom['time'.$time])))
+                $classroom['time'.$time] = 'await';
+            }
+            break;
+          case 1:
+            foreach ($timeArray as $time) {
+              if ($apply['time'.$time] == 1 && ( ! isset($classroom['time'.$time])))
+                $classroom['time'.$time] = 'checked';
+            }
+            break;
+          case 4:
+          default: continue;
         }
       }
       echo json_encode($classroom);

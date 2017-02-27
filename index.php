@@ -57,7 +57,7 @@ date_default_timezone_set('Asia/Taipei');
  * NOTE: If you change these, also change the error_reporting() code below
  */
 	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
-
+	define('TIME_ARRAY', array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D'));
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING

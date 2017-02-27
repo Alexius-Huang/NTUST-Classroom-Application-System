@@ -5,6 +5,25 @@
 </style>
 <script>
 
+/* Datatable */
+$('table#datatable').dataTable({
+  lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "顯示全部"]],
+  order: [[0, 'asc']],
+  language: {
+    emptyTable:     "無資料可供顯示。",
+    info:           "正在顯示第 _START_ 至 _END_ 筆資料，共 _TOTAL_ 筆",
+    infoEmpty:      "無資料可供顯示。",
+    infoFiltered:   "（從 _MAX_ 筆資料中篩選）",
+    infoPostFix:    "",
+    lengthMenu:     "每頁顯示 _MENU_ 筆資料",
+    loadingRecords: "載入中…",
+    processing:     "處理中…",
+    search:         "篩選結果：",
+    zeroRecords:    "找不到符合的結果。",
+    paginate: { sPrevious: "&laquo; 上一頁", sNext: "下一頁 &raquo;" }
+  }
+});
+
 var selectedApplicationIDs = [];
 
 $(document).ready(function() {

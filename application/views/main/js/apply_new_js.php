@@ -22,14 +22,26 @@ $(document).ready(function() {
         for (var time of timeArray) {
           var label = $('label#time' + time);
           var checkbox = $('input#time' + time);
-          if (data['time' + time] === 'disabled') {
-            label.addClass('disabled btn-danger');
-            label.removeClass('btn-default');
-            checkbox.addClass('disabled');
-          } else if (label.hasClass('disabled')) {
-            label.removeClass('disabled btn-danger');
-            label.addClass('btn-default');
-            checkbox.removeClass('disabled');
+          switch(data['time' + time]) {
+            case 'disabled':
+              label.addClass('disabled btn-danger');
+              label.removeClass('btn-default btn-warning btn-primary');
+              checkbox.addClass('disabled');  
+              break;
+            case 'await':
+              label.addClass('btn-primary');
+              label.removeClass('btn-default btn-danger btn-warning disabled');
+              checkbox.removeClass('disabled');
+              break;
+            case 'checked':
+              label.addClass('disabled btn-warning');
+              label.removeClass('btn-default btn-primary btn-danger');
+              checkbox.addClass('disabled');  
+              break;
+            default:
+              label.addClass('btn-default');
+              label.removeClass('btn-warning btn-danger btn-primary disabled');
+              checkbox.removeClass('disabled');
           }
         }
       },
