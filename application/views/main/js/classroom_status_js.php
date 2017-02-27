@@ -69,49 +69,45 @@ $(document).ready(function() {
     })
   }
 
-  /* Datepicker */
-  $('#status_calendar div.table').datepicker({
-    format: "yyyy-mm-dd",
-    weekStart: 0,
-    startDate: today,
-    endDate: moment().add(2, 'months').format('YYYY-MM-DD'),
-    todayBtn: "linked",
-    language: 'zh-TW',
-    beforeShowDay: function (date) {
-      // var currentDate = moment(date).format('YYYY-MM-DD');
-      // cells[currentDate] = '';
-      // if (currentDate < today) { return { classes: 'date-' + currentDate }; }
+  /* Before load Datepicker => load classes */
+  $.ajax({
+    type: 'post',
+    dataType: 'json',
+    cache: false,
+    url: '<?php echo base_url(); ?>ajax/main/get_datepicker_class',
+    data: { without_auth: true },
+    success: function(data) {
+      $('#status_calendar div.table').datepicker({
+        format: "yyyy-mm-dd",
+        weekStart: 0,
+        startDate: today,
+        //endDate: moment().add(2, 'months').format('YYYY-MM-DD'),
+        todayBtn: "linked",
+        language: 'zh-TW',
+        beforeShowDay: function (date) {
+          var currentDate = moment(date).format('YYYY-MM-DD');
+          if (currentDate < today) { return; }
 
-      // $.ajax({
-      //   type: 'post',
-      //   cache: false,
-      //   data: { date: currentDate, without_auth: true },
-      //   async: false,
-      //   url: '<?php echo base_url(); ?>ajax/main/get_datepicker_cell_class',
-      //   dataType: 'json',
-      //   success: function(data) {
-      //     cells[currentDate] = data
-      //   },
-      //   error: function() { show_error_message(); }
-      // });
-      // return { classes: 'date-' + currentDate };
-    }
-  }).datepicker('setDate', moment().format('YYYY-MM-DD')).on('changeDate.datepicker', function(event) {
-    var selectedDate = moment(event.date).format('YYYY-MM-DD');
-    var currentDay = moment(event.date).format('DD');
-    var currentMonth = moment(event.date).format('MM');
+          var obj = { classes: '' };
+          if (data[currentDate]) {
+            data[currentDate].hasOwnProperty('danger')  && data[currentDate].danger  ? obj.classes += ' status-not-allowed ' : null;
+            data[currentDate].hasOwnProperty('checked') && data[currentDate].checked ? obj.classes += ' status-active '      : null;
+          } else return;
 
-    get_classroom_state_table(selectedDate);
+          return obj;
+        }
+      }).datepicker('setDate', moment().format('YYYY-MM-DD')).on('changeDate.datepicker', function(event) {
+        var selectedDate = moment(event.date).format('YYYY-MM-DD');
+        var currentDay = moment(event.date).format('DD');
+        var currentMonth = moment(event.date).format('MM');
 
-  }).datepicker('setMonth', moment().format('YYYY-MM-DD')).on('changeMonth.datepicker', function(event) {
-    var selectedDate = moment(event.date).format('YYYY-MM-DD');
-    var currentDay = moment(event.date).format('DD');
-    var currentMonth = moment(event.date).format('MM');
+        get_classroom_state_table(selectedDate);
+      });
 
-    console.log(selectedDate)
-
-  });
-
-  get_classroom_state_table(today);
+      get_classroom_state_table(today);
+    },
+    error: function() { show_error_message(); }
+  })
+  
 });
 </script>

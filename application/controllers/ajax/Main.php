@@ -37,29 +37,28 @@ class Main extends WEB_Controller {
       $rules = $this->classroom_model->get_classroom_rules_by_classroom_id($post['classroom_id']);
       $applies = $this->apply_model->get_classroom_applies_with_date($classroom['id'], $date);
       
-      $timeArray = array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D');
       foreach ($rules as $rule) {
         switch((int)$rule['type']) {
           case 0:
             if ($rule['start'] === $date) {
-              foreach ($timeArray as $time) {
-                if ($rule['time'.$time] == 1 && ( ! isset($classroom['time'.$time])))
+              foreach (TIME_ARRAY as $time) {
+                if ($rule['time'.$time] == 1 AND ( ! isset($classroom['time'.$time])))
                   $classroom['time'.$time] = 'disabled';
               }
             }
             break;
           case 1:
             if ($rule['start'] <= $date AND $rule['end'] >= $date) {
-              foreach ($timeArray as $time) {
-                if ($rule['time'.$time] == 1 && ( ! isset($classroom['time'.$time])))
+              foreach (TIME_ARRAY as $time) {
+                if ($rule['time'.$time] == 1 AND ( ! isset($classroom['time'.$time])))
                   $classroom['time'.$time] = 'disabled';
               }
             }
             break;
           case 2:
             if ($rule['start'] <= $date AND $rule['end'] >= $date AND (get_weekday_array($rule['weekday']))[$weekday] == 1) {
-              foreach ($timeArray as $time) {
-                if ($rule['time'.$time] == 1 && ( ! isset($classroom['time'.$time])))
+              foreach (TIME_ARRAY as $time) {
+                if ($rule['time'.$time] == 1 AND ( ! isset($classroom['time'.$time])))
                   $classroom['time'.$time] = 'disabled';
               }
             }
@@ -70,13 +69,13 @@ class Main extends WEB_Controller {
       foreach ($applies as $apply) {
         switch((int)$apply['status']) {
           case 0:
-            foreach ($timeArray as $time) {
+            foreach (TIME_ARRAY as $time) {
               if ($apply['time'.$time] == 1 && ( ! isset($classroom['time'.$time])))
                 $classroom['time'.$time] = 'await';
             }
             break;
           case 1:
-            foreach ($timeArray as $time) {
+            foreach (TIME_ARRAY as $time) {
               if ($apply['time'.$time] == 1 && ( ! isset($classroom['time'.$time])))
                 $classroom['time'.$time] = 'checked';
             }
@@ -93,7 +92,6 @@ class Main extends WEB_Controller {
     if ($date = $this->input->post('date')) {
       $weekday = strftime('%w', strtotime($date));
       $classrooms = $this->classroom_model->get_classrooms(array('disabled' => '0'));
-      $timeArray = array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D');
       foreach ($classrooms as $index => $classroom) {
         $rules = $this->classroom_model->get_classroom_rules_by_classroom_id($classroom['id']);
         $applies = $this->apply_model->get_classroom_applies_with_date($classroom['id'], $date);
@@ -101,24 +99,24 @@ class Main extends WEB_Controller {
           switch((int)$rule['type']) {
             case 0:
               if ($rule['start'] === $date) {
-                foreach ($timeArray as $time) {
-                  if ($rule['time'.$time] == 1 && ( ! isset($classrooms[$index]['time'.$time])))
+                foreach (TIME_ARRAY as $time) {
+                  if ($rule['time'.$time] == 1 AND ( ! isset($classrooms[$index]['time'.$time])))
                     $classrooms[$index]['time'.$time] = 'disabled';
                 }
               }
               break;
             case 1:
               if ($rule['start'] <= $date AND $rule['end'] >= $date) {
-                foreach ($timeArray as $time) {
-                  if ($rule['time'.$time] == 1 && ( ! isset($classrooms[$index]['time'.$time])))
+                foreach (TIME_ARRAY as $time) {
+                  if ($rule['time'.$time] == 1 AND ( ! isset($classrooms[$index]['time'.$time])))
                     $classrooms[$index]['time'.$time] = 'disabled';
                 }
               }
               break;
             case 2:
               if ($rule['start'] <= $date AND $rule['end'] >= $date AND (get_weekday_array($rule['weekday']))[$weekday] == 1) {
-                foreach ($timeArray as $time) {
-                  if ($rule['time'.$time] == 1 && ( ! isset($classrooms[$index]['time'.$time])))
+                foreach (TIME_ARRAY as $time) {
+                  if ($rule['time'.$time] == 1 AND ( ! isset($classrooms[$index]['time'.$time])))
                     $classrooms[$index]['time'.$time] = 'disabled';
                 }
               }
@@ -129,14 +127,14 @@ class Main extends WEB_Controller {
         foreach ($applies as $apply) {
           switch((int)$apply['status']) {
             case 0:
-              foreach ($timeArray as $time) {
-                if ($apply['time'.$time] == 1 && ( ! isset($classrooms[$index]['time'.$time])))
+              foreach (TIME_ARRAY as $time) {
+                if ($apply['time'.$time] == 1  AND ( ! isset($classrooms[$index]['time'.$time])))
                   $classrooms[$index]['time'.$time] = 'await';
               }
               break;
             case 1:
-              foreach ($timeArray as $time) {
-                if ($apply['time'.$time] == 1 && ( ! isset($classrooms[$index]['time'.$time])))
+              foreach (TIME_ARRAY as $time) {
+                if ($apply['time'.$time] == 1  AND ( ! isset($classrooms[$index]['time'.$time])))
                   $classrooms[$index]['time'.$time] = 'checked';
               }
               break;
@@ -148,6 +146,47 @@ class Main extends WEB_Controller {
 
       echo json_encode($classrooms);
     }
+  }
+
+  public function get_datepicker_class() {
+    $datepicker_classes = array();
+
+    $rules = $this->classroom_model->get_classroom_rules();
+    foreach ($rules as $rule) {
+      switch((int)$rule['type']){
+        case 0:
+          $datepicker_classes[$rule['start']]['danger'] = TRUE;
+          break;
+        case 1:
+          $date = $rule['start'];
+          $end_date = $rule['end'];
+          while (strtotime($date) <= strtotime($end_date)) {
+            $datepicker_classes[$date]['danger'] = TRUE;
+            $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+          }
+          break;
+        case 2:
+          $date = $rule['start'];
+          $end_date = $rule['end'];
+          $weekdayArray = get_weekday_array($rule['weekday']);
+          while (strtotime($date) <= strtotime($end_date)) {
+            $weekday = strftime('%w', strtotime($date));
+            if ($weekdayArray[$weekday] == 1) {
+              $datepicker_classes[$date]['danger'] = TRUE;
+            }
+            $date = date('Y-m-d', strtotime("+1 day", strtotime($date)));
+          }
+          break;
+      }
+    }
+
+    $applies = $this->apply_model->get_applies();
+    foreach ($applies as $apply) {
+      if ($apply['status'] == 2 OR $apply['status'] == 4) { continue; }
+      $datepicker_classes[$apply['date']]['checked'] = TRUE;
+    }
+
+    echo json_encode($datepicker_classes);
   }
 
 }

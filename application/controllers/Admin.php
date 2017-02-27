@@ -158,7 +158,7 @@ class Admin extends WEB_Controller {
               $end_date = $post['date-end'];
               while (strtotime($date) <= strtotime($end_date)) {
                 $weekday = strftime('%w', strtotime($date));
-                if (in_array($weekday, $weekdayArray)) {
+                if ($weekdayArray[$weekday] == 1) {
                   $potential_applies = $this->apply_model->get_classroom_applies_with_date($id, $date, array('time'.$time => 1));
                   if ( ! empty($potential_applies)) {
                     foreach ($potential_applies as $apply) { $this->apply_model->check_apply($apply['id'], 'reject'); }
