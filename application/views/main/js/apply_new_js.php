@@ -49,42 +49,43 @@ $(document).ready(function() {
   }
 
   var $date = '', $classroomID = 0, $datepciker_classes = [];
-  /* Datepicker selection */
-  $('#date').datepicker({
-    format: "yyyy-mm-dd",
-    weekStart: 0,
-    startDate: moment().add(1, 'days').format('YYYY-MM-DD'),
-    endDate: moment().add(2, 'months').format('YYYY-MM-DD'), // Restrict selectable date in 2 months
-    language: 'zh-TW',
-    beforeShowDay: function(date) {
-      // var today = moment().format('YYYY-MM-DD');
-      // var currentDate = moment(date).format('YYYY-MM-DD');
-      // var currentMonth = moment(date).format('MM');
+  
+  /* Before Datepicker selection => load classes */  
+  $.ajax({
+    type: 'post',
+    cache: false,
+    data: { without_auth: true },
+    dataType: 'json',
+    url: '<?php echo base_url(); ?>ajax/main/get_datepicker_class_in_apply_page',
+    success: function(data) {
+      
+      console.log(data);
+      
+      $('#date').datepicker({
+        format: "yyyy-mm-dd",
+        weekStart: 0,
+        startDate: moment().add(1, 'days').format('YYYY-MM-DD'),
+        endDate: moment().add(2, 'months').format('YYYY-MM-DD'), // Restrict selectable date in 2 months
+        language: 'zh-TW',
+        beforeShowDay: function(date) {
+          var today = moment().format('YYYY-MM-DD');
+          var currentDate = moment(date).format('YYYY-MM-DD');
+          var currentMonth = moment(date).format('MM');
 
-      // if (currentDate > today && $classroomID != 0 && $date != '') {
-      //   $.ajax({
-      //     type: 'post',
-      //     url: '<?php echo base_url(); ?>ajax/main/get_datepicker_class',
-      //     cache: false,
-      //     data: { date: currentDate, classroom_id: $classroomID },
-      //     dataType: 'json',
-      //     success: function(data) {
-      //       var insert = {};
-      //       insert['date'] = data.date;
-      //       insert['class'] = data.class;
-      //       $datepciker_classes.push(insert);
-      //     },
-      //     error: function() { show_error_message(); }
-      //   });
-      // }
+          if (currentDate > today && $classroomID != 0 && data[$classroomID] && data[$classroomID][currentDate]) {
+            if (data[$classroomID][currentDate].disable) { return { classes: 'disabled date-full' }; }
+            if (data[$classroomID][currentDate].status)  { return { classes: 'date-status' };        }
+          } else return;
+        }
+      }).datepicker('setDate', moment().format('YYYY-MM-DD')).on('changeDate.datepicker', function(event) {
+        $('#date').datepicker('hide');
+        $datepciker_classes = [];
+        $date = moment(event.date).format('YYYY-MM-DD');
+        if ($classroomID != 0 && $date !== '') { get_time_state(); }
+      });
 
-      // return { classes: 'date-' + currentDate }
-    }
-  }).datepicker('setDate', moment().format('YYYY-MM-DD')).on('changeDate.datepicker', function(event) {
-    $('#date').datepicker('hide');
-    $datepciker_classes = [];
-    $date = moment(event.date).format('YYYY-MM-DD');
-    if ($classroomID != 0 && $date !== '') { get_time_state(); }
+    },
+    error: function() { show_error_message(); }
   });
 
   $('select#classroom').change(function(event) {

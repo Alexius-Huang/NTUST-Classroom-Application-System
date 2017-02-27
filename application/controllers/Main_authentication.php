@@ -8,8 +8,6 @@ class Main_authentication extends WEB_Controller {
     // Set default template
     $this->output->set_template('main');
 
-    if ($this->session->userdata('studentID')) { redirect('main'); }
-
     // Load default model
     $this->load->model('main_session_model');
   }
@@ -19,6 +17,8 @@ class Main_authentication extends WEB_Controller {
   }
 
   public function signin() {
+    if ($this->session->userdata('studentID')) { redirect('main'); }
+
     $view = array(
       'signin_failure' => FALSE,
       'page' => 'main_signin'
@@ -43,7 +43,7 @@ class Main_authentication extends WEB_Controller {
   // 教室借用狀態
   public function classroom_status() {
     $view = array('page' => 'classroom_status');
-    
+
     $this->load->js('http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js');
     $this->load->js('assets/datepicker/js/bootstrap-datepicker.min.js');
     $this->load->js('assets/datepicker/locales/bootstrap-datepicker.zh-TW.min.js');

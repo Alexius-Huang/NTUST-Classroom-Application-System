@@ -189,4 +189,76 @@ class Main extends WEB_Controller {
     echo json_encode($datepicker_classes);
   }
 
+  public function get_datepicker_class_in_apply_page() {
+    $datepicker_classes = array();
+    $classrooms = $this->classroom_model->get_classrooms(array('disabled' => 0));
+
+    foreach ($classrooms as $classroom) {
+      $rules = $this->classroom_model->get_classroom_rules(array('classroom_id' => $classroom['id']));
+      foreach($rules as $rule) {
+        switch((int)$rule['type']) {
+          case 0:
+            foreach (TIME_ARRAY as $time) {
+              if ($time == 'D' AND $rule['timeD'] == 1) {
+                $datepicker_classes[$classroom['id']][$rule['start']]['disable'] = TRUE;
+              } else if ($rule['time'.$time] == 1) {
+                continue;
+              } else {
+                $datepicker_classes[$classroom['id']][$rule['start']]['status'] = TRUE;
+                break;
+              }
+            }
+            break;
+          case 1:
+            $date = $rule['start'];
+            $end_date = $rule['end'];
+            while (strtotime($date) <= strtotime($end_date)) {
+              foreach (TIME_ARRAY as $time) {
+                if ($time == 'D' AND $rule['timeD'] == 1) {
+                  $datepicker_classes[$classroom['id']][$date]['disable'] = TRUE;
+                } else if ($rule['time'.$time] == 1) {
+                  continue;
+                } else {
+                  $datepicker_classes[$classroom['id']][$date]['status'] = TRUE;
+                  break;
+                }
+              }
+              $date = date('Y-m-d', strtotime('+1 day', strtotime($date)));
+            }
+            break;
+          case 2:
+            $date = $rule['start'];
+            $end_date = $rule['end'];
+            $weekdayArray = get_weekday_array($rule['weekday']);
+            while (strtotime($date) <= strtotime($end_date)) {
+              $weekday = strftime('%w', strtotime($date));
+              if ($weekdayArray[$weekday] == 1) {
+                foreach (TIME_ARRAY as $time) {
+                  if ($time == 'D' AND $rule['timeD'] == 1) {
+                    $datepicker_classes[$classroom['id']][$date]['disable'] = TRUE;
+                  } else if ($rule['time'.$time] == 1) {
+                    continue;
+                  } else {
+                    $datepicker_classes[$classroom['id']][$date]['status']  = TRUE;
+                    $datepicker_classes[$classroom['id']][$date]['disable'] = FALSE;
+                    break;
+                  }
+                }
+              }
+              $date = date('Y-m-d', strtotime('+1 day', strtotime($date)));
+            }
+            break;
+        }
+      }
+
+      $applies = $this->apply_model->get_applies(array('classroom_id' => $classroom['id']));
+      foreach ($applies as $apply) {
+        if ($apply['status'] == '2' OR $apply['status'] == '4') { continue; }
+        $datepicker_classes[$classroom['id']][$apply['date']]['status'] = TRUE;
+      }
+    }
+  
+    echo json_encode($datepicker_classes);
+  }
+
 }
