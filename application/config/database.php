@@ -103,8 +103,8 @@ if (defined('ENVIRONMENT')) {
 			$db['default'] = array(
 				'dsn'	=> '',
 				'hostname' => 'localhost',
-				'username' => 'scrumbyboard_host',
-				'password' => 'uYmqOL9Ddajw8tzh',
+				'username' => '',
+				'password' => '',
 				'database' => 'scrumbyboard_production',
 				'dbdriver' => 'mysqli',
 				'dbprefix' => '',
