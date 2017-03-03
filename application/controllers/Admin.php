@@ -22,7 +22,7 @@ class Admin extends WEB_Controller {
     $view = array(
       'username' => 'admin',
       'page' => 'main',
-      'await_applies' => $this->apply_model->get_applies(array('status' => '0')),
+      'await_applies' => $this->apply_model->get_applies(array('status' => '0', 'date >' => date('Y-m-d'))),
       'available_classroom' => $this->classroom_model->get_classrooms(array('disabled' => '0')),
       'classrooms' => $this->classroom_model->get_classrooms(),
       'applies_in_current_month' => $this->apply_model->get_applies(array('month(date)' => date('m'), 'year(date)' => date('Y'))),
@@ -37,7 +37,7 @@ class Admin extends WEB_Controller {
     $view = array(
       'username' => 'admin',
       'page' => 'apply',
-      'applies' => $this->apply_model->get_applies(array('status' => '0'))
+      'applies' => $this->apply_model->get_applies(array('status' => '0', 'date >' => date('Y-m-d')))
     );
 
     foreach ($view['applies'] as $index => $apply) {
@@ -51,15 +51,19 @@ class Admin extends WEB_Controller {
     $this->load->view('admin/apply_view', $view);
   }
 
-  public function application() {
+  public function application($year_month = '0') {
+    if ($year_month === '0' OR ! validate_date($year_month, 'Y-m')) { $year_month = date('Y-m'); }
+
     $view = array(
       'username' => 'admin',
       'page' => 'application',
-      'applies' => $this->apply_model->get_applies()
+      'year_month' => $year_month,
+      'applies' => $this->apply_model->get_applies(array('date >' => $year_month.'-01', 'date <' => date('Y-m', strtotime($year_month.' + 1 month')).'-01'))
     );
     
     foreach ($view['applies'] as $index => $apply) {
       $view['applies'][$index]['classroom'] = $this->classroom_model->get_classroom($apply['classroom_id']);
+      if (empty($view['applies'][$index]['classroom']['name'])) { $view['applies'][$index]['classroom']['name'] = 'N/A'; }
     }
 
     $this->load->view('admin/application_view', $view);

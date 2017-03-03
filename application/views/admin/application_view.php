@@ -1,6 +1,8 @@
 <div class="box box-primary">
   <div class="box-header">
     <h3 class="box-title">檢視申請紀錄</h3>
+    <a href="<?php echo base_url(); ?>admin/application/<?php echo date('Y-m', strtotime($year_month.' + 1 month')); ?>" class="btn btn-primary pull-right">檢視下一個月 >></a>
+    <a href="<?php echo base_url(); ?>admin/application/<?php echo date('Y-m', strtotime($year_month.' - 1 month')); ?>" class="btn btn-primary pull-right"><< 檢視前一個月</a>
   </div>
   <div class="box-body">
     <table id="datatable" class="table table-striped table-bordered">

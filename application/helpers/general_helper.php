@@ -10,6 +10,13 @@ if ( ! function_exists('today')) {
   function today($format = 'Y-m-d') { return date($format, strtotime('today')); }
 }
 
+if ( ! function_exists('validate_date')) {
+  function validate_date($date, $format = 'Y-m-d H:i:s'){
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
+  }
+}
+
 if ( ! function_exists('get_datetime_from_timestamp')) {
   function get_datetime_from_timestamp($timestamp, $format = 'Y-m-d H:i:s') { return date($format, $timestamp); }
 }
