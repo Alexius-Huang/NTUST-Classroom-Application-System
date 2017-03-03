@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
-  <meta name="description" content="國立台灣科技大學學生活動大樓教室借用系統。" />
+  <meta name="description" content="<?php if ($lang === 'zh-TW'): ?>國立台灣科技大學學生活動大樓教室借用系統。<?php elseif ($lang === 'en-us'): ?>National Taiwan University of Science and Technology - Classroom Leasing System for Students<?php endif; ?>" />
   <meta name="theme-color" content="#1f1f1f" />
   <meta name="msapplication-navbutton-color" content="#1f1f1f" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -58,6 +58,9 @@
   ?>
 </head>
 <body class="hold-transition skin-black-light sidebar-mini">
+
+<?php if ($lang === 'zh-TW'): ?>
+
   <div class="wrapper">
     <header class="main-header">
       <a href="/" class="logo">
@@ -70,13 +73,13 @@
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <li class="nav-language">
-              <a href="/en-us">
+              <a href="<?php echo base_url(); ?>main_authentication/classroom_status/en-us">
                 <i class="flag-icon flag-icon-us"></i>
                 <span class="hidden-xs hidden-sm">English Version</span>
               </a>
             </li>
             <li class="nav-status">
-              <a href="status.shtml">
+              <a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW">
                 <?php echo render_icon('calendar'); ?>
                 <span class="hidden-xs hidden-sm">借用狀態查詢</span>
               </a>
@@ -92,7 +95,7 @@
             <img src="<?php echo base_url(); ?>assets/images/logo.png" class="img-circle" alt="NTUST Logo" />
           </div>
           <div class="pull-left info">
-            <p><a href="/" class="site-title">學生活動大樓教室借用系統</a></p>
+            <p><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW" class="site-title">學生活動大樓教室借用系統</a></p>
             <?php if ($this->session->userdata('signin')): ?>
               <p id="user_information"><span><?php echo $this->session->userdata('studentID'); ?></span> 您好！</p>
             <?php else: ?>
@@ -103,18 +106,18 @@
         <ul class="sidebar-menu">
           <li class="header">借用功能</li>
           <?php if ($this->session->userdata('signin')): ?>
-            <li class="nav-notice <?php if ($page === 'apply_notice') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_notice"><?php echo render_icon('info-circle'); ?> 借用須知</a></li>
-            <li class="nav-apply <?php if ($page === 'apply_new') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_new"><?php echo render_icon('file-text'); ?> 申請借用</a></li>
-            <li class="nav-cancel <?php if ($page === 'apply_delete') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_delete"><?php echo render_icon('trash'); ?> 取消申請</a></li>
-            <li class="nav-record <?php if ($page === 'apply_record') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_record"><?php echo render_icon('history'); ?> 借用記錄</a></li>
+            <li class="nav-notice <?php if ($page === 'apply_notice') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_notice/zh-TW"><?php echo render_icon('info-circle'); ?> 借用須知</a></li>
+            <li class="nav-apply <?php if ($page === 'apply_new') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_new/zh-TW"><?php echo render_icon('file-text'); ?> 申請借用</a></li>
+            <li class="nav-cancel <?php if ($page === 'apply_delete') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_delete/zh-TW"><?php echo render_icon('trash'); ?> 取消申請</a></li>
+            <li class="nav-record <?php if ($page === 'apply_record') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_record/zh-TW"><?php echo render_icon('history'); ?> 借用記錄</a></li>
           <?php endif; ?>
-          <li class="nav-status <?php if ($page === 'classroom_status') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/classroom_status"><?php echo render_icon('calendar'); ?> 借用狀態查詢</a></li>
+          <li class="nav-status <?php if ($page === 'classroom_status') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW"><?php echo render_icon('calendar'); ?> 借用狀態查詢</a></li>
 
           <li class="header">帳號功能</li>
           <?php if ($this->session->userdata('signin')): ?>
-            <li class="nav-logout"><a href="<?php echo base_url(); ?>main_authentication/signout"><?php echo render_icon('sign-out'); ?> 登出</a></li>
+            <li class="nav-logout"><a href="<?php echo base_url(); ?>main_authentication/signout/zh-TW"><?php echo render_icon('sign-out'); ?> 登出</a></li>
           <?php else: ?>
-            <li class="nav-login <?php if ($page === 'main_signin') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/signin"><?php echo render_icon('sign-in'); ?> 登入</a></li>
+            <li class="nav-login <?php if ($page === 'main_signin') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/signin/zh-TW"><?php echo render_icon('sign-in'); ?> 登入</a></li>
           <?php endif; ?>
         </ul>
       </section>
@@ -124,8 +127,82 @@
     </main>
     <footer class="main-footer">
       <div id="ie" class="label-warning"><!--[if lt IE 9]>本系統不支援低於 IE 9 之瀏覽器，若想獲得最佳使用體驗，請使用 Firefox 或其他瀏覽器（例如：Chrome、Safari、Opera）。<![endif]--></div>
-      <div id="copyright">Copyright <a href="<?php echo base_url() ?>admin_authentication/signin">&copy;</a> 2016 <a href="http://sg.ntust.link" title="國立臺灣科技大學學生會">NTUSTSG</a>. All rights reserved.</div>
+      <div id="copyright">Copyright <a href="<?php echo base_url() ?>admin_authentication/signin/zh-TW">&copy;</a> 2016
     </footer>
   </div>
+
+<?php elseif ($lang === 'en-us'): ?>
+
+  <div class="wrapper">
+    <header class="main-header">
+      <a href="<?php echo base_url(); ?>main_authentication/classroom_status/en-us" class="logo">
+        <span class="logo-lg"><b>NTUST</b>SG</span>
+      </a>
+      <nav class="navbar navbar-static-top" role="navigation">
+        <a href="#" class="sidebar-toggle hidden-sm hidden-md hidden-lg" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle Navigation</span>
+        </a>
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <li class="nav-language">
+              <a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW">
+                <i class="flag-icon flag-icon-tw"></i>
+                <span class="hidden-xs hidden-sm">中文版</span>
+              </a>
+            </li>
+            <li class="nav-status">
+              <a href="<?php echo base_url(); ?>main_authentication/classroom_status/en-us">
+                <i class="fa fa-fw fa-calendar"></i>
+                <span class="hidden-xs hidden-sm">Status of Leasing</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <aside class="main-sidebar">
+      <section class="sidebar">
+        <div class="user-panel">
+          <div class="pull-left image">
+            <img src="<?php echo base_url(); ?>assets/images/logo.png" class="img-circle" alt="NTUST Logo" />
+          </div>
+          <div class="pull-left info">
+            <p><a href="<?php echo base_url(); ?>main_authentication/classroom_status/en-us" class="site-title">Classroom Leasing System</a></p>
+            <?php if ($this->session->userdata('signin')): ?>
+              <p id="user_information"><span><?php echo $this->session->userdata('studentID'); ?></span> Welcome!</p>
+            <?php else: ?>
+              <p id="not_login">You haven't sign in.</p>
+            <?php endif; ?>
+          </div>
+        </div>
+        <ul class="sidebar-menu">
+          <li class="header">Leasing System</li>
+          <?php if ($this->session->userdata('signin')): ?>
+            <li class="nav-notice <?php if ($page === 'apply_notice') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_notice/en-us"><?php echo render_icon('info-circle'); ?> Notice</a></li>
+            <li class="nav-apply <?php if ($page === 'apply_new') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_new/en-us"><?php echo render_icon('file-text'); ?> Apply</a></li>
+            <li class="nav-cancel <?php if ($page === 'apply_delete') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_delete/en-us"><?php echo render_icon('trash'); ?> Cancel</a></li>
+            <li class="nav-record <?php if ($page === 'apply_record') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_record/en-us"><?php echo render_icon('history'); ?> Record</a></li>
+          <?php endif; ?>
+          <li class="nav-status <?php if ($page === 'classroom_status') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/classroom_status/en-us"><?php echo render_icon('calendar'); ?> Status of Leasing</a></li>
+
+          <li class="header">Account</li>
+          <?php if ($this->session->userdata('signin')): ?>
+            <li class="nav-logout"><a href="<?php echo base_url(); ?>main_authentication/signout/en-us"><?php echo render_icon('sign-out'); ?> Sign Out</a></li>
+          <?php else: ?>
+            <li class="nav-login <?php if ($page === 'main_signin') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/signin/en-us"><?php echo render_icon('sign-in'); ?> Sign In</a></li>
+          <?php endif; ?>
+        </ul>
+      </section>
+    </aside>
+    <main class="content-wrapper">
+      <?php echo $output; ?>
+    </main>
+    <footer class="main-footer">
+      <div id="ie" class="label-warning"><!--[if lt IE 9]>This system is not supporting for Internet Explorer which lesser than version 9. For the best experience, please consider Firefox, and other major browsers (e.g. Chrome, Safari, Opera).<![endif]--></div>
+      <div id="copyright">Copyright <a href="<?php echo base_url(); ?>admin_authentication/signin">&copy;</a> 2016
+    </footer>
+  </div>
+<?php endif; ?>
+
 </body>
 </html>

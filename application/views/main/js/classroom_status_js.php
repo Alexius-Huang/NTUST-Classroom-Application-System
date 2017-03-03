@@ -12,11 +12,19 @@ setInterval(function() {
 
 $(document).ready(function() {
   function show_error_message(title, content) {
-    swal({
-      title: title ? title : '錯誤！',
-      type: 'error',
-      text: content ? content : '系統內部似乎出錯，請聯絡相關負責人員！'
-    });
+    <?php if ($lang === 'zh-TW'): ?>
+      swal({
+        title: title ? title : '錯誤！',
+        type: 'error',
+        text: content ? content : '系統內部似乎出錯，請聯絡相關負責人員！'
+      });
+    <?php elseif ($lang === 'en-us'): ?>
+      swal({
+        title: title ? title : 'An error occurred！',
+        type: 'error',
+        text: content ? content : 'Internal system error occurred, please contact relevant personnel for more information.'
+      });
+    <?php endif; ?>
   }
 
   var today = moment().format('YYYY-MM-DD');
@@ -34,7 +42,7 @@ $(document).ready(function() {
       data: { without_auth: true, date: date },
       success: function(classrooms) {
         /* RENDER TABLE DATA */
-        console.log(classrooms);
+        //console.log(classrooms);
         for (var classroom of classrooms) {
           var tableRow = document.createElement('tr');
           var header = document.createElement('th');
@@ -83,7 +91,7 @@ $(document).ready(function() {
         startDate: today,
         //endDate: moment().add(2, 'months').format('YYYY-MM-DD'),
         todayBtn: "linked",
-        language: 'zh-TW',
+        language: '<?php echo $lang; ?>',
         beforeShowDay: function (date) {
           var currentDate = moment(date).format('YYYY-MM-DD');
           if (currentDate < today) { return; }

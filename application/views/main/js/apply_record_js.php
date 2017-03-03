@@ -12,6 +12,7 @@ setInterval(function() {
 }, 1000);
 
 /* Datatable */
+<?php if ($lang === 'zh-TW'): ?>
 $('table#datatable').dataTable({
   lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "顯示全部"]],
   order: [[4, 'desc']],
@@ -29,4 +30,10 @@ $('table#datatable').dataTable({
     paginate: { sPrevious: "&laquo; 上一頁", sNext: "下一頁 &raquo;" }
   }
 });
+<?php elseif ($lang === 'en-us'): ?>
+$('table#datatable').dataTable({
+  lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Show All"]],
+  order: [[4, 'desc']]
+});
+<?php endif; ?>
 </script>

@@ -12,6 +12,7 @@ setInterval(function() {
 }, 1000);
 
 /* Datatable */
+<?php if ($lang === 'zh-TW'): ?>
 $('table#datatable').dataTable({
   lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "顯示全部"]],
   order: [[0, 'desc']],
@@ -29,32 +30,46 @@ $('table#datatable').dataTable({
     paginate: { sPrevious: "&laquo; 上一頁", sNext: "下一頁 &raquo;" }
   }
 });
+<?php elseif ($lang === 'en-us'): ?>
+$('table#datatable').dataTable({
+  lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Show All"]],
+  order: [[0, 'desc']]
+});
+<?php endif; ?>
 
 $(document).ready(function() {
   function show_error_message(title, content) {
-    swal({
-      title: title ? title : '錯誤！',
-      type: 'error',
-      text: content ? content : '系統內部似乎出錯，請聯絡相關負責人員！'
-    });
+    <?php if ($lang === 'zh-TW'): ?>
+      swal({
+        title: title ? title : '錯誤！',
+        type: 'error',
+        text: content ? content : '系統內部似乎出錯，請聯絡相關負責人員！'
+      });
+    <?php elseif ($lang === 'en-us'): ?>
+      swal({
+        title: title ? title : 'Internal Error Occurred！',
+        type: 'error',
+        text: content ? content : 'Internal system error occurred, please contact relevant personnel.'
+      });
+    <?php endif; ?>
   }
   
   $('button.btn-delete').on('click', function(event) {
     event.preventDefault();
     var data = $(this).data();
     swal({
-      title: '您即將要取消此場地申請',
+      title: '<?php echo ($lang === 'zh-TW' ? '您即將要取消此場地申請' : 'You are going to cancel apply' ); ?>',
       html: '<div class="box box-primary">' +
               '<div class="box-body">' +
-                '<p class="text-left">申請狀態：' + data.status + '</p>' +
-                '<p class="text-left">申請場地：' + data.classroom + '</p>' +
-                '<p class="text-left">借用日期：' + data.date + '</p>' +
-                '<p class="text-left">借用時段：' + data.time + '</p>' +
+                '<p class="text-left"><?php echo ($lang === 'zh-TW' ? '申請狀態' : 'Status' ); ?>：' + data.status + '</p>' +
+                '<p class="text-left"><?php echo ($lang === 'zh-TW' ? '申請場地' : 'Place' ); ?>：' + data.classroom + '</p>' +
+                '<p class="text-left"><?php echo ($lang === 'zh-TW' ? '借用日期' : 'Date' ); ?>：' + data.date + '</p>' +
+                '<p class="text-left"><?php echo ($lang === 'zh-TW' ? '借用時段' : 'Time' ); ?>：' + data.time + '</p>' +
               '</div>' +
-            '</div><p>確定要取消以上申請嗎？</p>',
+            '</div><p><?php echo ($lang === 'zh-TW' ? '確定要取消以上申請嗎？' : 'Are you sure to cancel down the application?' ); ?></p>',
       showCancelButton: true,
-      confirmButtonText: '確定',
-      cancelButtonText: '取消',
+      confirmButtonText: '<?php echo ($lang === 'zh-TW' ? '確定' : 'Comfirm' ); ?>',
+      cancelButtonText: '<?php echo ($lang === 'zh-TW' ? '取消' : 'Close' ); ?>',
       confirmButtonColor: '#dd4b39',
       cancelButtonColor: '#3c8dbc'
     }).then(function() {

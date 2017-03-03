@@ -8,7 +8,7 @@ class Main extends WEB_Controller {
 
     // Check if student already sign in
     if ( ! $studentID = $this->session->userdata('studentID')) {
-      redirect('main_authentication/signin');
+      redirect('main_authentication/signin/zh-TW');
     }
 
     // Set default template
@@ -18,20 +18,20 @@ class Main extends WEB_Controller {
     $this->load->model('apply_model');
   }
 
-  public function index() {
-    redirect('main/apply_notice');
+  public function index($lang = 'zh-TW') {
+    redirect('main/apply_notice'.$lang);
   }
 
-  public function apply_notice() {
-    $view = array('page' => 'apply_notice');
+  public function apply_notice($lang = 'zh-TW') {
+    $view = array('page' => 'apply_notice', 'lang' => $lang);
 
     $this->load->model('notice_model');
     $view['notice'] = $this->notice_model->get_notice();
     $this->load->view('main/apply_notice_view', $view);
   }
 
-  public function apply_new() {
-    $view = array('page' => 'apply_new', 'apply_failure' => FALSE);
+  public function apply_new($lang = 'zh-TW') {
+    $view = array('page' => 'apply_new', 'apply_failure' => FALSE, 'lang' => $lang);
 
     if ($post = $this->input->post()) {
       $insert = array(
@@ -46,12 +46,12 @@ class Main extends WEB_Controller {
         'participantCount'  => $post['participantCount'],
         'purpose'           => $post['purpose']
       );
-      foreach (array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D') as $time) {
+      foreach (TIME_ARRAY as $time) {
         $insert['time'.$time] = in_array($time, $post['times']) ? '1' : '0';
       }
       
       if ($this->apply_model->create_apply($insert)) {
-        ( ! $post['ajax']) ? redirect('main/apply_record') : null;
+        ( ! $post['ajax']) ? redirect('main/apply_record/'.$lang) : null;
       } else $view['apply_failure'] = TRUE;
     }
 
@@ -80,9 +80,10 @@ class Main extends WEB_Controller {
     $this->load->view('main/apply_new_view', $view);
   }
 
-  public function apply_delete() {
+  public function apply_delete($lang = 'zh-TW') {
     $view = array(
       'page' => 'apply_delete',
+      'lang' => $lang,
       'applies' => $this->apply_model->get_applies_by_student_id($this->session->userdata('studentID'))
     );
 
@@ -97,9 +98,10 @@ class Main extends WEB_Controller {
     $this->load->view('main/apply_delete_view', $view);
   }
 
-  public function apply_record() {
+  public function apply_record($lang = 'zh-TW') {
     $view = array(
       'page' => 'apply_record',
+      'lang' => $lang,
       'applies' => $this->apply_model->get_applies_by_student_id($this->session->userdata('studentID'))
     );
 
