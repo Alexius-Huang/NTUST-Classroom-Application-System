@@ -59,13 +59,44 @@ $(document).ready(function() {
         var button = document.createElement('button');
         button.setAttribute('id', 'approve-applications-btn');
         button.setAttribute('class', 'btn btn-success btn-sm pull-right');
-        button.innerHTML = '<?php echo render_icon('check-square-o'); ?> 通過所有已勾選之 1 個申請';  
+        button.innerHTML = '<?php echo render_icon('check-square-o'); ?> 通過所有已勾選之 1 個申請';
         document.getElementById('page-header').append(button);
         button.addEventListener('click', function(event) {
           event.preventDefault();
-
-          /* ACTION YET TO BE IMPLEMENTED */
-
+          swal({
+            title: '確認送出共 ' + selectedApplicationIDs.length + ' 個申請？',
+            text: '系統將會以提出申請時間為順序審核並自動通過，其衝突之申請則會自動予以駁回',
+            showLoaderOnConfirm: true,
+            allowOutsideClick: false,
+            showCancelButton: true,
+            confirmButtonText: '確定',
+            cancelButtonText: '取消',
+            confirmButtonColor: '#3c8dbc',
+            cancelButtonColor: '#dd4b39',
+          }).then(function() {
+            $.ajax({
+              type: 'post',
+              url: '<?php echo base_url(); ?>ajax/admin/check_applications',
+              data: { idArray: selectedApplicationIDs },
+              cache: false,
+              dataType: 'json',
+              success: function(data) {
+                swal({
+                  title: '送出結果報告',
+                  html: '<div class="box box-primary">' +
+                          '<div class="box-body">' +
+                            '<p>總共有 ' + data.approved.length + ' 個申請確認通過</p>' +
+                            '<p>其餘自動衝突之 ' + data.rejected.length + ' 個申請自動駁回</p>' +
+                          '</div>' +
+                        '</div>',
+                  confirmButtonText: '確認',
+                }).then(function() {
+                  location.reload();
+                });
+              },
+              error: function() { show_error_message(); }
+            });
+          }, function(dismiss) { /* DO NOTHING */ });
         });
       }
     }

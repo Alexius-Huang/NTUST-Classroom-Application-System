@@ -61,21 +61,23 @@ class Admin extends WEB_Controller {
       AND $mode = $this->input->post('mode')
       AND $apply = $this->apply_model->get_apply($id)
     ) {
-      /* Approve the apply first */
+      /* Manipulate with the apply first */
       $this->apply_model->check_apply($id, $mode);
 
-      /* Reject other conflict applies */
-      foreach (TIME_ARRAY as $time) {
-        if ($apply['time'.$time] == 1) {
-          $potential_applies = $this->apply_model->get_applies(array(
-            'classroom_id' => $apply['classroom_id'],
-            'status'       => '0',
-            'time'.$time   => '1',
-            'date'         => $apply['date']
-          ));
-          if ( ! empty($potential_applies)) {
-            foreach ($potential_applies as $reject_apply) {
-              $this->apply_model->check_apply($reject_apply['id'], 'reject');
+      if ($mode === 'approve') {
+        /* Reject other conflict applies when approved */
+        foreach (TIME_ARRAY as $time) {
+          if ($apply['time'.$time] == 1) {
+            $potential_applies = $this->apply_model->get_applies(array(
+              'classroom_id' => $apply['classroom_id'],
+              'status'       => '0',
+              'time'.$time   => '1',
+              'date'         => $apply['date']
+            ));
+            if ( ! empty($potential_applies)) {
+              foreach ($potential_applies as $reject_apply) {
+                $this->apply_model->check_apply($reject_apply['id'], 'reject');
+              }
             }
           }
         }
@@ -84,8 +86,37 @@ class Admin extends WEB_Controller {
   }
 
   public function check_applications() {
-    if ($idArray = $this->input->post('idArray') AND $mode = $this->input->post('mode')) {
-      $this->apply_model->check_applies($idArray, $mode);
+    if ($idArray = $this->input->post('idArray') AND sort($idArray)) {
+      $result = array('approved' => array(), 'rejected' => array());
+      foreach ($idArray as $id) {
+        if ($apply = $this->apply_model->get_apply($id) AND $apply['status'] == '0') {
+          
+          /* Approve the apply first */
+          $this->apply_model->check_apply($id, 'approve');
+          $result['approved'][] = $id;
+
+          /* Reject other conflict applies */
+          foreach (TIME_ARRAY as $time) {
+            if ($apply['time'.$time] == 1) {
+              $potential_applies = $this->apply_model->get_applies(array(
+                'classroom_id' => $apply['classroom_id'],
+                'status'       => '0',
+                'time'.$time   => '1',
+                'date'         => $apply['date']
+              ));
+              if ( ! empty($potential_applies)) {
+                foreach ($potential_applies as $reject_apply) {
+                  $this->apply_model->check_apply($reject_apply['id'], 'reject');
+                }
+              }
+            }
+          }
+        } elseif ($apply['status'] === '4') {
+          $result['rejected'][] = $id;
+        } else continue;
+      }
+
+      echo json_encode($result);
     } else redirect('admin/main');
   }
 
