@@ -46,7 +46,7 @@ class Main extends WEB_Controller {
         'participantCount'  => $post['participantCount'],
         'purpose'           => $post['purpose']
       );
-      foreach (TIME_ARRAY as $time) {
+      foreach (TIME_ARRAY() as $time) {
         $insert['time'.$time] = in_array($time, $post['times']) ? '1' : '0';
       }
       

@@ -71,7 +71,7 @@
           <div id="time-field" class="col-md-12 form-group rule-type fields field-times">
             <label>選擇時段</label>
             <div class="input-group btn-group" data-toggle="buttons">
-              <?php $renderTime = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'A', 'B', 'C', 'D'); ?>
+              <?php $renderTime = TIME_ARRAY(); ?>
               <?php for ($j = 0; $j <= 13; $j++): ?>
                 <label class="btn btn-default">
                   <input type="checkbox" name="time[]" value="<?php echo $renderTime[$j]; ?>" /> <?php echo $renderTime[$j]; ?>

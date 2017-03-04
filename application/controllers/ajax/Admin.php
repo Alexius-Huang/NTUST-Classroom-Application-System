@@ -66,7 +66,7 @@ class Admin extends WEB_Controller {
 
       if ($mode === 'approve') {
         /* Reject other conflict applies when approved */
-        foreach (TIME_ARRAY as $time) {
+        foreach (TIME_ARRAY() as $time) {
           if ($apply['time'.$time] == 1) {
             $potential_applies = $this->apply_model->get_applies(array(
               'classroom_id' => $apply['classroom_id'],
@@ -96,7 +96,7 @@ class Admin extends WEB_Controller {
           $result['approved'][] = $id;
 
           /* Reject other conflict applies */
-          foreach (TIME_ARRAY as $time) {
+          foreach (TIME_ARRAY() as $time) {
             if ($apply['time'.$time] == 1) {
               $potential_applies = $this->apply_model->get_applies(array(
                 'classroom_id' => $apply['classroom_id'],

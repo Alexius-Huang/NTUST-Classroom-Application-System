@@ -41,7 +41,7 @@ class Main extends WEB_Controller {
         switch((int)$rule['type']) {
           case 0:
             if ($rule['start'] === $date) {
-              foreach (TIME_ARRAY as $time) {
+              foreach (TIME_ARRAY() as $time) {
                 if ($rule['time'.$time] == 1 AND ( ! isset($classroom['time'.$time])))
                   $classroom['time'.$time] = 'disabled';
               }
@@ -49,15 +49,16 @@ class Main extends WEB_Controller {
             break;
           case 1:
             if ($rule['start'] <= $date AND $rule['end'] >= $date) {
-              foreach (TIME_ARRAY as $time) {
+              foreach (TIME_ARRAY() as $time) {
                 if ($rule['time'.$time] == 1 AND ( ! isset($classroom['time'.$time])))
                   $classroom['time'.$time] = 'disabled';
               }
             }
             break;
           case 2:
-            if ($rule['start'] <= $date AND $rule['end'] >= $date AND (get_weekday_array($rule['weekday']))[$weekday] == 1) {
-              foreach (TIME_ARRAY as $time) {
+            $weekdayArray = get_weekday_array($rule['weekday']);
+            if ($rule['start'] <= $date AND $rule['end'] >= $date AND $weekdayArray[$weekday] == 1) {
+              foreach (TIME_ARRAY() as $time) {
                 if ($rule['time'.$time] == 1 AND ( ! isset($classroom['time'.$time])))
                   $classroom['time'.$time] = 'disabled';
               }
@@ -69,13 +70,13 @@ class Main extends WEB_Controller {
       foreach ($applies as $apply) {
         switch((int)$apply['status']) {
           case 0:
-            foreach (TIME_ARRAY as $time) {
+            foreach (TIME_ARRAY() as $time) {
               if ($apply['time'.$time] == 1 && ( ! isset($classroom['time'.$time])))
                 $classroom['time'.$time] = 'await';
             }
             break;
           case 1:
-            foreach (TIME_ARRAY as $time) {
+            foreach (TIME_ARRAY() as $time) {
               if ($apply['time'.$time] == 1 && ( ! isset($classroom['time'.$time])))
                 $classroom['time'.$time] = 'checked';
             }
@@ -99,7 +100,7 @@ class Main extends WEB_Controller {
           switch((int)$rule['type']) {
             case 0:
               if ($rule['start'] === $date) {
-                foreach (TIME_ARRAY as $time) {
+                foreach (TIME_ARRAY() as $time) {
                   if ($rule['time'.$time] == 1 AND ( ! isset($classrooms[$index]['time'.$time])))
                     $classrooms[$index]['time'.$time] = 'disabled';
                 }
@@ -107,15 +108,16 @@ class Main extends WEB_Controller {
               break;
             case 1:
               if ($rule['start'] <= $date AND $rule['end'] >= $date) {
-                foreach (TIME_ARRAY as $time) {
+                foreach (TIME_ARRAY() as $time) {
                   if ($rule['time'.$time] == 1 AND ( ! isset($classrooms[$index]['time'.$time])))
                     $classrooms[$index]['time'.$time] = 'disabled';
                 }
               }
               break;
             case 2:
-              if ($rule['start'] <= $date AND $rule['end'] >= $date AND (get_weekday_array($rule['weekday']))[$weekday] == 1) {
-                foreach (TIME_ARRAY as $time) {
+              $weekdayArray = get_weekday_array($rule['weekday']);
+              if ($rule['start'] <= $date AND $rule['end'] >= $date AND $weekdayArray[$weekday] == 1) {
+                foreach (TIME_ARRAY() as $time) {
                   if ($rule['time'.$time] == 1 AND ( ! isset($classrooms[$index]['time'.$time])))
                     $classrooms[$index]['time'.$time] = 'disabled';
                 }
@@ -127,13 +129,13 @@ class Main extends WEB_Controller {
         foreach ($applies as $apply) {
           switch((int)$apply['status']) {
             case 0:
-              foreach (TIME_ARRAY as $time) {
+              foreach (TIME_ARRAY() as $time) {
                 if ($apply['time'.$time] == 1  AND ( ! isset($classrooms[$index]['time'.$time])))
                   $classrooms[$index]['time'.$time] = 'await';
               }
               break;
             case 1:
-              foreach (TIME_ARRAY as $time) {
+              foreach (TIME_ARRAY() as $time) {
                 if ($apply['time'.$time] == 1  AND ( ! isset($classrooms[$index]['time'.$time])))
                   $classrooms[$index]['time'.$time] = 'checked';
               }
@@ -198,7 +200,7 @@ class Main extends WEB_Controller {
       foreach($rules as $rule) {
         switch((int)$rule['type']) {
           case 0:
-            foreach (TIME_ARRAY as $time) {
+            foreach (TIME_ARRAY() as $time) {
               if ($time == 'D' AND $rule['timeD'] == 1) {
                 $datepicker_classes[$classroom['id']][$rule['start']]['disable'] = TRUE;
               } else if ($rule['time'.$time] == 1) {
@@ -213,7 +215,7 @@ class Main extends WEB_Controller {
             $date = $rule['start'];
             $end_date = $rule['end'];
             while (strtotime($date) <= strtotime($end_date)) {
-              foreach (TIME_ARRAY as $time) {
+              foreach (TIME_ARRAY() as $time) {
                 if ($time == 'D' AND $rule['timeD'] == 1) {
                   $datepicker_classes[$classroom['id']][$date]['disable'] = TRUE;
                 } else if ($rule['time'.$time] == 1) {
@@ -233,7 +235,7 @@ class Main extends WEB_Controller {
             while (strtotime($date) <= strtotime($end_date)) {
               $weekday = strftime('%w', strtotime($date));
               if ($weekdayArray[$weekday] == 1) {
-                foreach (TIME_ARRAY as $time) {
+                foreach (TIME_ARRAY() as $time) {
                   if ($time == 'D' AND $rule['timeD'] == 1) {
                     $datepicker_classes[$classroom['id']][$date]['disable'] = TRUE;
                   } else if ($rule['time'.$time] == 1) {

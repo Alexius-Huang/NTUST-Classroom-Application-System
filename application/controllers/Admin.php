@@ -136,7 +136,7 @@ class Admin extends WEB_Controller {
 
       $this->load->model('apply_model');
 
-      foreach (TIME_ARRAY as $time) {
+      foreach (TIME_ARRAY() as $time) {
         $insert['time'.$time] = in_array($time, $post['time']) ? 1 : 0;
         if ($insert['time'.$time] == 1) {
           switch($post['rule-type']) {

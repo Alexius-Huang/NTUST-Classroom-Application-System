@@ -1,5 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+if ( ! function_exists('TIME_ARRAY')) {
+  function TIME_ARRAY() {
+    return array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D');
+  }
+}
+
 if ( ! function_exists('admin_page_name')) {
   function admin_page_name($page = '') {
     $pages = array(
