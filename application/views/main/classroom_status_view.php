@@ -46,7 +46,6 @@
                 </th>
               </tr>
             </tfoot>
-            <tbody></tbody>
           </table>
         </div>
       </div>
@@ -111,3 +110,39 @@
   <?php $this->load->view('main/js/classroom_status_js', array('lang' => $lang)); ?>
 </section>
 <?php endif; ?>
+
+<script>
+  function checked_info(classroom, participant_count, date, time, organization, applicant, purpose) {
+    // console.log(classroom, participant_count, date, time, organization, applicant, purpose)
+    swal({
+      title: <?php if ($lang == 'zh-TW'): ?> '借用狀態查詢' <?php else: ?> 'Status of Classroom Leasing' <?php endif; ?>,
+      html: '<div class="box box-primary">' +
+              '<div class="box-body text-left">' +
+                '<p>' + <?php if ($lang == 'zh-TW'): ?> '借用教室：' <?php else: ?> 'Place : ' <?php endif; ?> + classroom + '</p>' + 
+                '<p>' + <?php if ($lang == 'zh-TW'): ?> '借用人數：' <?php else: ?> 'Participant Count : ' <?php endif; ?> + participant_count + '</p>' +
+                '<p>' + <?php if ($lang == 'zh-TW'): ?> '借用日期：' <?php else: ?> 'Date : ' <?php endif; ?> + date + '</p>' +
+                '<p>' + <?php if ($lang == 'zh-TW'): ?> '借用時段：' <?php else: ?> 'Time : ' <?php endif; ?> + time + '</p>' +
+                '<p>' + <?php if ($lang == 'zh-TW'): ?> '借用單位（社團）' <?php else: ?> 'Organization(Club) : ' <?php endif; ?> + organization + '</p>' +
+                '<p>' + <?php if ($lang == 'zh-TW'): ?> '申請人：' <?php else: ?> 'Applicant : ' <?php endif; ?> + applicant + '</p>' +
+                '<p>' + <?php if ($lang == 'zh-TW'): ?> '申請目的：' <?php else: ?> 'Purpose : ' <?php endif; ?> + purpose + '</p>' +
+              '</div>' +
+            '</div>'
+    });
+  }
+
+  function banned_info(classroom, type, date, time, weekday, purpose) {
+    swal({
+      title: <?php if ($lang == 'zh-TW'): ?> '借用狀態查詢' <?php else: ?> 'Status of Classroom Leasing' <?php endif; ?>,
+      html: '<div class="box box-primary">' +
+              '<div class="box-body text-left">' +
+                '<p>' + <?php if ($lang == 'zh-TW'): ?> '不開放教室：' <?php else: ?> 'Place Not Leasing : ' <?php endif; ?> + classroom + '</p>' + 
+                '<p>' + <?php if ($lang == 'zh-TW'): ?> '不開放類型：' <?php else: ?> 'Type : ' <?php endif; ?> + type + '</p>' +
+                '<p>' + <?php if ($lang == 'zh-TW'): ?> '日期：' <?php else: ?> 'Date : ' <?php endif; ?> + date + '</p>' +
+                '<p>' + <?php if ($lang == 'zh-TW'): ?> '時段：' <?php else: ?> 'Time : ' <?php endif; ?> + time + '</p>' +
+                '<p>' + <?php if ($lang == 'zh-TW'): ?> '每週：' <?php else: ?> 'Weekday : ' <?php endif; ?> + weekday + '</p>' +
+                '<p>' + <?php if ($lang == 'zh-TW'): ?> '目的：' <?php else: ?> 'Purpose : ' <?php endif; ?> + purpose + '</p>' +
+              '</div>' +
+            '</div>'
+    });
+  }
+</script>

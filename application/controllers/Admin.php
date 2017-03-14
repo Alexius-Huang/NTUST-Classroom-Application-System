@@ -114,6 +114,7 @@ class Admin extends WEB_Controller {
       $insert = array();
       $insert['classroom_id'] = $id;
       $insert['type'] = $post['rule-type'];
+      $insert['purpose'] = $post['purpose'];
 
       $weekdayArray = array();
       switch((int) $post['rule-type']) {

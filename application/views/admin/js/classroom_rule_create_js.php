@@ -84,26 +84,44 @@ $(document).ready(function() {
     } else acceptedCallback.call();
   }
 
+  function assertPurposeFieldShouldNotBeEmpty(acceptedCallback) {
+    if ($('input[name="purpose"]').val() == '') {
+      swal({
+        type: 'error',
+        title: '有項目未填到！',
+        text: '請記得選擇原由！',
+        timer: 1500,
+        showConfirmButton: false
+      });
+    } else acceptedCallback.call();
+  }
+
   $('button#create-new-rule').on('click', function(event) {
     event.preventDefault();
     switch($('input[name="rule-type"]:checked').val()) {
       case '0':
-        assertTimeFieldShouldNotBeEmpty(function() {
-          $('form#create-new-rule-form').submit();
-        });
-        break;
-      case '1':
-        assertStartDateShouldBeforeThanEndDate(function() {
+        assertPurposeFieldShouldNotBeEmpty(function() {
           assertTimeFieldShouldNotBeEmpty(function() {
             $('form#create-new-rule-form').submit();
           });
         });
         break;
-      case '2':
-        assertStartDateShouldBeforeThanEndDate(function() {
-          assertWeekdayFieldShouldNotBeEmpty(function() {
+      case '1':
+        assertPurposeFieldShouldNotBeEmpty(function() {
+          assertStartDateShouldBeforeThanEndDate(function() {
             assertTimeFieldShouldNotBeEmpty(function() {
               $('form#create-new-rule-form').submit();
+            });
+          });
+        });
+        break;
+      case '2':
+        assertPurposeFieldShouldNotBeEmpty(function() {
+          assertStartDateShouldBeforeThanEndDate(function() {
+            assertWeekdayFieldShouldNotBeEmpty(function() {
+              assertTimeFieldShouldNotBeEmpty(function() {
+                $('form#create-new-rule-form').submit();
+              });
             });
           });
         });

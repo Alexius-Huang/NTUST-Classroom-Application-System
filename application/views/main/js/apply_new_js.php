@@ -294,7 +294,7 @@ $(document).ready(function() {
                         '<p><?php echo ($lang === 'zh-TW' ? '場地使用目的' : 'Purpose'); ?>：' + data.purpose + '</p>' +
                       '</span>' +
                     '</div>' +
-                  '</div><p><strong><?php echo ($lang === 'zh-TW' ? '請再次確認送出之場地申請資料！' : 'Please check your application again!' ); ?></strong></p>',
+                  '</div><p><strong><?php echo ($lang === 'zh-TW' ? '請再次確認送出之場地申請資料！<br/><span style="color: red">系學會申請場地均需至社團管理系統登錄活動申請</span>' : 'Please check your application again!' ); ?></strong></p>',
             showCancelButton: true,
             confirmButtonText: '<?php echo ($lang === 'zh-TW' ? '送出' : 'Submit' ) ?>',
             cancelButtonText: '<?php echo ($lang === 'zh-TW' ? '取消' : 'Cancel' ); ?>',

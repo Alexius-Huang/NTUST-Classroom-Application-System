@@ -56,6 +56,33 @@ class Admin extends WEB_Controller {
     } else $this->classroom_model->delete_classroom_rule($classroom_rule_id);
   }
 
+  public function get_conflicted_applications() {
+    if ($id = $this->input->post('application_id')) {
+      $application = $this->apply_model->get_apply($id);
+      $conflicted_ids = array();
+      $conflicted = array();
+      foreach (TIME_ARRAY() as $time) {
+        $where = array(
+          'classroom_id' => $application['classroom_id'],
+          'time'.$time => '1',
+          'date' => $application['date'],
+          'status' => '0'
+        );
+        if ($application['time'.$time] == 1 AND $conflicted_applications = $this->apply_model->get_applies($where)) {
+          foreach ($conflicted_applications as $ca) {
+            if ( ! in_array($ca['id'], $conflicted_ids) AND $application['id'] != $ca['id']) {
+              $conflicted_ids[] = $ca['id'];
+              $ca['classroom'] = $this->classroom_model->get_classroom($ca['classroom_id']);
+              $ca['time'] = classroom_rule_display_time($ca);
+              $conflicted[] = $ca;
+            }
+          }
+        }
+      }
+      echo json_encode($conflicted);
+    }
+  }
+
   public function check_application() {
     if (  $id = $this->input->post('id')
       AND $mode = $this->input->post('mode')

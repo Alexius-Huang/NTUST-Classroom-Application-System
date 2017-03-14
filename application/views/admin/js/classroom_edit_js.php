@@ -84,7 +84,7 @@ $(document).ready(function() {
   /* Datatable */
   $('table#rules').DataTable({
     lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, '顯示全部']],
-    order: [[ 2, "desc" ], [ 0, "desc" ]],
+    order: [[ 3, "desc" ], [ 0, "desc" ]],
     language: {
       emptyTable:     "無資料可供顯示。",
       info:           "正在顯示第 _START_ 至 _END_ 筆資料，共 _TOTAL_ 筆",

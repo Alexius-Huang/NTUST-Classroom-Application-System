@@ -42,31 +42,56 @@ $(document).ready(function() {
       data: { without_auth: true, date: date },
       success: function(classrooms) {
         /* RENDER TABLE DATA */
-        //console.log(classrooms);
         for (var classroom of classrooms) {
           var tableRow = document.createElement('tr');
           var header = document.createElement('th');
-          header.innerHTML = classroom.name;
+          header.innerHTML = name;
           tableRow.append(header);
           for (var time of ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D']) {
             var tableData = document.createElement('td');
-            switch(classroom['time' + time]) {
-              case 'disabled':
-                tableData.className = 'label-danger';
-                tableData.innerHTML = '<?php echo render_icon('ban'); ?>'
-                break;
-                
-              case 'await':
-                tableData.className = 'label-primary';
-                tableData.innerHTML = '<?php echo render_icon('hourglass-start'); ?>'
-                break;
+            if (classroom['time' + time] && classroom['time' + time].status ) {
+              switch(classroom['time' + time].status) {
+                case 'disabled':
+                  tableData.className = 'label-danger';
+                  if (classroom['time' + time].purpose == '') { classroom['time' + time].purpose = 'N/A' }
+                  params = '\'' + classroom['time' + time].classroom + '\', \'' +
+                                  classroom['time' + time].type + '\', \'' +
+                                  classroom['time' + time].date + '\', \'' +
+                                  classroom['time' + time].time + '\', \'' +
+                                  classroom['time' + time].weekday + '\', \'' +
+                                  classroom['time' + time].purpose + '\'';
+                  tableData.innerHTML = '<a href="#" style="color: white" onclick="banned_info(' + params + ')"><?php echo render_icon('ban'); ?></a>';
+                  break;
+                  
+                case 'await':
+                  tableData.className = 'label-primary';
+                  // tableData.innerHTML = '<?php echo render_icon('hourglass-start'); ?>'
+                  if (classroom['time' + time].purpose == '') { classroom['time' + time].purpose = 'N/A' }
+                  params = '\'' + classroom['time' + time].classroom + '\', \'' +
+                                  classroom['time' + time].participant_count + '\', \'' +
+                                  classroom['time' + time].date + '\', \'' +
+                                  classroom['time' + time].time + '\', \'' +
+                                  classroom['time' + time].organization + '\', \'' +
+                                  classroom['time' + time].applicant + '\', \'' +
+                                  classroom['time' + time].purpose + '\'';
+                  tableData.innerHTML = '<a href="#" style="color: white" onclick="checked_info(' + params + ')"><?php echo render_icon('hourglass-start'); ?></a>'
+                  break;
 
-              case 'checked':
-                tableData.className = 'label-success';
-                tableData.innerHTML = '<a href="#"><?php echo render_icon('check'); ?></a>'
-                break;
+                case 'checked':
+                  tableData.className = 'label-success';
+                  if (classroom['time' + time].purpose == '') { classroom['time' + time].purpose = 'N/A' }
+                  params = '\'' + classroom['time' + time].classroom + '\', \'' +
+                                  classroom['time' + time].participant_count + '\', \'' +
+                                  classroom['time' + time].date + '\', \'' +
+                                  classroom['time' + time].time + '\', \'' +
+                                  classroom['time' + time].organization + '\', \'' +
+                                  classroom['time' + time].applicant + '\', \'' +
+                                  classroom['time' + time].purpose + '\'';
+                  tableData.innerHTML = '<a href="#" onclick="checked_info(' + params + ')"><?php echo render_icon('check'); ?></a>'
+                  break;
 
-              default: /* NOTHING */
+                default: /* NOTHING */
+              }
             }
             tableRow.append(tableData);
           }

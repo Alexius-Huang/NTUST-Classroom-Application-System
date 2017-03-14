@@ -6,6 +6,10 @@ class Admin_authentication extends WEB_Controller {
     parent::__construct();
     $this->load->model('admin_model');
   }
+  
+  public function index() {
+    redirect('admin_authentication/signin');
+  }
 
   public function signin() {
     /* If session already exist, then redirect to the main user page */

@@ -5,13 +5,23 @@
   <div class="box-body">
     <table id="datatable" class="table table-striped table-bordered">
       <thead>
-        <tr> <th class="text-center">提出申請時間</th> <th class="text-center">借用場地</th> <th class="text-center">借用申請人</th> <th class="text-center">借用單位</th> <th class="text-center">檢視</th> </tr>
+        <tr>
+          <th class="text-center">提出申請時間</th>
+          <th class="text-center">借用場地</th>
+          <th class="text-center">借用日期</th>
+          <th class="text-center">借用時段</th>
+          <th class="text-center">借用申請人</th>
+          <th class="text-center">借用單位</th>
+          <th class="text-center">檢視</th>
+        </tr>
       </thead>
       <tbody>
         <?php foreach($applies as $apply): ?>
           <tr data-id="<?php echo $apply['id']; ?>" class="appliance">
             <td class="text-center"><?php echo date('Y-m-d H:i:s', $apply['created_at']) ?></td>
             <td class="text-center"><?php echo $apply['classroom']['name']; ?></td>
+            <td class="text-center"><?php echo $apply['date'].'（'.get_weekday_from_date($apply['date']).'）'; ?></td>
+            <td class="text-center"><?php echo classroom_rule_display_time($apply); ?></td>
             <td class="text-center"><?php echo $apply['applicant'].'（'.$apply['applicantPosition'].'）'; ?></td>
             <td class="text-center"><?php echo $apply['organization']; ?></td>
             <td class="text-center">

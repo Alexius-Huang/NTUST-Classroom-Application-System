@@ -22,10 +22,11 @@
             <tr>
               <th class="hidden-xs">ID</th>
               <th class="text-center"><span class="hidden-xs">規則</span>類型</th>
+              <th class="text-center">原由</th>
               <th class="text-center">日期</th>
               <th class="text-center">星期</th>
               <th class="text-center">時段</th>
-              <th>刪除</th>
+              <th class="text-center">刪除</th>
             </tr>
           </thead>
           <tbody>
@@ -33,10 +34,11 @@
               <tr>
                 <td><?php echo $rule['id']; ?></td>
                 <td class="text-center"><?php echo classroom_rule_type($rule['type'], TRUE); ?></td>
+                <td class="text-center"><?php echo $rule['purpose']; ?></td>
                 <td class="text-center"><?php echo classroom_rule_display_date($rule['start'], $rule['end']); ?></td>
                 <td class="text-center"><?php echo classroom_rule_display_weekday($rule['weekday']); ?></td>
                 <td class="text-center"><?php echo classroom_rule_display_time($rule); ?></td>
-                <td>
+                <td class="text-center">
                   <span
                     class="btn btn-xs btn-danger delete-classroom-rule"
                     data-id="<?php echo $rule['id']; ?>"

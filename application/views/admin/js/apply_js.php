@@ -123,28 +123,64 @@ $(document).ready(function() {
   $('table#datatable').on('click', '.btn-inspect', function(event) {
     event.preventDefault();
     var data = $(this).data();
-    swal({
-      title: '檢視審核借用申請',
-      html: '<div class="box box-primary">' +
-              '<div class="box-body text-left">' +
-                '<p>提出申請時間：' + data.created + '</p>' +
-                '<p>借用場地：' + data.classroom + '</p>' +
-                '<p>借用場地人數：' + data.participantCount + '</p>' +
-                '<p>借用日期：' + data.date + '</p>' +
-                '<p>借用時段：' + data.time + '</p>' +
-                '<p>借用單位：' + data.organization + '</p>' +
-                '<p>借用申請人：' + data.applicant + '</p>' +
-                '<p>借用目的：' + data.purpose + '</p>' +
-              '</div>' +
-            '</div><p>您即將審核此申請，<span style="color:red">若有其他申請其時段衝突到本申請時段，則此申請通過後其他的申請將自動駁回</span></p>',
-      showCancelButton: true,
-      confirmButtonText: '<?php echo render_icon('check'); ?> 通過申請',
-      cancelButtonText: '<?php echo render_icon('times'); ?> 駁回申請',
-      cancelButtonColor: '#dd4b39'
-    }).then(function() {
-      post_check_application({ id: data.id, mode: 'approve' });
-    }, function(dismiss) {
-      if (dismiss === 'cancel') { post_check_application({ id: data.id, mode: 'reject' }); }
+
+    // Find the conflicted applications
+    $.ajax({
+      type: 'post',
+      data: { application_id: data.id },
+      dataType: 'json',
+      cache: false,
+      url: '<?php echo base_url(); ?>ajax/admin/get_conflicted_applications',
+      success: function(conflicted) {
+        var conflicted_html = "";
+
+        if (conflicted.length != 0) {
+          conflicted_html = '<div class="box box-warning">' +
+                              '<div class="box-body text-left">' +
+                                '<p>以下為該時段之其他申請 (請往下滑以檢視更多)</p>';
+
+          for (var i = 0; i < conflicted.length; i++) {
+            application = conflicted[i];
+            conflicted_html +=  '<hr /><p>借用場地：' + application.classroom.name + '</p>' +
+                                '<p>借用人數：' + application.participantCount + '</p>' +
+                                '<p>借用日期：' + application.date + '</p>' +
+                                '<p>借用時段：' + application.time + '</p>' +
+                                '<p>借用單位：' + application.organization + '</p>' +
+                                '<p>申請人：' + application.applicant + '</p>' +
+                                '<p>借用目的：' + application.purpose + '</p>' +
+                                '<p>聯絡電話：' + application.phone + '</p>';
+          }                    
+          conflicted_html +=  '</div>' +
+                            '</div>';
+        }
+
+        swal({
+          title: '檢視審核借用申請',
+          html: '<div class="pre-scrollable" style="max-height: 500px;"><div class="box box-primary">' +
+                  '<div class="box-body text-left">' +
+                    '<p>提出申請時間：' + data.created + '</p>' +
+                    '<p>借用場地：' + data.classroom + '</p>' +
+                    '<p>借用場地人數：' + data.participantCount + '</p>' +
+                    '<p>借用日期：' + data.date + '</p>' +
+                    '<p>借用時段：' + data.time + '</p>' +
+                    '<p>借用單位：' + data.organization + '</p>' +
+                    '<p>借用申請人：' + data.applicant + '</p>' +
+                    '<p>借用目的：' + data.purpose + '</p>' +
+                    '<p>聯絡電話：' + data.phone + '</p>' +
+                  '</div>' +
+                '</div>' + conflicted_html +
+                '</div><br/><p>您即將審核此申請，<span style="color:red">若有其他申請其時段衝突到本申請時段，則此申請通過後其他的申請將自動駁回</span></p>',
+          showCancelButton: true,
+          confirmButtonText: '<?php echo render_icon('check'); ?> 通過申請',
+          cancelButtonText: '<?php echo render_icon('times'); ?> 駁回申請',
+          cancelButtonColor: '#dd4b39'
+        }).then(function() {
+          post_check_application({ id: data.id, mode: 'approve' });
+        }, function(dismiss) {
+          if (dismiss === 'cancel') { post_check_application({ id: data.id, mode: 'reject' }); }
+        });
+      },
+      error: function() { show_error_message(); }
     });
   });
 });

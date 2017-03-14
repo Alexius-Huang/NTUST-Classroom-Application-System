@@ -80,6 +80,14 @@
               <a id="time-cancel-all" class="btn btn-info btn-select-none">全部取消</a>
             </div>
           </div>
+
+          <div id="purpose-field" class="col-md-12 form-group">
+            <label>原由</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></div>
+              <input id="purpose" name="purpose" class="form-control" required />
+            </div>
+          </div>
         </form>
       </div>
     </div>

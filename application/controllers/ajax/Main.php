@@ -101,16 +101,34 @@ class Main extends WEB_Controller {
             case 0:
               if ($rule['start'] === $date) {
                 foreach (TIME_ARRAY() as $time) {
-                  if ($rule['time'.$time] == 1 AND ( ! isset($classrooms[$index]['time'.$time])))
-                    $classrooms[$index]['time'.$time] = 'disabled';
+                  if ($rule['time'.$time] == 1 AND ( ! isset($classrooms[$index]['time'.$time]))) {
+                    $classrooms[$index]['time'.$time] = array(
+                      'status'    => 'disabled',
+                      'type'      => '單日不開放',
+                      'classroom' => $classroom['name'],
+                      'purpose'   => $rule['purpose'],
+                      'date'      => $rule['start'],
+                      'weekday'   => 'N/A',
+                      'time'      => classroom_rule_display_time($rule)
+                    );
+                  }
                 }
               }
               break;
             case 1:
               if ($rule['start'] <= $date AND $rule['end'] >= $date) {
                 foreach (TIME_ARRAY() as $time) {
-                  if ($rule['time'.$time] == 1 AND ( ! isset($classrooms[$index]['time'.$time])))
-                    $classrooms[$index]['time'.$time] = 'disabled';
+                  if ($rule['time'.$time] == 1 AND ( ! isset($classrooms[$index]['time'.$time]))) {
+                    $classrooms[$index]['time'.$time] = array(
+                      'status'    => 'disabled',
+                      'type'      => '連續不開放',
+                      'classroom' => $classroom['name'],
+                      'purpose'   => $rule['purpose'],
+                      'weekday'   => 'N/A',
+                      'date'      => classroom_rule_display_date($rule['start'], $rule['end']),
+                      'time'      => classroom_rule_display_time($rule)
+                    );
+                  }
                 }
               }
               break;
@@ -118,8 +136,17 @@ class Main extends WEB_Controller {
               $weekdayArray = get_weekday_array($rule['weekday']);
               if ($rule['start'] <= $date AND $rule['end'] >= $date AND $weekdayArray[$weekday] == 1) {
                 foreach (TIME_ARRAY() as $time) {
-                  if ($rule['time'.$time] == 1 AND ( ! isset($classrooms[$index]['time'.$time])))
-                    $classrooms[$index]['time'.$time] = 'disabled';
+                  if ($rule['time'.$time] == 1 AND ( ! isset($classrooms[$index]['time'.$time]))) {
+                    $classrooms[$index]['time'.$time] = array(
+                      'status'    => 'disabled',
+                      'type'      => '依星期不開放',
+                      'classroom' => $classroom['name'],
+                      'purpose'   => $rule['purpose'],
+                      'date'      => classroom_rule_display_date($rule['start'], $rule['end']),
+                      'weekday'   => classroom_rule_display_weekday($rule['weekday']),
+                      'time'      => classroom_rule_display_time($rule)
+                    );
+                  }
                 }
               }
               break;
@@ -130,14 +157,34 @@ class Main extends WEB_Controller {
           switch((int)$apply['status']) {
             case 0:
               foreach (TIME_ARRAY() as $time) {
-                if ($apply['time'.$time] == 1  AND ( ! isset($classrooms[$index]['time'.$time])))
-                  $classrooms[$index]['time'.$time] = 'await';
+                if ($apply['time'.$time] == 1  AND ( ! isset($classrooms[$index]['time'.$time]))) {
+                  $classrooms[$index]['time'.$time] = array(
+                    'status'            => 'await',
+                    'classroom'         => $classroom['name'],
+                    'participant_count' => $apply['participantCount'],
+                    'date'              => $apply['date'],
+                    'time'              => classroom_rule_display_time($apply),
+                    'organization'      => $apply['organization'],
+                    'applicant'         => $apply['applicant'] + '（' + $apply['applicantPosition'] + '）',
+                    'purpose'           => $apply['purpose']
+                  );
+                }
               }
               break;
             case 1:
               foreach (TIME_ARRAY() as $time) {
-                if ($apply['time'.$time] == 1  AND ( ! isset($classrooms[$index]['time'.$time])))
-                  $classrooms[$index]['time'.$time] = 'checked';
+                if ($apply['time'.$time] == 1  AND ( ! isset($classrooms[$index]['time'.$time]))) {
+                  $classrooms[$index]['time'.$time] = array(
+                    'status'            => 'checked',
+                    'classroom'         => $classroom['name'],
+                    'participant_count' => $apply['participantCount'],
+                    'date'              => $apply['date'],
+                    'time'              => classroom_rule_display_time($apply),
+                    'organization'      => $apply['organization'],
+                    'applicant'         => $apply['applicant'].'（'.$apply['applicantPosition'].'）',
+                    'purpose'           => $apply['purpose']
+                  );
+                }
               }
               break;
             case 4:

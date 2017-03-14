@@ -77,6 +77,7 @@ class Classroom_model extends CI_Model {
     $insert = array(
       'classroom_id' => $data['classroom_id'],
       'type'         => $data['type'],
+      'purpose'      => $data['purpose'],
       'start'        => $data['start'],
       'end'          => $data['end'],
       'weekday'      => $data['weekday'],
