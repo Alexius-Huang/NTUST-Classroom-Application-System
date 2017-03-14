@@ -74,7 +74,7 @@
             </div>
           </div>
           <div class="box-footer">
-            <button id="signin-submit-btn" class="btn btn-primary">登入</button>
+            <button id="signin-submit-btn" class="btn btn-primary">Sign In</button>
           </div>
         </div>
       </form>
