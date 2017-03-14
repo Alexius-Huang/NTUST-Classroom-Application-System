@@ -120,7 +120,7 @@ $(document).ready(function() {
     })
   }
 
-  $('button.btn-inspect').on('click', function(event) {
+  $('table#datatable').on('click', '.btn-inspect', function(event) {
     event.preventDefault();
     var data = $(this).data();
     swal({

@@ -26,17 +26,20 @@
             ?>
             <td class="text-center">
               <button
-                data-created="<?php echo date('Y-m-d H:i:s', $apply['created_at']); ?>"
-                data-status="<?php echo apply_state_type($apply['status']); ?>"
-                data-classroom="<?php echo $apply['classroom']['name']; ?>"
-                data-date="<?php echo $apply['date'].'（'.get_weekday_from_date($apply['date']).'）'; ?>"
-                data-time="<?php echo classroom_rule_display_time($apply); ?>"
-                data-organization="<?php echo $apply['organization']; ?>"
-                data-applicant="<?php echo $apply['applicant'].'（'.$apply['applicantPosition'].'）'; ?>"
-                data-phone="<?php echo $apply['phone']; ?>"
-                data-participant-count="<?php echo $apply['participantCount']; ?>"
-                data-purpose="<?php echo $apply['purpose']; ?>"
                 class="btn btn-xs btn-primary btn-inspect"
+                onclick="clicked(
+                  '<?php echo date('Y-m-d H:i:s', $apply['created_at']); ?>',
+                  '<?php echo apply_state_type($apply['status']); ?>',
+                  '<?php echo $apply['classroom']['name']; ?>',
+                  '<?php echo $apply['date'].'（'.get_weekday_from_date($apply['date']).'）'; ?>',
+                  '<?php echo classroom_rule_display_time($apply); ?>',
+                  '<?php echo $apply['organization']; ?>',
+                  '<?php echo $apply['applicant'].'（'.$apply['applicantPosition'].'）'; ?>',
+                  '<?php echo $apply['phone']; ?>',
+                  '<?php echo $apply['participantCount']; ?>',
+                  '<?php echo $apply['purpose']; ?>'
+
+                )"
               ><?php echo render_icon('eye'); ?> 檢視</button>
             </td>
           </tr>
@@ -46,3 +49,27 @@
     <?php $this->load->view('admin/js/application_js'); ?>
   </div>
 </div>
+
+<script>
+  function clicked(created, status, classroom, participantCount, date, time, organization, applicant, phone, purpose) {
+    var data = $(this).data();
+    swal({
+      title: '檢視申請紀錄',
+      html: '<div class="box box-primary">' +
+              '<div class="box-body text-left">' +
+                '<p>提出申請時間：' + created + '</p>' +
+                '<p>狀態：' + status + '</p>' +
+                '<p>借用場地：' + classroom + '</p>' +
+                '<p>場地人數：' + participantCount + '</p>' +
+                '<p>借用日期：' + date + '</p>' +
+                '<p>借用時段：' + time + '</p>' +
+                '<p>申請單位（社團）：' + organization + '</p>' +
+                '<p>申請人員：' + applicant + '</p>' +
+                '<p>申請人電話：' + phone + '</p>' +
+                '<p>申請目的：' + purpose + '</p>' +
+              '</div>' +
+            '</div>',
+      confirmButtonText: '關閉'
+    }).then(function () { /* DO NOTHING */ });
+  }
+</script>

@@ -19,7 +19,7 @@ class Main extends WEB_Controller {
   }
 
   public function index($lang = 'zh-TW') {
-    redirect('main/apply_notice'.$lang);
+    redirect('main/apply_notice/'.$lang);
   }
 
   public function apply_notice($lang = 'zh-TW') {
@@ -74,7 +74,7 @@ class Main extends WEB_Controller {
 
     $view['classroom_available'] = $this->classroom_model->get_classrooms(array('disabled' => '0'));
 
-    $this->load->js('http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js');
+    $this->load->js('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js');
     $this->load->js('assets/datepicker/js/bootstrap-datepicker.min.js');
     $this->load->js('assets/datepicker/locales/bootstrap-datepicker.zh-TW.min.js');
     $this->load->view('main/apply_new_view', $view);

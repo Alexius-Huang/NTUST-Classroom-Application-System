@@ -45,7 +45,7 @@ class Main_authentication extends WEB_Controller {
   public function classroom_status($lang = 'zh-TW') {
     $view = array('page' => 'classroom_status', 'lang' => $lang);
 
-    $this->load->js('http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js');
+    $this->load->js('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js');
     $this->load->js('assets/datepicker/js/bootstrap-datepicker.min.js');
     $this->load->js('assets/datepicker/locales/bootstrap-datepicker.zh-TW.min.js');
     $this->load->view('main/classroom_status_view', $view);

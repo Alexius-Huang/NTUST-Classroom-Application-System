@@ -18,6 +18,10 @@ class Admin extends WEB_Controller {
     $this->load->model('apply_model');
   }
 
+  public function index() {
+    redirect('admin/main');
+  }
+
   public function main() {
     $view = array(
       'username' => 'admin',
@@ -39,6 +43,13 @@ class Admin extends WEB_Controller {
       'page' => 'apply',
       'applies' => $this->apply_model->get_applies(array('status' => '0', 'date >' => date('Y-m-d')))
     );
+
+    $outdated = $this->apply_model->get_applies(array('status' => '0', 'date <=' => date('Y-m-d')));
+    if ( ! empty($outdated)) {
+      foreach ($outdated as $apply) {
+        $this->apply_model->check_apply($apply['id'], 'reject');
+      } 
+    }
 
     foreach ($view['applies'] as $index => $apply) {
       if ($classroom = $this->classroom_model->get_classroom($apply['classroom_id'])) {

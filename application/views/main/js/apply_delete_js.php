@@ -54,7 +54,7 @@ $(document).ready(function() {
     <?php endif; ?>
   }
   
-  $('button.btn-delete').on('click', function(event) {
+  $('table#datatable').on('click', '.btn-delete', function(event) {
     event.preventDefault();
     var data = $(this).data();
     swal({
