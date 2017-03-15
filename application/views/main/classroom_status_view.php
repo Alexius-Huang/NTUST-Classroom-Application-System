@@ -1,10 +1,10 @@
 <?php if ($lang === 'zh-TW'): ?>
 
-<title>借用狀態查詢 - 學生活動大樓教室借用系統</title>
+<title>借用狀態查詢 - 學生活動中心場地借用系統</title>
 <section class="content-header">
   <h1>借用狀態查詢</h1>
   <ol class="breadcrumb">
-    <li><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW">學生活動大樓教室借用系統</a></li>
+    <li><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW">學生活動中心場地借用系統</a></li>
     <li class="active"><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW">借用狀態查詢</a></li>
   </ol>
 </section>
@@ -113,7 +113,6 @@
 
 <script>
   function checked_info(classroom, participant_count, date, time, organization, applicant, purpose) {
-    // console.log(classroom, participant_count, date, time, organization, applicant, purpose)
     swal({
       title: <?php if ($lang == 'zh-TW'): ?> '借用狀態查詢' <?php else: ?> 'Status of Classroom Leasing' <?php endif; ?>,
       html: '<div class="box box-primary">' +

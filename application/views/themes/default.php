@@ -6,7 +6,7 @@
 		<meta name="googlebot" content="all, index, follow" />
 		<meta charset="utf-8" />
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
-		<meta name="description" content="國立台灣科技大學學生活動大樓教室借用系統。" />
+		<meta name="description" content="國立台灣科技大學學生活動中心場地借用系統。" />
 		<meta name="theme-color" content="#1f1f1f" />
 		<meta name="msapplication-navbutton-color" content="#1f1f1f" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />

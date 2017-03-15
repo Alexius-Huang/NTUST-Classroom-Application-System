@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
-  <meta name="description" content="<?php if ($lang === 'zh-TW'): ?>國立台灣科技大學學生活動大樓教室借用系統。<?php elseif ($lang === 'en-us'): ?>National Taiwan University of Science and Technology - Classroom Leasing System for Students<?php endif; ?>" />
+  <meta name="description" content="<?php if ($lang === 'zh-TW'): ?>國立台灣科技大學學生活動中心場地借用系統。<?php elseif ($lang === 'en-us'): ?>National Taiwan University of Science and Technology - Classroom Leasing System for Students<?php endif; ?>" />
   <meta name="theme-color" content="#1f1f1f" />
   <meta name="msapplication-navbutton-color" content="#1f1f1f" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -64,7 +64,7 @@
   <div class="wrapper">
     <header class="main-header">
       <a href="/" class="logo">
-        <span class="logo-lg"><b>NTUST</b>SG</span>
+        <span class="logo-lg"><b>NTUST</b></span>
       </a>
       <nav class="navbar navbar-static-top" role="navigation">
         <a href="#" class="sidebar-toggle hidden-sm hidden-md hidden-lg" data-toggle="offcanvas" role="button">
@@ -136,7 +136,7 @@
   <div class="wrapper">
     <header class="main-header">
       <a href="<?php echo base_url(); ?>main_authentication/classroom_status/en-us" class="logo">
-        <span class="logo-lg"><b>NTUST</b>SG</span>
+        <span class="logo-lg"><b>NTUST</b></span>
       </a>
       <nav class="navbar navbar-static-top" role="navigation">
         <a href="#" class="sidebar-toggle hidden-sm hidden-md hidden-lg" data-toggle="offcanvas" role="button">

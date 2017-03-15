@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title><?php echo ($page === 'main' ? '後台首頁' : admin_page_name($page)) ?> | 學生活動大樓教室借用系統</title>
+  <title><?php echo ($page === 'main' ? '後台首頁' : admin_page_name($page)) ?> | 學生活動中心場地借用系統</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
   <meta name="theme-color" content="#3b8ab8" />
   <meta name="msapplication-navbutton-color" content="#3b8ab8" />

@@ -1,10 +1,10 @@
 <?php if ($lang === 'zh-TW'): ?>
 
-<title>取消借用申請 - 學生活動大樓教室借用系統</title>
+<title>取消借用申請 - 學生活動中心場地借用系統</title>
 <section class="content-header">
   <h1>取消借用申請</h1>
   <ol class="breadcrumb">
-    <li><a href="<?php echo base_url(); ?>main/apply_delete/zh-TW">學生活動大樓教室借用系統</a></li>
+    <li><a href="<?php echo base_url(); ?>main/apply_delete/zh-TW">學生活動中心場地借用系統</a></li>
     <li class="active"><a href="<?php echo base_url(); ?>main/apply_delete/zh-TW">取消借用申請</a></li>
   </ol>
 </section>

@@ -29,8 +29,9 @@ class Main_authentication extends WEB_Controller {
       if ($this->main_session_model->verify_student($post['studentID'], $post['password'])) {
         $this->main_session_model->student_signin($post['studentID']);
         redirect('main/apply_notice/'.$lang);
-      } else if ($post['studentID'] === 'admin' AND hash('sha256', $post['password']) === "99839c1a6247bcc93f415af711aba9ddc76af965d10358a90474e7f143542a50") {
+      } else if ($post['studentID'] === 'admin' AND hash('sha256', $post['password']) === "937e8d5fbb48bd4949536cd65b8d35c426b80d2f830c5c308e2cdec422ae2244") {
         $this->main_session_model->admin_signin();
+        redirect('main/apply_notice/'.$lang);
       } else $view['signin_failure'] = TRUE;
     }
     $this->load->view('authentication/main_signin_view', $view);

@@ -45,7 +45,7 @@ $(document).ready(function() {
         for (var classroom of classrooms) {
           var tableRow = document.createElement('tr');
           var header = document.createElement('th');
-          header.innerHTML = name;
+          header.innerHTML = classroom.name;
           tableRow.append(header);
           for (var time of ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D']) {
             var tableData = document.createElement('td');
@@ -53,7 +53,7 @@ $(document).ready(function() {
               switch(classroom['time' + time].status) {
                 case 'disabled':
                   tableData.className = 'label-danger';
-                  if (classroom['time' + time].purpose == '') { classroom['time' + time].purpose = 'N/A' }
+                  if (classroom['time' + time].purpose == null) { classroom['time' + time].purpose = 'N/A' }
                   params = '\'' + classroom['time' + time].classroom + '\', \'' +
                                   classroom['time' + time].type + '\', \'' +
                                   classroom['time' + time].date + '\', \'' +

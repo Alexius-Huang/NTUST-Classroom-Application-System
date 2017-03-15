@@ -1,6 +1,6 @@
 <?php if ($lang === 'zh-TW'): ?>
 
-<title>登入 - 學生活動大樓教室借用系統</title>
+<title>登入 - 學生活動中心場地借用系統</title>
 <section class="content-header">
   <h1>登入</h1>
   <ol class="breadcrumb">
