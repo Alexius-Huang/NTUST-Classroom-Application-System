@@ -3,7 +3,9 @@
     <div class="box box-default">
       <div class="box-body">
         <a class="btn btn-default" href="<?php echo base_url(); ?>admin/classroom">&laquo; 返回場地列表</a>
-        <a class="btn btn-primary pull-right" href="<?php echo base_url().'admin/classroom_edit/'.$classroom['id']; ?>">檢視此場地所有規則 &raquo</a>
+        <?php if ($classroom != '全部的場地'): ?>
+          <a class="btn btn-primary pull-right" href="<?php echo base_url().'admin/classroom_edit/'.$classroom['id']; ?>">檢視此場地所有規則 &raquo</a>
+        <?php endif; ?>
       </div>
     </div>
   </div>
@@ -13,11 +15,21 @@
   <div class="col-md-12">
     <div class="box box-primary">
       <div class="box-header">
+        <?php if ($classroom != '全部的場地'): ?>
         <h3 class="box-title">新增不開放規則至場地「<?php echo $classroom['name']; ?>」</h3>
+        <?php else: ?>
+        <h3 class="box-title">新增不開放規則至全部的場地</h3>
+        <?php endif; ?>
         <p>若規則有衝突到場地申請，則<span style="color: red">自動駁回所有衝突之場地申請項目</span></p>
       </div>
       <div class="box-body">
+        
+        <?php if ($classroom != '全部的場地'): ?>
         <form id="create-new-rule-form" action="<?php echo base_url(); ?>admin/classroom_rule_create/<?php echo $classroom['id']; ?>" method="post">
+        <?php else: ?>
+        <form id="create-new-rule-form" action="<?php echo base_url(); ?>admin/classroom_rule_create_to_all" method="post">
+        <?php endif; ?>  
+          
           <div class="col-md-12 form-group fields field-rule-type">
             <label>規則類型</label>
             <div class="input-group btn-group" data-toggle="buttons">

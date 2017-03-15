@@ -4,6 +4,7 @@
       
       <div class="box-header">
         <h3 class="box-title">檢視與修改場地設定</h3>
+        <a href="<?php echo base_url(); ?>admin/classroom_rule_create_to_all" class="btn btn-success pull-right"><?php echo render_icon('plus'); ?> 新增規則至全部場地</a>
       </div>
 
       <div class="box-body">

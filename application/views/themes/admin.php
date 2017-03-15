@@ -161,7 +161,7 @@
       <div class="pull-right hidden-xs">
         本後台採用 <a href="https://almsaeedstudio.com" title="Almsaeed Studio"><b>Admin</b>LTE</a> 主題
       </div>
-      <strong>Copyright <a href="<?php echo base_url(); ?>admin/main">&copy;</a> 2016 <a href="http://sg.ntust.link" title="國立臺灣科技大學學生會">NTUSTSG</a>.</strong> All rights reserved.
+      <strong>Copyright <a href="<?php echo base_url(); ?>admin/main">&copy;</a> 2016.</strong> All rights reserved.
     </footer>
 
     <div class="control-sidebar-bg"></div>
