@@ -79,7 +79,7 @@
   <div class="wrapper">
     <header class="main-header">
       <a href="./" class="logo">
-        <span class="logo-lg"><b>NTUST</b>SG</span>
+        <span class="logo-lg"><b>NTUST</b></span>
       </a>
 
       <nav class="navbar navbar-static-top" role="navigation">

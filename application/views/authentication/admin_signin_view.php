@@ -38,7 +38,7 @@
 <body class="hold-transition login-page">
   <div class="login-box<?php //echo $msg_class ?>">
     <div class="login-logo">
-      <a href="./"><b>NTUST</b>SG</a>
+      <a href="./"><b>NTUST</b></a>
     </div><!-- /.login-logo -->
     <div class="login-box-body">
       <?php if ($warning_message): ?>

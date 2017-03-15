@@ -95,7 +95,7 @@
             <img src="<?php echo base_url(); ?>assets/images/logo.png" class="img-circle" alt="NTUST Logo" />
           </div>
           <div class="pull-left info">
-            <p><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW" class="site-title">學生活動大樓教室借用系統</a></p>
+            <p><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW" class="site-title">學生活動中心場地借用系統</a></p>
             <?php if ($this->session->userdata('signin')): ?>
               <p id="user_information"><span><?php echo $this->session->userdata('studentID'); ?></span> 您好！</p>
             <?php else: ?>
