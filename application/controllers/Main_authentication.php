@@ -26,7 +26,16 @@ class Main_authentication extends WEB_Controller {
     );
 
     if ($post = $this->input->post()) {
-      if ($this->main_session_model->verify_student($post['studentID'], $post['password'])) {
+      $result = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, stream_context_create(array(
+        'http' => array(
+          'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+          'method'  => 'POST',
+          'content' => http_build_query(array('secret' => '6LccyhkUAAAAANbf8MvaQXzTBKexyF8jrsxMxXK2', 'response' => $post['grecaptcha']))
+        )
+      ))), true);
+      if (!$result['success']) {
+        $view['signin_failure'] = TRUE;
+      } else if ($this->main_session_model->verify_student($post['studentID'], $post['password'])) {
         $this->main_session_model->student_signin($post['studentID']);
         redirect('main/apply_notice/'.$lang);
       } else if ($post['studentID'] === 'admin' AND hash('sha256', $post['password']) === "54c588e584ec962d24789908e3c5d139e052e6e6ac3bd80081756910c7c26a4a") {

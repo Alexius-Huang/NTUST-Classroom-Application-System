@@ -29,10 +29,14 @@
                 <input class="form-control has-feedback" name="password" type="password" placeholder="請輸入學生資訊系統密碼" />
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
               </div>
+              <div class="g-recaptcha" data-sitekey="6LccyhkUAAAAAMcR3B5UeI7Hct19RBRL8s5SzuEJ"></div>
+              <input type="hidden" name="grecaptcha" value="" />
             </div>
           </div>
           <div class="box-footer">
             <button id="signin-submit-btn" class="btn btn-primary">登入</button>
+            <br>
+            <p>備註：建議使用 IE 以外的瀏覽器</p>
           </div>
         </div>
       </form>
@@ -71,10 +75,14 @@
                 <input class="form-control has-feedback" name="password" type="password" placeholder="Please Enter your Student Password" />
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
               </div>
+              <div class="g-recaptcha" data-sitekey="6LccyhkUAAAAAMcR3B5UeI7Hct19RBRL8s5SzuEJ"></div>
+              <input type="hidden" name="grecaptcha" value="" />
             </div>
           </div>
           <div class="box-footer">
             <button id="signin-submit-btn" class="btn btn-primary">Sign In</button>
+            <br>
+            <p>Hint: It is recommanded to use browsers other than IE</p>
           </div>
         </div>
       </form>
@@ -83,3 +91,12 @@
 </section>
 
 <?php endif; ?>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script>
+  $('button#signin-submit-btn').on('click', function(event) {
+    event.preventDefault();
+    $('input[name="grecaptcha"]')[0].setAttribute('value', grecaptcha.getResponse());
+    $('form#form_login').submit();
+  });
+</script>
