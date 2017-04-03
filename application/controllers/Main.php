@@ -19,7 +19,7 @@ class Main extends WEB_Controller {
   }
 
   public function index($lang = 'zh-TW') {
-    redirect('main/apply_notice/'.$lang);
+    $this->load->view('main/index_view');
   }
 
   public function apply_notice($lang = 'zh-TW') {

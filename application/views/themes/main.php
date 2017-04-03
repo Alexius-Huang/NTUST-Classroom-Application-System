@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
-  <meta name="description" content="<?php if ($lang === 'zh-TW'): ?>國立台灣科技大學學生活動中心場地借用系統。<?php elseif ($lang === 'en-us'): ?>National Taiwan University of Science and Technology - Classroom Leasing System for Students<?php endif; ?>" />
+  <meta name="description" content="<?php if ($lang === 'zh-TW'): ?>國立台灣科技大學學生活動中心場地暨器材借用管理系統。<?php elseif ($lang === 'en-us'): ?>National Taiwan University of Science and Technology - Classroom and Device Leasing System for Students<?php endif; ?>" />
   <meta name="theme-color" content="#1f1f1f" />
   <meta name="msapplication-navbutton-color" content="#1f1f1f" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -95,7 +95,13 @@
             <li class="nav-status">
               <a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW">
                 <?php echo render_icon('calendar'); ?>
-                <span class="hidden-xs hidden-sm">借用狀態查詢</span>
+                <span class="hidden-xs hidden-sm">場地借用狀態查詢</span>
+              </a>
+            </li>
+            <li class="nav-status">
+              <a href="<?php echo base_url(); ?>main_authentication/device_status/zh-TW">
+                <?php echo render_icon('calendar'); ?>
+                <span class="hidden-xs hidden-sm">器材借用狀態查詢</span>
               </a>
             </li>
           </ul>
@@ -109,7 +115,7 @@
             <img src="<?php echo base_url(); ?>assets/images/logo.png" class="img-circle" alt="NTUST Logo" />
           </div>
           <div class="pull-left info">
-            <p><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW" class="site-title">學生活動中心場地借用系統</a></p>
+            <p><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW" class="site-title">學生活動中心場地暨器材借用管理系統</a></p>
             <?php if ($this->session->userdata('signin')): ?>
               <p id="user_information"><span><?php echo $this->session->userdata('studentID'); ?></span> 您好！</p>
             <?php else: ?>
@@ -125,7 +131,8 @@
             <li class="nav-cancel <?php if ($page === 'apply_delete') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_delete/zh-TW"><?php echo render_icon('trash'); ?> 取消申請</a></li>
             <li class="nav-record <?php if ($page === 'apply_record') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_record/zh-TW"><?php echo render_icon('history'); ?> 借用記錄</a></li>
           <?php endif; ?>
-          <li class="nav-status <?php if ($page === 'classroom_status') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW"><?php echo render_icon('calendar'); ?> 借用狀態查詢</a></li>
+          <li class="nav-status <?php if ($page === 'classroom_status') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW"><?php echo render_icon('calendar'); ?> 場地借用狀態查詢</a></li>
+          <li class="nav-status <?php if ($page === 'device_status') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/device_status/zh-TW"><?php echo render_icon('calendar'); ?> 器材借用狀態查詢</a></li>
 
           <li class="header">帳號功能</li>
           <?php if ($this->session->userdata('signin')): ?>
@@ -167,7 +174,13 @@
             <li class="nav-status">
               <a href="<?php echo base_url(); ?>main_authentication/classroom_status/en-us">
                 <i class="fa fa-fw fa-calendar"></i>
-                <span class="hidden-xs hidden-sm">Status of Leasing</span>
+                <span class="hidden-xs hidden-sm">Status of Classroom Leasing</span>
+              </a>
+            </li>
+            <li class="nav-status">
+              <a href="<?php echo base_url(); ?>main_authentication/device_status/en-us">
+                <i class="fa fa-fw fa-calendar"></i>
+                <span class="hidden-xs hidden-sm">Status of Device Leasing</span>
               </a>
             </li>
           </ul>
@@ -181,7 +194,7 @@
             <img src="<?php echo base_url(); ?>assets/images/logo.png" class="img-circle" alt="NTUST Logo" />
           </div>
           <div class="pull-left info">
-            <p><a href="<?php echo base_url(); ?>main_authentication/classroom_status/en-us" class="site-title">Classroom Leasing System</a></p>
+            <p><a href="<?php echo base_url(); ?>main_authentication/classroom_status/en-us" class="site-title">Classroom and Device Leasing System</a></p>
             <?php if ($this->session->userdata('signin')): ?>
               <p id="user_information"><span><?php echo $this->session->userdata('studentID'); ?></span> Welcome!</p>
             <?php else: ?>
@@ -197,7 +210,8 @@
             <li class="nav-cancel <?php if ($page === 'apply_delete') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_delete/en-us"><?php echo render_icon('trash'); ?> Cancel</a></li>
             <li class="nav-record <?php if ($page === 'apply_record') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_record/en-us"><?php echo render_icon('history'); ?> Record</a></li>
           <?php endif; ?>
-          <li class="nav-status <?php if ($page === 'classroom_status') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/classroom_status/en-us"><?php echo render_icon('calendar'); ?> Status of Leasing</a></li>
+          <li class="nav-status <?php if ($page === 'classroom_status') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/classroom_status/en-us"><?php echo render_icon('calendar'); ?> Status of Classroom Leasing</a></li>
+          <li class="nav-status <?php if ($page === 'device_status') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/device_status/en-us"><?php echo render_icon('calendar'); ?> Status of Device Leasing</a></li>
 
           <li class="header">Account</li>
           <?php if ($this->session->userdata('signin')): ?>

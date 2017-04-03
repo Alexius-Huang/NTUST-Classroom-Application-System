@@ -26,14 +26,16 @@ class Main_authentication extends WEB_Controller {
     );
 
     if ($post = $this->input->post()) {
-      $result = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, stream_context_create(array(
-        'http' => array(
-          'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-          'method'  => 'POST',
-          'content' => http_build_query(array('secret' => '6LccyhkUAAAAANbf8MvaQXzTBKexyF8jrsxMxXK2', 'response' => $post['grecaptcha']))
-        )
-      ))), true);
-      if (!$result['success']) {
+      if ( ! is_developing()) {
+        $result = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, stream_context_create(array(
+          'http' => array(
+            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method'  => 'POST',
+            'content' => http_build_query(array('secret' => '6LccyhkUAAAAANbf8MvaQXzTBKexyF8jrsxMxXK2', 'response' => $post['grecaptcha']))
+          )
+        ))), true);
+      }
+      if ( ! is_developing() AND ! $result['success']) {
         $view['signin_failure'] = TRUE;
       } else if ($this->main_session_model->verify_student($post['studentID'], $post['password'])) {
         $this->main_session_model->student_signin($post['studentID']);
@@ -59,5 +61,11 @@ class Main_authentication extends WEB_Controller {
     $this->load->js('assets/datepicker/js/bootstrap-datepicker.min.js');
     $this->load->js('assets/datepicker/locales/bootstrap-datepicker.zh-TW.min.js');
     $this->load->view('main/classroom_status_view', $view);
+  }
+
+  public function device_status($lang = 'zh-TW') {
+    $view = array('page' => 'device_status', 'lang' => $lang);
+
+    $this->load->view('main/device_status_view', $view);
   }
 }
