@@ -19,11 +19,12 @@ class Main extends WEB_Controller {
   }
 
   public function index($lang = 'zh-TW') {
-    $this->load->view('main/index_view');
+    redirect('main_authentication/system/'.$lang);
   }
 
+  /* -------------------------------------------- Classroom Leasing ---------------------------------------------- */
   public function apply_notice($lang = 'zh-TW') {
-    $view = array('page' => 'apply_notice', 'lang' => $lang);
+    $view = array('page' => 'apply_notice', 'type' => 'classroom', 'lang' => $lang);
 
     $this->load->model('notice_model');
     $view['notice'] = $this->notice_model->get_notice();
@@ -31,7 +32,7 @@ class Main extends WEB_Controller {
   }
 
   public function apply_new($lang = 'zh-TW') {
-    $view = array('page' => 'apply_new', 'apply_failure' => FALSE, 'lang' => $lang);
+    $view = array('page' => 'apply_new', 'type' => 'classroom', 'apply_failure' => FALSE, 'lang' => $lang);
 
     if ($post = $this->input->post()) {
       $insert = array(
@@ -83,6 +84,7 @@ class Main extends WEB_Controller {
   public function apply_delete($lang = 'zh-TW') {
     $view = array(
       'page' => 'apply_delete',
+      'type' => 'classroom', 
       'lang' => $lang,
       'applies' => $this->apply_model->get_applies_by_student_id($this->session->userdata('studentID'))
     );
@@ -101,6 +103,7 @@ class Main extends WEB_Controller {
   public function apply_record($lang = 'zh-TW') {
     $view = array(
       'page' => 'apply_record',
+      'type' => 'classroom', 
       'lang' => $lang,
       'applies' => $this->apply_model->get_applies_by_student_id($this->session->userdata('studentID'))
     );
@@ -115,5 +118,11 @@ class Main extends WEB_Controller {
     $this->load->js('assets/plugins/datatables/dataTables.bootstrap.min.js');
     $this->load->view('main/apply_record_view', $view);
   }
+
+  /* -------------------------------------------- Classroom Leasing ---------------------------------------------- */
+
+  /* ---------------------------------------------- Device Leasing ------------------------------------------------ */
+
+  /* ---------------------------------------------- Device Leasing ------------------------------------------------ */
 
 }
