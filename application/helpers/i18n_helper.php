@@ -20,6 +20,7 @@ if ( ! function_exists('i18n')) {
             case 'current-lang': echo 'zh-TW'; break;
           } break;
           case 'classroom': switch($params[2]) {
+            case 'go-to-leasing-system': echo '前往場地借用系統'; break;
             case 'leasing-system': echo '場地借用系統'; break;
             case 'info': echo '場地借用須知'; break;
             case 'new': echo '申請場地借用'; break;
@@ -28,6 +29,7 @@ if ( ! function_exists('i18n')) {
             case 'status-check': echo '場地借用狀態查詢'; break;
           } break;
           case 'device': switch($params[2]) {
+            case 'go-to-leasing-system': echo '前往器材借用系統'; break;
             case 'leasing-system': echo '器材借用系統'; break;
             case 'info': echo '器材借用須知'; break;
             case 'new': echo '申請器材借用'; break;
@@ -55,6 +57,7 @@ if ( ! function_exists('i18n')) {
             case 'current-lang': echo 'en-us'; break;
           } break;
           case 'classroom': switch($params[2]) {
+            case 'go-to-leasing-system': echo 'Go to Classroom Leasing System'; break;
             case 'leasing-system': echo 'Classroom Leasing System'; break;
             case 'info': echo 'Classroom Leasing Info'; break;
             case 'new': echo 'Classroom Leasing New'; break;
@@ -63,6 +66,7 @@ if ( ! function_exists('i18n')) {
             case 'status-check': echo 'Status of Classroom Leasing'; break;
           } break;
           case 'device': switch($params[2]) {
+            case 'go-to-leasing-system': echo 'Go to Device Leasing System'; break;
             case 'leasing-system': echo 'Device Leasing System'; break;
             case 'info': echo 'Device Leasing Info'; break;
             case 'new': echo 'Device Leasing New'; break;

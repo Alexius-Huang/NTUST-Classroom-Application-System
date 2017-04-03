@@ -115,7 +115,7 @@
           <div class="pull-left info">
             <p><a href="<?php echo base_url(); ?>main_authentication/classroom_status/<?php i18n($lang, 'main.link.current-lang'); ?>" class="site-title"><?php i18n($lang, 'main.site-title') ?></a></p>
             <?php if ($this->session->userdata('signin')): ?>
-              <p id="user_information"><span><?php echo $this->session->userdata('studentID'); ?></span><?php i18n($lang, 'main.greeting'); ?></p>
+              <p id="user_information"><span><?php echo $this->session->userdata('studentID'); ?></span> <?php i18n($lang, 'main.greeting'); ?></p>
             <?php else: ?>
               <p id="not_login"><?php i18n($lang, 'main.not-login'); ?></p>
             <?php endif; ?>
