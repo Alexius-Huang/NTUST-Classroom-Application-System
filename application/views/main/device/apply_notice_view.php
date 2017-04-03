@@ -1,4 +1,3 @@
-
 <title><?php i18n($lang, 'general.device.page.notification'); ?> - <?php i18n($lang, 'general.device.leasing-system'); ?></title>
 <section class="content-header">
   <h1><?php i18n($lang, 'general.device.page.notification'); ?></h1>
