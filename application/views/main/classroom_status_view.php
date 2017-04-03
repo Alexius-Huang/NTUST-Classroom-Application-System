@@ -1,11 +1,11 @@
 <?php if ($lang === 'zh-TW'): ?>
 
-<title>借用狀態查詢 - 學生活動中心場地借用系統</title>
+<title>場地借用狀態查詢 - 學生活動中心場地暨器材借用系統</title>
 <section class="content-header">
-  <h1>借用狀態查詢</h1>
+  <h1>場地借用狀態查詢</h1>
   <ol class="breadcrumb">
-    <li><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW">學生活動中心場地借用系統</a></li>
-    <li class="active"><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW">借用狀態查詢</a></li>
+    <li><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW">學生活動中心場地暨器材借用系統</a></li>
+    <li class="active"><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW">場地借用狀態查詢</a></li>
   </ol>
 </section>
 <section class="content">
@@ -56,12 +56,12 @@
 
 <?php elseif ($lang === 'en-us'): ?>
 
-<title>Status of Classroom Leasing - Classroom Leasing System</title>
+<title>Status of Classroom Leasing - Classroom and Device Leasing System</title>
 <section class="content-header">
-  <h1>Status of Class Renting</h1>
+  <h1>Status of Classroom Renting</h1>
   <ol class="breadcrumb">
-    <li><a href="<?php echo base_url(); ?>main_authentication/classroom_status/en-us">Classroom Leasing System</a></li>
-    <li class="active"><a href="<?php echo base_url(); ?>main_authentication/classroom_status/en-us">Status of Class Renting</a></li>
+    <li><a href="<?php echo base_url(); ?>main_authentication/classroom_status/en-us">Classroom and Device Leasing System</a></li>
+    <li class="active"><a href="<?php echo base_url(); ?>main_authentication/classroom_status/en-us">Status of Classroom Renting</a></li>
   </ol>
 </section>
 <section class="content">

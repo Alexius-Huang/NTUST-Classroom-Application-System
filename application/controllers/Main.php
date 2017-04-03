@@ -19,19 +19,20 @@ class Main extends WEB_Controller {
   }
 
   public function index($lang = 'zh-TW') {
-    redirect('main/apply_notice/'.$lang);
+    redirect('main_authentication/system/'.$lang);
   }
 
+  /* -------------------------------------------- Classroom Leasing ---------------------------------------------- */
   public function apply_notice($lang = 'zh-TW') {
-    $view = array('page' => 'apply_notice', 'lang' => $lang);
+    $view = array('page' => 'apply_notice', 'type' => 'classroom', 'lang' => $lang);
 
     $this->load->model('notice_model');
     $view['notice'] = $this->notice_model->get_notice();
-    $this->load->view('main/apply_notice_view', $view);
+    $this->load->view('main/classroom/apply_notice_view', $view);
   }
 
   public function apply_new($lang = 'zh-TW') {
-    $view = array('page' => 'apply_new', 'apply_failure' => FALSE, 'lang' => $lang);
+    $view = array('page' => 'apply_new', 'type' => 'classroom', 'apply_failure' => FALSE, 'lang' => $lang);
 
     if ($post = $this->input->post()) {
       $insert = array(
@@ -77,12 +78,13 @@ class Main extends WEB_Controller {
     $this->load->js('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js');
     $this->load->js('assets/datepicker/js/bootstrap-datepicker.min.js');
     $this->load->js('assets/datepicker/locales/bootstrap-datepicker.zh-TW.min.js');
-    $this->load->view('main/apply_new_view', $view);
+    $this->load->view('main/classroom/apply_new_view', $view);
   }
 
   public function apply_delete($lang = 'zh-TW') {
     $view = array(
       'page' => 'apply_delete',
+      'type' => 'classroom', 
       'lang' => $lang,
       'applies' => $this->apply_model->get_applies_by_student_id($this->session->userdata('studentID'))
     );
@@ -95,12 +97,13 @@ class Main extends WEB_Controller {
     $this->load->css('assets/css/pending.css');
     $this->load->js('assets/plugins/datatables/jquery.dataTables.min.js');
     $this->load->js('assets/plugins/datatables/dataTables.bootstrap.min.js');
-    $this->load->view('main/apply_delete_view', $view);
+    $this->load->view('main/classroom/apply_delete_view', $view);
   }
 
   public function apply_record($lang = 'zh-TW') {
     $view = array(
       'page' => 'apply_record',
+      'type' => 'classroom', 
       'lang' => $lang,
       'applies' => $this->apply_model->get_applies_by_student_id($this->session->userdata('studentID'))
     );
@@ -113,7 +116,33 @@ class Main extends WEB_Controller {
     $this->load->css('assets/css/pending.css');
     $this->load->js('assets/plugins/datatables/jquery.dataTables.min.js');
     $this->load->js('assets/plugins/datatables/dataTables.bootstrap.min.js');
-    $this->load->view('main/apply_record_view', $view);
+    $this->load->view('main/classroom/apply_record_view', $view);
   }
+
+  /* -------------------------------------------- Classroom Leasing ---------------------------------------------- */
+
+  /* ---------------------------------------------- Device Leasing ------------------------------------------------ */
+
+  public function device_apply_notice($lang = 'zh-TW') {
+    $view = array('page' => 'device_apply_notice', 'type' => 'device', 'lang' => $lang);
+    $this->load->view('main/device/apply_notice_view', $view);
+  }
+  
+  public function device_apply_new($lang = 'zh-TW') {
+    $view = array('page' => 'device_apply_new', 'type' => 'device', 'lang' => $lang);
+    $this->load->view('main/device/apply_new_view', $view);
+  }
+  
+  public function device_apply_delete($lang = 'zh-TW') {
+    $view = array('page' => 'device_apply_delete', 'type' => 'device', 'lang' => $lang);
+    $this->load->view('main/device/apply_delete_view', $view);
+  }
+  
+  public function device_apply_record($lang = 'zh-TW') {
+    $view = array('page' => 'device_apply_record', 'type' => 'device', 'lang' => $lang);
+    $this->load->view('main/device/apply_record_view', $view);
+  }
+
+  /* ---------------------------------------------- Device Leasing ------------------------------------------------ */
 
 }

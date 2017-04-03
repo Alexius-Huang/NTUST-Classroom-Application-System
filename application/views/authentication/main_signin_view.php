@@ -29,8 +29,10 @@
                 <input class="form-control has-feedback" name="password" type="password" placeholder="請輸入學生資訊系統密碼" />
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
               </div>
+              <?php if ( ! is_developing()): ?>
               <div class="g-recaptcha" data-sitekey="6LccyhkUAAAAAMcR3B5UeI7Hct19RBRL8s5SzuEJ"></div>
               <input type="hidden" name="grecaptcha" value="" />
+              <? endif; ?>
             </div>
           </div>
           <div class="box-footer">
@@ -75,8 +77,10 @@
                 <input class="form-control has-feedback" name="password" type="password" placeholder="Please Enter your Student Password" />
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
               </div>
+              <?php if ( ! is_developing()): ?>
               <div class="g-recaptcha" data-sitekey="6LccyhkUAAAAAMcR3B5UeI7Hct19RBRL8s5SzuEJ"></div>
               <input type="hidden" name="grecaptcha" value="" />
+              <?php endif; ?>
             </div>
           </div>
           <div class="box-footer">
@@ -93,6 +97,8 @@
 <?php endif; ?>
 
 <script src='https://www.google.com/recaptcha/api.js'></script>
+
+<?php if ( ! is_developing()):?>
 <script>
   $('button#signin-submit-btn').on('click', function(event) {
     event.preventDefault();
@@ -100,3 +106,4 @@
     $('form#form_login').submit();
   });
 </script>
+<?php endif; ?>

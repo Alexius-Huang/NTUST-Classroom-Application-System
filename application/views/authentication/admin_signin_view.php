@@ -78,14 +78,14 @@
               </label>
             </div-->
           </div><!-- /.col -->
+          <?php if ( ! is_developing()): ?>
           <div class="g-recaptcha" data-sitekey="6LccyhkUAAAAAMcR3B5UeI7Hct19RBRL8s5SzuEJ"></div>
-          <input type="hidden" name="grecaptcha" value="" /> 
+          <input type="hidden" name="grecaptcha" value="" />
+          <?php endif; ?>
           <div class="col-xs-4">
             <button id="signin-submit-btn" type="submit" class="btn btn-primary btn-block btn-flat">登入</button>
           </div><!-- /.col -->
-        </div>        <!--
-        <div class="g-recaptcha text-center" data-sitekey="6Le0QRYTAAAAADCcXwkg4u4dVH_uPbSUeJDutCB6">
-        </div> /.g-recaptcha -->
+        </div>
       </form>
 
       <br>
@@ -107,11 +107,13 @@
       });
     });
 
+    <?php if ( ! is_developing()): ?>
     $('button#signin-submit-btn').on('click', function(event) {
       event.preventDefault();
       $('input[name="grecaptcha"]')[0].setAttribute('value', grecaptcha.getResponse());
       $('form#form_login').submit();
     });
+    <?php endif; ?>
   </script>
 </body>
 </html>
