@@ -2,7 +2,16 @@
 
 class Notice_model extends CI_Model {
   
-  function get_notice($id = '1') {
+  function get_classroom_notice($id = '1') {
+    $this->db->where('id', $id);
+    $this->db->limit(1);
+    $query = $this->db->get('Notice');
+    if ($query->num_rows() == 1) {
+      return $query->row_array();
+    } else return FALSE;
+  }
+
+  function get_device_notice($id = '2') {
     $this->db->where('id', $id);
     $this->db->limit(1);
     $query = $this->db->get('Notice');

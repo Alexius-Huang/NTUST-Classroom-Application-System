@@ -316,7 +316,7 @@ class Admin extends WEB_Controller {
       $view['notice_updated'] = TRUE;
     }
 
-    $view['notice'] = $this->notice_model->get_notice();
+    $view['notice'] = $this->notice_model->get_classroom_notice();
 
     $this->load->js('https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js');
     $this->load->view('admin/notice_edit_view', $view);

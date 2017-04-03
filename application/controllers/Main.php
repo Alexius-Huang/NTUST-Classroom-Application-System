@@ -27,7 +27,7 @@ class Main extends WEB_Controller {
     $view = array('page' => 'apply_notice', 'type' => 'classroom', 'lang' => $lang);
 
     $this->load->model('notice_model');
-    $view['notice'] = $this->notice_model->get_notice();
+    $view['notice'] = $this->notice_model->get_classroom_notice();
     $this->load->view('main/classroom/apply_notice_view', $view);
   }
 
@@ -125,6 +125,9 @@ class Main extends WEB_Controller {
 
   public function device_apply_notice($lang = 'zh-TW') {
     $view = array('page' => 'device_apply_notice', 'type' => 'device', 'lang' => $lang);
+    $this->load->model('notice_model');
+    $view['notice'] = $this->notice_model->get_device_notice();
+
     $this->load->view('main/device/apply_notice_view', $view);
   }
   
