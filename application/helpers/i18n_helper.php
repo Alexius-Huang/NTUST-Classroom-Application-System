@@ -56,18 +56,18 @@ if ( ! function_exists('i18n')) {
           } break;
           case 'classroom': switch($params[2]) {
             case 'leasing-system': echo 'Classroom Leasing System'; break;
-            case 'info': echo 'Notice'; break;
-            case 'new': echo 'Apply'; break;
-            case 'cancel': echo 'Cancel'; break;
-            case 'record': echo 'Record'; break;
+            case 'info': echo 'Classroom Leasing Info'; break;
+            case 'new': echo 'Classroom Leasing New'; break;
+            case 'cancel': echo 'Classroom Leasing Cancel'; break;
+            case 'record': echo 'Classroom Leasing Record'; break;
             case 'status-check': echo 'Status of Classroom Leasing'; break;
           } break;
           case 'device': switch($params[2]) {
             case 'leasing-system': echo 'Device Leasing System'; break;
-            case 'info': echo 'Info'; break;
-            case 'new': echo 'New'; break;
-            case 'cancel': echo 'Cancel'; break;
-            case 'record': echo 'Record'; break;
+            case 'info': echo 'Device Leasing Info'; break;
+            case 'new': echo 'Device Leasing New'; break;
+            case 'cancel': echo 'Device Leasing Cancel'; break;
+            case 'record': echo 'Device Leasing Record'; break;
             case 'status-check': echo 'Status of Device Leasing'; break;
           } break;
         }
