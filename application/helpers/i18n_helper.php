@@ -22,6 +22,10 @@ if ( ! function_exists('i18n')) {
               case 'notification': echo '器材借用須知'; break;
             } break;
           } break;
+          case 'system': switch($params[2]) {
+            case 'notify-title': echo '學生活動中心場地暨器材借用系統更新通知'; break;
+            case 'notify-content': echo '本系統分為場地借用以及器材借用系統'; break;
+          } break;
         }  break;
 
         case 'main': switch($params[1]) {
@@ -86,6 +90,10 @@ if ( ! function_exists('i18n')) {
             case 'page': switch($params[3]) {
               case 'notification': echo 'Device Leasing Notice'; break;
             } break;
+          } break;
+          case 'system': switch($params[2]) {
+            case 'notify-title': echo 'Classroom and Device Leasing System Update Notice'; break;
+            case 'notify-content': echo 'This system provides two different service, classroom or device leasing.'; break;
           } break;
         }  break;
         

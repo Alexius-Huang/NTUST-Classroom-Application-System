@@ -311,12 +311,19 @@ class Admin extends WEB_Controller {
     );
 
     if ($post = $this->input->post()) {
-      $update = array('zh-tw' => $post['zh-tw'], 'en-us' => $post['en-us']);
-      $this->notice_model->update_notice($update);
+      if (isset($post['classroom-zh-tw'])) {
+        $update = array('zh-tw' => $post['classroom-zh-tw'], 'en-us' => $post['classroom-en-us']);
+        $this->notice_model->update_notice($update);
+      }
+      if (isset($post['device-zh-tw'])) {
+        $update = array('zh-tw' => $post['device-zh-tw'], 'en-us' => $post['device-en-us']);
+        $this->notice_model->update_notice($update, '2');  
+      }
       $view['notice_updated'] = TRUE;
     }
 
-    $view['notice'] = $this->notice_model->get_classroom_notice();
+    $view['classroom_notice'] = $this->notice_model->get_classroom_notice();
+    $view['device_notice'] = $this->notice_model->get_device_notice();
 
     $this->load->js('https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js');
     $this->load->view('admin/notice_edit_view', $view);
