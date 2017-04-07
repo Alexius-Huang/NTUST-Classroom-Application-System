@@ -325,6 +325,18 @@ class Admin extends WEB_Controller {
       'page' => 'device_new',
       'username' => 'admin',
     );
+    
+    if ($post = $this->input->post()) {
+      $insert = array(
+        'name_zh-TW'      => $post['name_zh-TW'],
+        'name_en-us'      => $post['name_en-us'],
+        'total_count'     => $post['total_count'],
+        'max_lease_count' => $post['max_lease_count'],
+        'remark'          => $post['remark']
+      );
+      if ($this->device_model->create_device($insert)) { redirect('admin/device'); };
+    }
+
     $this->load->view('admin/device_new_view', $view);
   }
 

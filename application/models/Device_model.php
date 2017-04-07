@@ -32,7 +32,8 @@ class Device_model extends CI_Model {
       'name_en-us'      => $data['name_en-us'],
       'total_count'     => $data['total_count'],
       'max_lease_count' => $data['max_lease_count'],
-      'enabled'         => '1',
+      'remark'          => $data['remark'],
+      'disabled'        => '0',
       'created_at'      => time(),
       'updated_at'      => time()
     );
@@ -47,7 +48,8 @@ class Device_model extends CI_Model {
     if (isset($data['name_en-us']))      { $update['name_en-us']      = $data['name_en-us'];      }
     if (isset($data['total_count']))     { $update['total_count']     = $data['total_count'];     }
     if (isset($data['max_lease_count'])) { $update['max_lease_count'] = $data['max_lease_count']; }
-    if (isset($data['enabled']))         { $update['enabled']         = $data['enabled'];         }
+    if (isset($data['remark']))          { $update['remark']          = $data['remark'];          }
+    if (isset($data['disabled']))        { $update['disabled']        = $data['disabled'];        }
 
     if ( ! empty($update)) {
       $update['updated_at'] = time();
