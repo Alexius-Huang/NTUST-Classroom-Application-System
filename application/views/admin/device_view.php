@@ -29,8 +29,10 @@
                   <span data-id="<?php echo $device['id']; ?>"
                         data-type="switch"
                         data-state="<?php echo $device['disabled']; ?>"
-                        data-device="<?php echo $device['name_zh-TW']; ?>"
-                        class="btn btn-sm btn-<?php echo ($device['disabled'] == 0 ? 'danger' : 'primary'); ?>">
+                        data-total="<?php echo $device['total_count']; ?>"
+                        data-max="<?php echo $device['max_lease_count']; ?>"
+                        data-device="<?php echo $device['name_zh-TW']; ?> (<?php echo $device['name_en-us']; ?>)"
+                        class="device-btn btn btn-sm btn-<?php echo ($device['disabled'] == 0 ? 'danger' : 'primary'); ?>">
                     <?php echo ($device['disabled'] == 0 ? render_icon('toggle-on').' 停用' : render_icon('toggle-off').' 啟用') ?>
                   </span>
                 </td>
