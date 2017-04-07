@@ -8,7 +8,7 @@
     <div class="col-lg-3 col-xs-6">
       <div class="small-box bg-aqua">
         <div class="inner">
-          <h3>場地借用系統</h3>
+          <h3 style="font-size: 180%">場地借用系統</h3>
           <p>Classroom Leasing System Entry</p>
         </div>
         <div class="icon">
@@ -20,7 +20,7 @@
     <div class="col-lg-3 col-xs-6">
       <div class="small-box bg-green">
         <div class="inner">
-          <h3>器材借用系統</h3>
+          <h3 style="font-size: 180%">器材借用系統</h3>
           <p>Device Leasing System Entry</p>
         </div>
         <div class="icon">

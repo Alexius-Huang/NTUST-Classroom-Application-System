@@ -64,6 +64,25 @@ if ( ! function_exists('i18n')) {
               case 'read-notice': echo '使用本系統前，請閱讀以下場地借用須知：'; break;
             } break;
           } break;
+          case 'classroom-apply-new': switch($params[2]) {
+            case 'title': echo '申請借用'; break;
+            case 'apply-fail': echo '申請失敗！'; break;
+            case 'apply-fail-message': echo '請確認您輸入的申請資訊是否正確。'; break;
+            case 'cancel-all': echo '全部取消'; break;
+            case 'submit': echo '送出申請'; break;
+            case 'label': switch($params[3]) {
+              case 'classroom': echo '場地：'; break;
+              case 'select-classroom': echo '請選擇場地'; break;
+              case 'date': echo '日期：'; break;
+              case 'time': echo '時段：（審核中時段將以藍色標記，紅色為不開放時段，橘色為該時段已有他人借用）'; break;
+              case 'organization': echo '單位（社團）名稱：'; break;
+              case 'applicant': echo '申請人姓名：'; break;
+              case 'applicant-position': echo '申請人（社團）職稱：'; break;
+              case 'phone': echo '申請人聯絡電話：'; break;
+              case 'participant-count': echo '場地人數：'; break;
+              case 'purpose': echo '場地借用目的（請簡述）：'; break;
+            } break;
+          } break;
           case 'device': switch($params[2]) {
             case 'apply-notice': switch($params[3]) {
               case 'read-notice': echo '使用本系統前，請閱讀以下器材借用須知：'; break;
@@ -131,6 +150,25 @@ if ( ! function_exists('i18n')) {
           case 'classroom': switch($params[2]) {
             case 'apply-notice': switch($params[3]) {
               case 'read-notice': echo 'Before using the system, please read the following classroom leasing notice :'; break;
+            } break;
+          } break;
+          case 'classroom-apply-new': switch($params[2]) {
+            case 'title': echo 'Apply'; break;
+            case 'apply-fail': echo 'Failure Record！'; break;
+            case 'apply-fail-message': echo 'Please check the input data and try again'; break;
+            case 'cancel-all': echo 'Cancel All'; break;
+            case 'submit': echo 'Submit'; break;
+            case 'label': switch($params[3]) {
+              case 'classroom': echo 'Place：'; break;
+              case 'select-classroom': echo 'Please select place'; break;
+              case 'date': echo 'Date：'; break;
+              case 'time': echo 'Time: (pendings are marked as blue, reds are the time which is not allowed, orange is for the time that already has leasing)'; break;
+              case 'organization': echo 'Organization(Club)：'; break;
+              case 'applicant': echo 'Applicant：'; break;
+              case 'applicant-position': echo 'Applicant Position in Organization(Club)：'; break;
+              case 'phone': echo 'Phone：'; break;
+              case 'participant-count': echo 'Number of Participant：'; break;
+              case 'purpose': echo 'Purpose(Description)：'; break;
             } break;
           } break;
           case 'device': switch($params[2]) {

@@ -14,7 +14,10 @@ if ( ! function_exists('admin_page_name')) {
       'apply'                 => '審核申請',
       'application'           => '申請記錄',
       'classroom_edit'        => '場地詳細設定',
+      'device_edit'           => '器材詳細設定',
+      'device_new'            => '新增器材',
       'classroom'             => '場地設定',
+      'device'                => '器材設定',
       'classroom_rule_create' => '新增不開放場地規則',
       'notice'                => '申請須知'
     );
