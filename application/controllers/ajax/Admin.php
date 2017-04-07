@@ -12,6 +12,7 @@ class Admin extends WEB_Controller {
     }
 
     $this->load->model('classroom_model');
+    $this->load->model('device_model');
     $this->load->model('apply_model');
   }
 
@@ -27,6 +28,16 @@ class Admin extends WEB_Controller {
     } else {
       $update = array('disabled' => ($classroom['disabled'] == 0 ? 1 : 0));
       $this->classroom_model->update_classroom($update, $classroom_id);
+    }
+  }
+
+  public function switch_device_state($device_id = '0') {
+    if ($device_id === '0' || ! $device = $this->device_model->get_device($device_id)) {
+      redirect(base_url() . 'admin');
+    } else {
+      echo($device_id);
+      $update = array('disabled' => ($device['disabled'] == 0 ? 1 : 0));
+      $this->device_model->update_device($update, $device_id);
     }
   }
 
