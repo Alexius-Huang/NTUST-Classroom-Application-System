@@ -85,19 +85,19 @@
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <li class="nav-language">
-              <a href="<?php echo base_url(); ?>main_authentication/signin/<?php i18n($lang, 'main.link.change-lang'); ?>">
+              <a href="<?php echo base_url(); ?>main_authentication/signin/<?php i18n($lang, 'general.link.change-lang'); ?>">
                 <i class="flag-icon flag-icon-us"></i>
                 <span class="hidden-xs hidden-sm"><?php i18n($lang, 'main.change-lang'); ?></span>
               </a>
             </li>
             <li class="nav-status">
-              <a href="<?php echo base_url(); ?>main_authentication/classroom_status/<?php i18n($lang, 'main.link.current-lang'); ?>">
+              <a href="<?php echo base_url(); ?>main_authentication/classroom_status/<?php i18n($lang, 'general.link.current-lang'); ?>">
                 <?php echo render_icon('users'); ?>
                 <span class="hidden-xs hidden-sm"><?php i18n($lang, 'main.classroom.status-check'); ?></span>
               </a>
             </li>
             <li class="nav-status">
-              <a href="<?php echo base_url(); ?>main_authentication/device_status/<?php i18n($lang, 'main.link.current-lang'); ?>">
+              <a href="<?php echo base_url(); ?>main_authentication/device_status/<?php i18n($lang, 'general.link.current-lang'); ?>">
                 <?php echo render_icon('tasks'); ?>
                 <span class="hidden-xs hidden-sm"><?php i18n($lang, 'main.device.status-check'); ?></span>
               </a>
@@ -113,7 +113,7 @@
             <img src="<?php echo base_url(); ?>assets/images/logo.png" class="img-circle" alt="NTUST Logo" />
           </div>
           <div class="pull-left info">
-            <p><a href="<?php echo base_url(); ?>main_authentication/classroom_status/<?php i18n($lang, 'main.link.current-lang'); ?>" class="site-title"><?php i18n($lang, 'main.site-title') ?></a></p>
+            <p><a href="<?php echo base_url(); ?>main_authentication/classroom_status/<?php i18n($lang, 'general.link.current-lang'); ?>" class="site-title"><?php i18n($lang, 'main.site-title') ?></a></p>
             <?php if ($this->session->userdata('signin')): ?>
               <p id="user_information"><span><?php echo $this->session->userdata('studentID'); ?></span> <?php i18n($lang, 'main.greeting'); ?></p>
             <?php else: ?>
@@ -125,30 +125,30 @@
           <?php if ($this->session->userdata('signin')): ?>
             <li class="header"><?php i18n($lang, 'main.leasing-facility'); ?></li>
             <?php if ($page === 'system'): ?>
-              <li><a href="<?php echo base_url(); ?>main/apply_notice/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('users'); ?> <?php i18n($lang, 'main.classroom.leasing-system'); ?></a></li>
-              <li><a href="<?php echo base_url(); ?>main/device_apply_notice/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('tasks'); ?> <?php i18n($lang, 'main.device.leasing-system'); ?></a></li>
+              <li><a href="<?php echo base_url(); ?>main/apply_notice/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('users'); ?> <?php i18n($lang, 'main.classroom.leasing-system'); ?></a></li>
+              <li><a href="<?php echo base_url(); ?>main/device_apply_notice/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('tasks'); ?> <?php i18n($lang, 'main.device.leasing-system'); ?></a></li>
             <?php elseif ($type === 'classroom') :?>
-              <li class="nav-notice <?php if ($page === 'apply_notice') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_notice/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('info-circle'); ?> <?php i18n($lang, 'main.classroom.info'); ?></a></li>
-              <li class="nav-apply <?php if ($page === 'apply_new') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_new/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('file-text'); ?> <?php i18n($lang, 'main.classroom.new'); ?></a></li>
-              <li class="nav-cancel <?php if ($page === 'apply_delete') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_delete/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('trash'); ?> <?php i18n($lang, 'main.classroom.cancel'); ?></a></li>
-              <li class="nav-record <?php if ($page === 'apply_record') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_record/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('history'); ?> <?php i18n($lang, 'main.classroom.record'); ?></a></li>
-              <li class="nav-status <?php if ($page === 'classroom_status') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/classroom_status/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('calendar'); ?> <?php i18n($lang, 'main.classroom.status-check'); ?></a></li>
-              <li><a href="<?php echo base_url(); ?>main/device_apply_notice/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('tasks'); ?> <?php i18n($lang, 'main.device.leasing-system'); ?></a></li>
+              <li class="nav-notice <?php if ($page === 'apply_notice') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_notice/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('info-circle'); ?> <?php i18n($lang, 'main.classroom.info'); ?></a></li>
+              <li class="nav-apply <?php if ($page === 'apply_new') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_new/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('file-text'); ?> <?php i18n($lang, 'main.classroom.new'); ?></a></li>
+              <li class="nav-cancel <?php if ($page === 'apply_delete') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_delete/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('trash'); ?> <?php i18n($lang, 'main.classroom.cancel'); ?></a></li>
+              <li class="nav-record <?php if ($page === 'apply_record') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/apply_record/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('history'); ?> <?php i18n($lang, 'main.classroom.record'); ?></a></li>
+              <li class="nav-status <?php if ($page === 'classroom_status') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/classroom_status/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('calendar'); ?> <?php i18n($lang, 'main.classroom.status-check'); ?></a></li>
+              <li><a href="<?php echo base_url(); ?>main/device_apply_notice/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('tasks'); ?> <?php i18n($lang, 'main.device.leasing-system'); ?></a></li>
             <?php elseif ($type === 'device'): ?>
-              <li class="nav-notice <?php if ($page === 'device_apply_notice') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/device_apply_notice/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('info-circle'); ?> <?php i18n($lang, 'main.device.info'); ?></a></li>
-              <li class="nav-apply <?php if ($page === 'device_apply_new') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/device_apply_new/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('file-text'); ?> <?php i18n($lang, 'main.device.new'); ?></a></li>
-              <li class="nav-cancel <?php if ($page === 'device_apply_delete') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/device_apply_delete/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('trash'); ?> <?php i18n($lang, 'main.device.cancel'); ?></a></li>
-              <li class="nav-record <?php if ($page === 'device_apply_record') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/device_apply_record/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('history'); ?> <?php i18n($lang, 'main.device.record'); ?></a></li>
-              <li class="nav-status <?php if ($page === 'device_status') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/device_status/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('calendar'); ?> <?php i18n($lang, 'main.device.status-check'); ?></a></li>
-              <li><a href="<?php echo base_url(); ?>main/apply_notice/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('users'); ?> <?php i18n($lang, 'main.classroom.leasing-system'); ?></a></li>
+              <li class="nav-notice <?php if ($page === 'device_apply_notice') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/device_apply_notice/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('info-circle'); ?> <?php i18n($lang, 'main.device.info'); ?></a></li>
+              <li class="nav-apply <?php if ($page === 'device_apply_new') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/device_apply_new/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('file-text'); ?> <?php i18n($lang, 'main.device.new'); ?></a></li>
+              <li class="nav-cancel <?php if ($page === 'device_apply_delete') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/device_apply_delete/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('trash'); ?> <?php i18n($lang, 'main.device.cancel'); ?></a></li>
+              <li class="nav-record <?php if ($page === 'device_apply_record') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main/device_apply_record/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('history'); ?> <?php i18n($lang, 'main.device.record'); ?></a></li>
+              <li class="nav-status <?php if ($page === 'device_status') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/device_status/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('calendar'); ?> <?php i18n($lang, 'main.device.status-check'); ?></a></li>
+              <li><a href="<?php echo base_url(); ?>main/apply_notice/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('users'); ?> <?php i18n($lang, 'main.classroom.leasing-system'); ?></a></li>
             <?php endif; ?>
           <?php endif; ?>
 
           <li class="header"><?php i18n($lang, 'main.account-facility'); ?></li>
           <?php if ($this->session->userdata('signin')): ?>
-            <li class="nav-logout"><a href="<?php echo base_url(); ?>main_authentication/signout/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('sign-out'); ?> <?php i18n($lang, 'main.signout') ?></a></li>
+            <li class="nav-logout"><a href="<?php echo base_url(); ?>main_authentication/signout/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('sign-out'); ?> <?php i18n($lang, 'main.signout') ?></a></li>
           <?php else: ?>
-            <li class="nav-login <?php if ($page === 'main_signin') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/signin/<?php i18n($lang, 'main.link.current-lang'); ?>"><?php echo render_icon('sign-in'); ?> <?php i18n($lang, 'main.signin'); ?></a></li>
+            <li class="nav-login <?php if ($page === 'main_signin') echo 'active'; ?>"><a href="<?php echo base_url(); ?>main_authentication/signin/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php echo render_icon('sign-in'); ?> <?php i18n($lang, 'main.signin'); ?></a></li>
           <?php endif; ?>
         </ul>
       </section>
@@ -158,7 +158,7 @@
     </main>
     <footer class="main-footer">
       <div id="ie" class="label-warning"><!--[if lt IE 9]>本系統不支援低於 IE 9 之瀏覽器，若想獲得最佳使用體驗，請使用 Firefox 或其他瀏覽器（例如：Chrome、Safari、Opera）。<![endif]--></div>
-      <div id="copyright">Copyright <a href="<?php echo base_url() ?>admin_authentication/signin/<?php i18n($lang, 'main.link.current-lang'); ?>">&copy;</a> 2016
+      <div id="copyright">Copyright <a href="<?php echo base_url() ?>admin_authentication/signin/<?php i18n($lang, 'general.link.current-lang'); ?>">&copy;</a> 2016
     </footer>
   </div>
 
