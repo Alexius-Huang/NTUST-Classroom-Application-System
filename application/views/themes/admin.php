@@ -127,10 +127,13 @@
         <ul class="sidebar-menu">
           <li class="header">後台選單</li>
           <li<?php echo ($page === 'main'                                    ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/main"><?php echo render_icon('dashboard'); ?> 後台首頁</a></li>
+          <li class="header">場地後台選單</li>
           <li<?php echo ($page === 'apply'                                   ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/apply"><?php echo render_icon('sticky-note-o'); ?> 審核申請</a></li>
           <li<?php echo ($page === 'application'                             ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/application"><?php echo render_icon('history'); ?> 申請記錄</a></li>
           <li<?php echo ($page === 'classroom' || $page === 'classroom_edit' ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/classroom"><?php echo render_icon('cog'); ?> 場地設定</a></li>
           <li<?php echo ($page === 'notice'                                  ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/notice_edit"><?php echo render_icon('info-circle'); ?> 申請須知</a></li>
+          <li class="header">器材後台選單</li>
+          <li<?php echo ($page === 'device'    || $page === 'device_edit'    ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/device"><?php echo render_icon('cog'); ?> 器材設定</a></li>
           <li class="header">返回借用系統</li>
           <li><a href="/"><i class="fa fa-fw fa-angle-double-left"></i> 返回借用系統</a></li>
         </ul>

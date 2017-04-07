@@ -31,11 +31,11 @@ class Migration_Add_device_table extends CI_Migration {
         'unsigned'       => TRUE,
         'default'        => 1
       ),
-      'enabled' => array(
+      'disabled' => array(
         'type'           => 'INT',
         'constraint'     => 1,
         'unsigned'       => TRUE,
-        'default'        => 1
+        'default'        => 0
       ),
       'created_at' => array(
         'type' => 'BIGINT',

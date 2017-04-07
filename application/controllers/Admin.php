@@ -15,6 +15,7 @@ class Admin extends WEB_Controller {
     $this->output->set_template('admin');
 
     $this->load->model('classroom_model');
+    $this->load->model('device_model');
     $this->load->model('apply_model');
   }
 
@@ -83,7 +84,8 @@ class Admin extends WEB_Controller {
   public function classroom() {
     $view = array(
       'username' => 'admin',
-      'page' => 'classroom'
+      'page' => 'classroom',
+      'classrooms' => $this->classroom_model->get_classrooms()
     );
 
     $view['table_columns'] = array(
@@ -92,7 +94,6 @@ class Admin extends WEB_Controller {
       'toggle'   => array('name' => '切換狀態', 'class' => ''),
       'config'   => array('name' => '設定',    'class' => '')
     );
-    $view['classrooms'] = $this->classroom_model->get_classrooms();
     $this->load->view('admin/classroom_view', $view);
   }
 
@@ -300,6 +301,39 @@ class Admin extends WEB_Controller {
     $this->load->js('assets/datepicker/js/bootstrap-datepicker.min.js');
     $this->load->js('assets/datepicker/locales/bootstrap-datepicker.zh-TW.min.js');
     $this->load->view('admin/classroom_rule_create_view', $view);
+  }
+
+  public function device() {
+    $view = array(
+      'page' => 'device',
+      'username' => 'admin',
+      'devices' => $this->device_model->get_devices()
+    );
+
+    $view['table_columns'] = array(
+      'name'     => array('name' => '器材名稱', 'class' => ''),
+      'disabled' => array('name' => '狀態',    'class' => 'hidden-xs'),
+      'toggle'   => array('name' => '切換狀態', 'class' => ''),
+      'config'   => array('name' => '設定',    'class' => '')
+    );
+
+    $this->load->view('admin/device_view', $view);
+  }
+
+  public function device_new() {
+    $view = array(
+      'page' => 'device_new',
+      'username' => 'admin',
+    );
+    $this->load->view('admin/device_new_view', $view);
+  }
+
+  public function device_edit() {
+    $view = array(
+      'page' => 'device_edit',
+      'username' => 'admin',
+    );
+    $this->load->view('admin/device_edit_view', $view);
   }
 
   public function notice_edit() {
