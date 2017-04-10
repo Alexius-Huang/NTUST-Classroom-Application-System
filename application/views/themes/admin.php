@@ -128,11 +128,13 @@
           <li class="header">後台選單</li>
           <li<?php echo ($page === 'main'                                    ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/main"><?php echo render_icon('dashboard'); ?> 後台首頁</a></li>
           <li class="header">場地後台選單</li>
-          <li<?php echo ($page === 'apply'                                   ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/apply"><?php echo render_icon('sticky-note-o'); ?> 審核申請</a></li>
-          <li<?php echo ($page === 'application'                             ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/application"><?php echo render_icon('history'); ?> 申請記錄</a></li>
+          <li<?php echo ($page === 'apply'                                   ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/apply"><?php echo render_icon('sticky-note-o'); ?> 審核場地申請</a></li>
+          <li<?php echo ($page === 'application'                             ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/application"><?php echo render_icon('history'); ?> 場地申請記錄</a></li>
           <li<?php echo ($page === 'classroom' || $page === 'classroom_edit' ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/classroom"><?php echo render_icon('cog'); ?> 場地設定</a></li>
           <li<?php echo ($page === 'notice'                                  ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/notice_edit"><?php echo render_icon('info-circle'); ?> 編輯場地申請須知</a></li>
           <li class="header">器材後台選單</li>
+          <li<?php echo ($page === 'device_apply'                            ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/device_apply"><?php echo render_icon('sticky-note-o'); ?> 審合器材申請</a></li>
+          <li<?php echo ($page === 'device_application'                      ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/device_application"><?php echo render_icon('history'); ?> 器材申核記錄</a></li>
           <li<?php echo ($page === 'device'    || $page === 'device_edit'    ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/device"><?php echo render_icon('cog'); ?> 器材設定</a></li>
           <li<?php echo ($page === 'device_notice'                           ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/device_notice_edit"><?php echo render_icon('info-circle'); ?> 編輯器材申請須知</a></li>
           <li class="header">返回借用系統</li>

@@ -11,8 +11,10 @@ if ( ! function_exists('admin_page_name')) {
     $pages = array(
       'main'                  => '首頁',
       'conflict'              => '衝突',
-      'apply'                 => '審核申請',
-      'application'           => '申請記錄',
+      'apply'                 => '審核場地借用申請',
+      'device_apply'          => '審核器材借用申請',
+      'application'           => '場地申請記錄',
+      'device_application'    => '器材申請紀錄',
       'classroom_edit'        => '場地詳細設定',
       'device_edit'           => '器材詳細設定',
       'device_new'            => '新增器材',

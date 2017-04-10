@@ -63,6 +63,18 @@ class Admin extends WEB_Controller {
     $this->load->view('admin/apply_view', $view);
   }
 
+  public function device_apply() {
+    $view = array(
+      'username' => 'admin',
+      'page' => 'device_apply',
+      // 'applies' => $this->apply_model->get_applies(array('status' => '0', 'date >' => date('Y-m-d')))
+    );
+
+    $this->load->js('assets/plugins/datatables/jquery.dataTables.min.js');
+    $this->load->js('assets/plugins/datatables/dataTables.bootstrap.min.js');
+    $this->load->view('admin/device_apply_view', $view);
+  }
+
   public function application($year_month = '0') {
     if ($year_month === '0' OR ! validate_date($year_month, 'Y-m')) { $year_month = date('Y-m'); }
 
@@ -79,6 +91,19 @@ class Admin extends WEB_Controller {
     }
 
     $this->load->view('admin/application_view', $view);
+  }
+
+  public function device_application($year_month) {
+    if ($year_month === '0' OR ! validate_date($year_month, 'Y-m')) { $year_month = date('Y-m'); }
+
+    $view = array(
+      'username' => 'admin',
+      'page' => 'device_application',
+      'year_month' => $year_month,
+      // 'applies' => $this->apply_model->get_applies(array('date >' => $year_month.'-01', 'date <' => date('Y-m', strtotime($year_month.' + 1 month')).'-01'))
+    );
+
+    $this->load->view('admin/device_application_view', $view);
   }
 
   public function classroom() {
