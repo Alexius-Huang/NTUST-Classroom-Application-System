@@ -32,12 +32,12 @@
                         data-total="<?php echo $device['total_count']; ?>"
                         data-max="<?php echo $device['max_lease_count']; ?>"
                         data-device="<?php echo $device['name_zh-TW']; ?> (<?php echo $device['name_en-us']; ?>)"
-                        class="device-btn btn btn-sm btn-<?php echo ($device['disabled'] == 0 ? 'danger' : 'primary'); ?>">
+                        class="btn btn-sm btn-<?php echo ($device['disabled'] == 0 ? 'danger' : 'primary'); ?>">
                     <?php echo ($device['disabled'] == 0 ? render_icon('toggle-on').' 停用' : render_icon('toggle-off').' 啟用') ?>
                   </span>
                 </td>
                 <td>
-                  <span data-id="<?php echo $device['id']; ?>" data-type="edit-name" data-device="<?php echo $device['name_zh-TW']; ?>" class="btn btn-sm btn-primary"><?php echo render_icon('pencil'); ?> 器材更名</span>
+                  <span data-id="<?php echo $device['id']; ?>" data-type="edit-name" data-zhTW="<?php echo $device['name_zh-TW']; ?>" data-enus="<?php echo $device['name_en-us']; ?>" class="btn btn-sm btn-primary"><?php echo render_icon('pencil'); ?> 器材更名</span>
                   <span data-id="<?php echo $device['id']; ?>" data-type="edit" class="btn btn-sm btn-primary"><?php echo render_icon('sliders'); ?> 詳細設定</span>
                 </td>
               </tr>

@@ -47,6 +47,12 @@ class Admin extends WEB_Controller {
     } else $this->classroom_model->update_classroom(array('name' => $this->input->post('name')), $classroom_id);
   }
 
+  public function change_device_name($device_id = '0') {
+    if ($device_id === '0' || ! $device = $this->device_model->get_device($device_id)) {
+      redirect(base_url() . 'admin');
+    } else $this->device_model->update_device(array('name_zh-TW' => $this->input->post('name_zh-TW'), 'name_en-us' => $this->input->post('name_en-us')), $device_id);
+  }
+
   public function delete_classroom($classroom_id = '0') {
     if ($classroom_id === '0' || ! $classroom = $this->classroom_model->get_classroom($classroom_id)) {
       redirect(base_url() . 'admin');
