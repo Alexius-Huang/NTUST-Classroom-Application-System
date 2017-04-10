@@ -23,7 +23,8 @@ $(document).ready(function() {
       $.ajax({
         type: 'post',
         cache: false,
-        url: '<?php echo base_url(); ?>ajax/admin/delete_classroom_rules_by_classroom_id/' + data.id,
+        data: { id: data.id },
+        url: '<?php echo base_url(); ?>ajax/admin/delete_classroom_rules_by_classroom_id',
         success: function() { location.reload(); },
         error: function() { show_error_message(); }
       });
@@ -53,7 +54,8 @@ $(document).ready(function() {
       $.ajax({
         type: 'post',
         cache: false,
-        url: '<?php echo base_url(); ?>ajax/admin/delete_classroom_rule/' + data.id,
+        data: { id: data.id },
+        url: '<?php echo base_url(); ?>ajax/admin/delete_classroom_rule',
         success: function() { location.reload(); },
         error: function() { show_error_message(); }
       });
@@ -73,7 +75,8 @@ $(document).ready(function() {
     }).then(function() {
       $.ajax({
         type: 'post',
-        url: '<?php echo base_url(); ?>ajax/admin/delete_classroom/' + data.id,
+        data: { id: data.id },
+        url: '<?php echo base_url(); ?>ajax/admin/delete_classroom',
         cache: false,
         success: function() { location.reload(); },
         error: function() { show_error_message(); }

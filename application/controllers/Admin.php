@@ -103,7 +103,7 @@ class Admin extends WEB_Controller {
       'username' => 'admin',
       'page' => 'classroom_edit'
     );
-    $view['classroom'] = $this->classroom_model->get_classroom($id);
+    $view['classroom'] = $classroom;
     $view['classroom_rules'] = $this->classroom_model->get_classroom_rules_by_classroom_id($id);
     $this->load->view('admin/classroom_edit_view', $view);
   }
@@ -340,11 +340,27 @@ class Admin extends WEB_Controller {
     $this->load->view('admin/device_new_view', $view);
   }
 
-  public function device_edit() {
+  public function device_edit($id = '0') {
+    if ($id === '0' OR ( ! $device = $this->device_model->get_device($id))) { redirect(base_url().'admin/device'); }
     $view = array(
       'page' => 'device_edit',
       'username' => 'admin',
+      'device' => $device
     );
+
+    if ($post = $this->input->post()) {
+      $update = array(
+        'name_zh-TW'      => $post['name_zh-TW'],
+        'name_en-us'      => $post['name_en-us'],
+        'total_count'     => $post['total_count'],
+        'max_lease_count' => $post['max_lease_count'],
+        'remark'          => $post['remark']
+      );
+      $this->device_model->update_device($update, $id);
+
+      redirect('admin/device');
+    }
+
     $this->load->view('admin/device_edit_view', $view);
   }
 

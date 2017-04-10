@@ -12,6 +12,7 @@ class Admin extends WEB_Controller {
     }
 
     $this->load->model('classroom_model');
+    $this->load->model('device_model');
     $this->load->model('apply_model');
   }
 
@@ -30,30 +31,52 @@ class Admin extends WEB_Controller {
     }
   }
 
+  public function switch_device_state($device_id = '0') {
+    if ($device_id === '0' || ! $device = $this->device_model->get_device($device_id)) {
+      redirect(base_url() . 'admin');
+    } else {
+      echo($device_id);
+      $update = array('disabled' => ($device['disabled'] == 0 ? 1 : 0));
+      $this->device_model->update_device($update, $device_id);
+    }
+  }
+
   public function change_classroom_name($classroom_id = '0') {
     if ($classroom_id === '0' || ! $classroom = $this->classroom_model->get_classroom($classroom_id)) {
       redirect(base_url() . 'admin');
     } else $this->classroom_model->update_classroom(array('name' => $this->input->post('name')), $classroom_id);
   }
 
-  public function delete_classroom($classroom_id = '0') {
-    if ($classroom_id === '0' || ! $classroom = $this->classroom_model->get_classroom($classroom_id)) {
+  public function change_device_name($device_id = '0') {
+    if ($device_id === '0' || ! $device = $this->device_model->get_device($device_id)) {
       redirect(base_url() . 'admin');
-    } else $this->classroom_model->delete_classroom($classroom_id);
+    } else $this->device_model->update_device(array('name_zh-TW' => $this->input->post('name_zh-TW'), 'name_en-us' => $this->input->post('name_en-us')), $device_id);
   }
 
-  public function delete_classroom_rules_by_classroom_id($classroom_id = '0') {
-    if ($classroom_id === '0' || ! $classroom = $this->classroom_model->get_classroom($classroom_id)) {
+  public function delete_classroom() {
+    if ( ! $classroom = $this->classroom_model->get_classroom($this->input->post('id'))) {
       redirect(base_url() . 'admin');
-    } else foreach($this->classroom_model->get_classroom_rules_by_classroom_id($classroom_id) as $rule) {
+    } else $this->classroom_model->delete_classroom($classroom['id']);
+  }
+
+  public function delete_device() {
+    if ( ! $device = $this->device_model->get_device($this->input->post('id'))) {
+      redirect(base_url() . 'admin');
+    } else $this->device_model->delete_device($device['id']);
+  }
+
+  public function delete_classroom_rules_by_classroom_id() {
+    if ( ! $classroom = $this->classroom_model->get_classroom($this->input->post('id'))) {
+      redirect(base_url() . 'admin');
+    } else foreach($this->classroom_model->get_classroom_rules_by_classroom_id($classroom['id']) as $rule) {
       $this->classroom_model->delete_classroom_rule($rule['id']);
     }
   }
 
-  public function delete_classroom_rule($classroom_rule_id = '0') {
-    if ($classroom_rule_id === '0' || ! $classroom_rule = $this->classroom_model->get_classroom_rule($classroom_rule_id)) {
+  public function delete_classroom_rule() {
+    if ( ! $classroom_rule = $this->classroom_model->get_classroom_rule($this->input->post('id'))) {
       redirect(base_url().'admin');
-    } else $this->classroom_model->delete_classroom_rule($classroom_rule_id);
+    } else $this->classroom_model->delete_classroom_rule($classroom_rule['id']);
   }
 
   public function get_conflicted_applications() {
