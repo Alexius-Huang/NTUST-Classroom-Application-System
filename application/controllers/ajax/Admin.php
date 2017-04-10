@@ -53,24 +53,30 @@ class Admin extends WEB_Controller {
     } else $this->device_model->update_device(array('name_zh-TW' => $this->input->post('name_zh-TW'), 'name_en-us' => $this->input->post('name_en-us')), $device_id);
   }
 
-  public function delete_classroom($classroom_id = '0') {
-    if ($classroom_id === '0' || ! $classroom = $this->classroom_model->get_classroom($classroom_id)) {
+  public function delete_classroom() {
+    if ( ! $classroom = $this->classroom_model->get_classroom($this->input->post('id'))) {
       redirect(base_url() . 'admin');
-    } else $this->classroom_model->delete_classroom($classroom_id);
+    } else $this->classroom_model->delete_classroom($classroom['id']);
   }
 
-  public function delete_classroom_rules_by_classroom_id($classroom_id = '0') {
-    if ($classroom_id === '0' || ! $classroom = $this->classroom_model->get_classroom($classroom_id)) {
+  public function delete_device() {
+    if ( ! $device = $this->device_model->get_device($this->input->post('id'))) {
       redirect(base_url() . 'admin');
-    } else foreach($this->classroom_model->get_classroom_rules_by_classroom_id($classroom_id) as $rule) {
+    } else $this->device_model->delete_device($device['id']);
+  }
+
+  public function delete_classroom_rules_by_classroom_id() {
+    if ( ! $classroom = $this->classroom_model->get_classroom($this->input->post('id'))) {
+      redirect(base_url() . 'admin');
+    } else foreach($this->classroom_model->get_classroom_rules_by_classroom_id($classroom['id']) as $rule) {
       $this->classroom_model->delete_classroom_rule($rule['id']);
     }
   }
 
-  public function delete_classroom_rule($classroom_rule_id = '0') {
-    if ($classroom_rule_id === '0' || ! $classroom_rule = $this->classroom_model->get_classroom_rule($classroom_rule_id)) {
+  public function delete_classroom_rule() {
+    if ( ! $classroom_rule = $this->classroom_model->get_classroom_rule($this->input->post('id'))) {
       redirect(base_url().'admin');
-    } else $this->classroom_model->delete_classroom_rule($classroom_rule_id);
+    } else $this->classroom_model->delete_classroom_rule($classroom_rule['id']);
   }
 
   public function get_conflicted_applications() {

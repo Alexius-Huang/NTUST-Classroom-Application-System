@@ -11,6 +11,9 @@ $(document).ready(function() {
   $('span').on('click', function(event) {
     var data = $(this).data();
     switch(data.type) {
+      case 'edit':
+        location.href = '<?php echo base_url(); ?>admin/device_edit/' + data.id;
+        break;
       case 'edit-name':
         swal({
           title: '更改器材名稱',
