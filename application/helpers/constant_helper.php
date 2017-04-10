@@ -19,7 +19,8 @@ if ( ! function_exists('admin_page_name')) {
       'classroom'             => '場地設定',
       'device'                => '器材設定',
       'classroom_rule_create' => '新增不開放場地規則',
-      'notice'                => '申請須知'
+      'notice'                => '場地借用申請須知',
+      'device_notice'         => '器材借用申請須知'
     );
 
     if ($pages[$page]) {
