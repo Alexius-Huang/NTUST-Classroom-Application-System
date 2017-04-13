@@ -16,6 +16,8 @@ class Main extends WEB_Controller {
 
     $this->load->model('classroom_model');
     $this->load->model('apply_model');
+    $this->load->model('device_model');
+    $this->load->model('device_apply_model');
   }
 
   public function index($lang = 'zh-TW') {
@@ -52,7 +54,7 @@ class Main extends WEB_Controller {
       }
       
       if ($this->apply_model->create_apply($insert)) {
-        ( ! $post['ajax']) ? redirect('main/apply_record/'.$lang) : null;
+        ( ! $post['ajax']) ? redirect('main/classroom/apply_record/'.$lang) : null;
       } else $view['apply_failure'] = TRUE;
     }
 
@@ -132,7 +134,29 @@ class Main extends WEB_Controller {
   }
   
   public function device_apply_new($lang = 'zh-TW') {
-    $view = array('page' => 'device_apply_new', 'type' => 'device', 'lang' => $lang);
+    $view = array('page' => 'device_apply_new', 'type' => 'device', 'lang' => $lang, 'apply_failure' => FALSE);
+
+    if ($post = $this->input->post()) {
+      // $insert = array(
+      //   'student_id'        => $this->session->userdata('studentID'),
+      //   'status'            => '0',
+      //   'date'              => $post['date'],
+      //   'organization'      => $post['organization'],
+      //   'applicant'         => $post['applicant'],
+      //   'applicantPosition' => $post['applicantPosition'],
+      //   'phone'             => $post['phone'],
+      //   'purpose'           => $post['purpose']
+      // );
+      
+      // if ($this->device_apply_model->create_device_apply($insert)) {
+      //   ( ! $post['ajax']) ? redirect('main/device/apply_record/'.$lang) : null;
+      // } else $view['apply_failure'] = TRUE;
+    }
+    $view['device_available'] = $this->device_model->get_devices(array('disabled' => '0'));
+
+    $this->load->js('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js');
+    $this->load->js('assets/datepicker/js/bootstrap-datepicker.min.js');
+    $this->load->js('assets/datepicker/locales/bootstrap-datepicker.zh-TW.min.js');
     $this->load->view('main/device/apply_new_view', $view);
   }
   

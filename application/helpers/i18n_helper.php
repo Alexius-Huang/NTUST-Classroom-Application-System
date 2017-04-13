@@ -65,11 +65,11 @@ if ( ! function_exists('i18n')) {
             } break;
           } break;
           case 'classroom-apply-new': switch($params[2]) {
-            case 'title': echo '申請借用'; break;
-            case 'apply-fail': echo '申請失敗！'; break;
+            case 'title': echo '場地申請借用'; break;
+            case 'apply-fail': echo '場地申請失敗！'; break;
             case 'apply-fail-message': echo '請確認您輸入的申請資訊是否正確。'; break;
             case 'cancel-all': echo '全部取消'; break;
-            case 'submit': echo '送出申請'; break;
+            case 'submit': echo '送出場地申請'; break;
             case 'label': switch($params[3]) {
               case 'classroom': echo '場地：'; break;
               case 'select-classroom': echo '請選擇場地'; break;
@@ -80,6 +80,25 @@ if ( ! function_exists('i18n')) {
               case 'applicant-position': echo '申請人（社團）職稱：'; break;
               case 'phone': echo '申請人聯絡電話：'; break;
               case 'participant-count': echo '場地人數：'; break;
+              case 'purpose': echo '場地借用目的（請簡述）：'; break;
+            } break;
+          } break;
+          case 'device-apply-new': switch($params[2]) {
+            case 'title': echo '申請借用'; break;
+            case 'apply-fail': echo '申請失敗！'; break;
+            case 'apply-fail-message': echo '請確認您輸入的申請資訊是否正確。'; break;
+            case 'cancel-all': echo '全部取消'; break;
+            case 'submit': echo '送出申請'; break;
+            case 'label': switch($params[3]) {
+              case 'device': echo '器材：'; break;
+              case 'select-device': echo '請選擇器材'; break;
+              case 'current-available': echo '剩餘器材數量：'; break;
+              case 'max-lease-count': echo '單次最多借用數量：'; break;
+              case 'date': echo '日期（請先選擇日期再指定借用器材）：'; break;
+              case 'organization': echo '單位（社團）名稱：'; break;
+              case 'applicant': echo '申請人姓名：'; break;
+              case 'applicant-position': echo '申請人（社團）職稱：'; break;
+              case 'phone': echo '申請人聯絡電話：'; break;
               case 'purpose': echo '場地借用目的（請簡述）：'; break;
             } break;
           } break;
@@ -153,7 +172,7 @@ if ( ! function_exists('i18n')) {
             } break;
           } break;
           case 'classroom-apply-new': switch($params[2]) {
-            case 'title': echo 'Apply'; break;
+            case 'title': echo 'Apply Place Leasing'; break;
             case 'apply-fail': echo 'Failure Record！'; break;
             case 'apply-fail-message': echo 'Please check the input data and try again'; break;
             case 'cancel-all': echo 'Cancel All'; break;
@@ -168,6 +187,25 @@ if ( ! function_exists('i18n')) {
               case 'applicant-position': echo 'Applicant Position in Organization(Club)：'; break;
               case 'phone': echo 'Phone：'; break;
               case 'participant-count': echo 'Number of Participant：'; break;
+              case 'purpose': echo 'Purpose(Description)：'; break;
+            } break;
+          } break;
+          case 'device-apply-new': switch($params[2]) {
+            case 'title': echo 'Apply Device Leasing'; break;
+            case 'apply-fail': echo 'Failure Record！'; break;
+            case 'apply-fail-message': echo 'Please check the input data and try again'; break;
+            case 'cancel-all': echo 'Cancel All'; break;
+            case 'submit': echo 'Submit'; break;
+            case 'label': switch($params[3]) {
+              case 'device': echo 'Device：'; break;
+              case 'select-device': echo 'Please select device'; break;
+              case 'current-available': echo 'Available：'; break;
+              case 'max-lease-count': echo 'Max Lease per Application：'; break;
+              case 'date': echo 'Date(Please choose the date first and then appoint leasing devices)：'; break;
+              case 'organization': echo 'Organization(Club)：'; break;
+              case 'applicant': echo 'Applicant：'; break;
+              case 'applicant-position': echo 'Applicant Position in Organization(Club)：'; break;
+              case 'phone': echo 'Phone：'; break;
               case 'purpose': echo 'Purpose(Description)：'; break;
             } break;
           } break;
