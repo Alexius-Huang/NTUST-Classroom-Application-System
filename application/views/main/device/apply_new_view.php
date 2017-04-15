@@ -36,21 +36,17 @@
               <div class="col-md-12 form-group">
                 <label for="device"><?php i18n($lang, 'page.device-apply-new.label.device'); ?></label>
                 <div class="input-group">
-                  <div class="input-group-addon"><?php echo render_icon('map-marker'); ?></div>
+                  <div class="input-group-addon"><?php echo render_icon('wrench'); ?></div>
                   <select id="device" name="device_id" class="form-control" disabled>
                     <option value="0"><?php i18n($lang, 'page.device-apply-new.label.select-device'); ?></option>
-                    <!--<?php foreach ($device_available as $device): ?>
-                      <option value="<?php echo $device['id']; ?>"><?php echo $device['name_'.$lang]; ?></option>
-                    <?php endforeach; ?>-->
                   </select>
                 </div>
               </div>
 
-
               <!-- Device List -->
               <div class="col-md-12 form-group">
-                <label for="device-list"><?php i18n($lang, 'page.device-apply-new.lable.device-list'); ?></label>
-                
+                <label for="device-list"><?php i18n($lang, 'page.device-apply-new.label.device-list'); ?></label>
+                <div id="device-list-group"><?php i18n($lang, 'page.device-apply-new.no-device-selected'); ?></div>
               </div>
 
               <!-- Input Organization -->

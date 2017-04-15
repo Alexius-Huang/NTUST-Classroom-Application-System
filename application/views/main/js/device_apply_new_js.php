@@ -18,6 +18,7 @@ $(document).ready(function() {
   
   /* Geenerating Device Selection Object */
   var device_selectable = [];
+  var selected = [];
   <?php foreach ($device_available as $device): ?>
   device_selectable.push({
     "id": <?php echo $device['id']; ?>,
@@ -30,6 +31,16 @@ $(document).ready(function() {
   <?php endforeach; ?>
 
   var $deviceSelect = $('select#device');
+  var $deviceList = $('#device-list-group');
+  var $deviceTable = null;
+
+  function deviceOptionTitle(device) {
+    return device['name_<?php echo $lang; ?>'] +
+           " ( <?php i18n($lang, 'page.device-apply-new.label.current-available'); ?>" +
+           device.current_available +
+           " / <?php i18n($lang, 'page.device-apply-new.label.max-lease-count'); ?>" + device.max_lease_count + " )"
+  }
+
   $('#date').datepicker({
     format: "yyyy-mm-dd",
     weekStart: 0,
@@ -60,14 +71,30 @@ $(document).ready(function() {
       cache: false,
       success: function(deviceTable) {
         console.log(Object.keys(deviceTable));
+        $deviceTable = JSON.parse(JSON.stringify(deviceTable));
+        
+        /* Remove original options if appears */
+        if ($('select#device > option').first().siblings().length != 0) {
+          $('select#device > option').first().siblings().each(function() {
+            $(this).remove();
+          });
+        }
+
+        /* Remove selected leased device if appears */
+        if ($deviceList.children().length != 0) {
+          $deviceList.children().each(function() {
+            $(this).remove()
+          });
+          $deviceList.text('<?php i18n($lang, 'page.device-apply-new.no-device-selected'); ?>');
+        }
+
         for (var id of Object.keys(deviceTable)) {
           var device = deviceTable[id];
           var optionTag = document.createElement('option');
           optionTag.setAttribute('value', device.id);
-          optionTag.innerHTML = device['name_<?php echo $lang; ?>'] +
-                                " ( <?php i18n($lang, 'page.device-apply-new.label.current-available'); ?>" +
-                                device.current_available +
-                                " / <?php i18n($lang, 'page.device-apply-new.label.max-lease-count'); ?>" + device.max_lease_count + " )";
+          optionTag.setAttribute('data-max', device.max_lease_count);
+          optionTag.setAttribute('data-name', device['name_<?php echo $lang; ?>']);
+          optionTag.innerHTML = deviceOptionTitle(device);
           $deviceSelect.append(optionTag);
         }
       },
@@ -75,6 +102,55 @@ $(document).ready(function() {
     });
   });
 
+  $deviceSelect.on('change', function(event) {
+    event.preventDefault();
+    var selectedId = event.target.value;
+    $deviceSelect.val('0');
+
+    /* Generate Device List Item */
+    var inputGroup = document.createElement('div');
+    inputGroup.className = 'input-group';
+    inputGroup.setAttribute('data-max', $deviceTable[Number(selectedId)].max_lease_count);
+    inputGroup.setAttribute('data-name', $deviceTable[Number(selectedId)]['name_<?php echo $lang; ?>']);
+
+    var addOn = document.createElement('div');
+    addOn.className = 'input-group-addon';
+    addOn.innerHTML = '<span data-id="' + selectedId + '"><?php echo render_icon('times'); ?></span> ' + $deviceTable[selectedId]['name_<?php echo $lang; ?>'];
+    
+    var deviceIDInput = document.createElement('input');
+    deviceIDInput.setAttribute('name', 'device_ids[]');
+    deviceIDInput.setAttribute('type', 'hidden');
+    deviceIDInput.setAttribute('value', selectedId);
+
+    var input = document.createElement('input');
+    input.className = 'form-control';
+    input.setAttribute('name', 'leasing_counts[]');
+    input.setAttribute('type', 'text');
+    
+    inputGroup.appendChild(addOn);
+    inputGroup.appendChild(deviceIDInput);
+    inputGroup.appendChild(input);
+    inputGroup.style.display = 'none';
+    if ($('#device-list-group > div.input-group').length == 0) {
+      $deviceList.html(inputGroup);
+    } else {
+      $deviceList.append(inputGroup);
+    }
+    $(inputGroup).fadeIn(500);
+
+    $('option[value="' + selectedId + '"]').prop('disabled', true);
+    
+    $('span[data-id="' + selectedId + '"]').on('click', function(event) {
+      $('option[value="' + selectedId + '"]').prop('disabled', false);
+    
+      $(this).parent().parent().remove();
+      
+      console.log($('#device-list-group > div.input-group').length);
+      if ($('#device-list-group > div.input-group').length === 0) {
+        $deviceList.text('<?php i18n($lang, 'page.device-apply-new.no-device-selected'); ?>');
+      }
+    });
+  });
 
   var $date = '', $classroomID = 0, $datepciker_classes = [];
 
@@ -95,6 +171,43 @@ $(document).ready(function() {
         <?php endif; ?>
       });
     };
+
+    var assertAtLeastOneDeviceSelected = function() {
+      return new Promise(function(resolve, reject) {
+        if ($('div#device-list-group').children().length === 0) {
+          <?php if ($lang === 'zh-TW'): ?>
+            show_error_message('請檢查未填項目！', '請至少借用一項器材');
+          <?php elseif ($lang === 'en-us'): ?>
+            show_error_message('Please check your input！', 'Please select at least one device.')
+          <?php endif; ?>
+        } else {
+          data['device'] = [];
+          var error = false;
+          $('div#device-list-group').children().each(function() {
+            var deviceId = $(this).find('input[name="device_ids[]"]').val();
+            var leasing_count = $(this).find('input[name="leasing_counts[]"]').val();
+            if (leasing_count && leasing_count > 0 && /^\d+$/g.test(leasing_count) && leasing_count <= $(this).data('max') ) {
+              data['device'][deviceId] = leasing_count;
+            } else if (leasing_count == 0) {
+              <?php if ($lang === 'zh-TW'): ?>
+                show_error_message('請檢查器材數量項目！', '器材借用數量有誤！' + $(this).data('name') + '最多只能借用數量為 ' + $(this).data('max') + ' 但不可為零或者空！');
+              <?php elseif ($lang === 'en-us'): ?>
+                show_error_message('Please check your input！', 'Device leasing count isn\'t correct. Max quantity of leasing ' + $(this).data('name').toLowerCase() + ' is ' + $(this).data('max') + ' but cannot be empty or zero!');
+              <?php endif; ?>
+              reject();
+            } else {
+              <?php if ($lang === 'zh-TW'): ?>
+                show_error_message('請檢查器材數量項目！', '器材借用數量有誤！' + $(this).data('name') + '最多只能借用數量為 ' + $(this).data('max') + '!');
+              <?php elseif ($lang === 'en-us'): ?>
+                show_error_message('Please check your input！', 'Device leasing count isn\'t correct. Max quantity of leasing ' + $(this).data('name').toLowerCase() + ' is ' + $(this).data('max'));
+              <?php endif; ?>
+              reject();
+            }
+          });
+          resolve();
+        }
+      })
+    }
 
     var assertOrganizationShouldFilled = function() {
       return new Promise(function(resolve, reject){
@@ -199,6 +312,7 @@ $(document).ready(function() {
     };
 
     assertDateFieldShouldFilled()
+    .then(assertAtLeastOneDeviceSelected)
     .then(assertOrganizationShouldFilled)
     .then(assertApplicantShouldFilled)
     .then(assertApplicantPositionShouldFilled)

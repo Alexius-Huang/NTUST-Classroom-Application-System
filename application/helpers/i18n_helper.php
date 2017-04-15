@@ -89,8 +89,10 @@ if ( ! function_exists('i18n')) {
             case 'apply-fail-message': echo '請確認您輸入的申請資訊是否正確。'; break;
             case 'cancel-all': echo '全部取消'; break;
             case 'submit': echo '送出申請'; break;
+            case 'no-device-selected': echo '目前未選擇任何器材'; break;
             case 'label': switch($params[3]) {
               case 'device': echo '器材：'; break;
+              case 'device-list': echo '申請借用器材列表：'; break;
               case 'select-device': echo '請選擇器材'; break;
               case 'current-available': echo '剩餘器材數量：'; break;
               case 'max-lease-count': echo '單次最多借用數量：'; break;
@@ -196,8 +198,10 @@ if ( ! function_exists('i18n')) {
             case 'apply-fail-message': echo 'Please check the input data and try again'; break;
             case 'cancel-all': echo 'Cancel All'; break;
             case 'submit': echo 'Submit'; break;
+            case 'no-device-selected': echo 'Currently there are no device selected'; break;
             case 'label': switch($params[3]) {
               case 'device': echo 'Device：'; break;
+              case 'device-list': echo 'Leasing device list：'; break;
               case 'select-device': echo 'Please select device'; break;
               case 'current-available': echo 'Available：'; break;
               case 'max-lease-count': echo 'Max Lease per Application：'; break;
