@@ -137,20 +137,28 @@ class Main extends WEB_Controller {
     $view = array('page' => 'device_apply_new', 'type' => 'device', 'lang' => $lang, 'apply_failure' => FALSE);
 
     if ($post = $this->input->post()) {
-      // $insert = array(
-      //   'student_id'        => $this->session->userdata('studentID'),
-      //   'status'            => '0',
-      //   'date'              => $post['date'],
-      //   'organization'      => $post['organization'],
-      //   'applicant'         => $post['applicant'],
-      //   'applicantPosition' => $post['applicantPosition'],
-      //   'phone'             => $post['phone'],
-      //   'purpose'           => $post['purpose']
-      // );
-      
-      // if ($this->device_apply_model->create_device_apply($insert)) {
-      //   ( ! $post['ajax']) ? redirect('main/device/apply_record/'.$lang) : null;
-      // } else $view['apply_failure'] = TRUE;
+      /* Add Device Application Record */
+      $insert = array(
+        'student_id'        => $this->session->userdata('studentID'),
+        'status'            => '0',
+        'date'              => $post['date'],
+        'organization'      => $post['organization'],
+        'applicant'         => $post['applicant'],
+        'applicantPosition' => $post['applicantPosition'],
+        'phone'             => $post['phone'],
+        'purpose'           => $post['purpose']
+      );
+      $id = $this->device_apply_model->create_device_apply($insert);
+
+      /* Create device leasing log */
+      foreach ($post['device'] as $deviceID => $deviceCount) {
+        $insert = array(
+          'device_apply_id' => $id,
+          'device_id'       => $deviceID,
+          'lease_count'     => $deviceCount
+        );
+        $this->device_apply_model->create_device_log($insert);
+      }
     }
     $view['device_available'] = $this->device_model->get_devices(array('disabled' => '0'));
 

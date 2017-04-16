@@ -89,7 +89,12 @@ if ( ! function_exists('i18n')) {
             case 'apply-fail-message': echo '請確認您輸入的申請資訊是否正確。'; break;
             case 'cancel-all': echo '全部取消'; break;
             case 'submit': echo '送出申請'; break;
+            case 'confirm-submit': echo render_icon('check').' 確認送出'; break;
+            case 'cancel-submit': echo render_icon('times').' 取消送出'; break;
+            case 'submit-message': echo '請再次確認送出之場地申請資料！<br/><span style="color: red">審核通過後，請自行至器材借用紀錄列印“器材借用提領單”</span>'; break;
             case 'no-device-selected': echo '目前未選擇任何器材'; break;
+            case 'ready': echo '器材借用申請資料即將送出'; break;
+            case 'more-info': echo '若借用器材資料過多，請上下捲動以檢視更多'; break;
             case 'label': switch($params[3]) {
               case 'device': echo '器材：'; break;
               case 'device-list': echo '申請借用器材列表：'; break;
@@ -101,7 +106,16 @@ if ( ! function_exists('i18n')) {
               case 'applicant': echo '申請人姓名：'; break;
               case 'applicant-position': echo '申請人（社團）職稱：'; break;
               case 'phone': echo '申請人聯絡電話：'; break;
-              case 'purpose': echo '場地借用目的（請簡述）：'; break;
+              case 'purpose': echo '器材借用目的（請簡述）：'; break;
+            } break;
+            case 'submit-info': switch($params[3]) {
+              case 'date': echo '借用日期：'; break;
+              case 'device-list': echo '借用器材列表'; break;
+              case 'organization': echo '借用單位：'; break;
+              case 'applicant': echo '申請人姓名：'; break;
+              case 'applicant-position': echo '申請人職稱：'; break;
+              case 'phone'; echo '申請人聯絡電話：'; break;
+              case 'purpose': echo '器材使用目的：'; break;
             } break;
           } break;
           case 'device': switch($params[2]) {
@@ -179,7 +193,7 @@ if ( ! function_exists('i18n')) {
             case 'apply-fail-message': echo 'Please check the input data and try again'; break;
             case 'cancel-all': echo 'Cancel All'; break;
             case 'submit': echo 'Submit'; break;
-            case 'label': switch($params[3]) {
+            case 'label': switch($params[3]) { 
               case 'classroom': echo 'Place：'; break;
               case 'select-classroom': echo 'Please select place'; break;
               case 'date': echo 'Date：'; break;
@@ -198,7 +212,12 @@ if ( ! function_exists('i18n')) {
             case 'apply-fail-message': echo 'Please check the input data and try again'; break;
             case 'cancel-all': echo 'Cancel All'; break;
             case 'submit': echo 'Submit'; break;
+            case 'confirm-submit': echo render_icon('check').' Confirm'; break;
+            case 'cancel-submit': echo render_icon('times').' Cancel'; break;
+            case 'submit-message': echo 'Please reconfirm the device leasing application！<br/><span style="color: red">After apply succeeded, please remember to print out the "Device Leasing Sheet" in leasing record section</span>'; break;
             case 'no-device-selected': echo 'Currently there are no device selected'; break;
+            case 'ready': echo 'Application is going to submit'; break;
+            case 'more-info': echo 'When there are too much device leasing information, please scroll down to view more'; break;
             case 'label': switch($params[3]) {
               case 'device': echo 'Device：'; break;
               case 'device-list': echo 'Leasing device list：'; break;
@@ -210,6 +229,15 @@ if ( ! function_exists('i18n')) {
               case 'applicant': echo 'Applicant：'; break;
               case 'applicant-position': echo 'Applicant Position in Organization(Club)：'; break;
               case 'phone': echo 'Phone：'; break;
+              case 'purpose': echo 'Purpose(Description)：'; break;
+            } break;
+            case 'submit-info': switch($params[3]) {
+              case 'date': echo 'Date：'; break;
+              case 'device-list': echo 'Device List'; break;
+              case 'organization': echo 'Organization：'; break;
+              case 'applicant': echo 'Applicant：'; break;
+              case 'applicant-position': echo 'Applicant Position：'; break;
+              case 'phone'; echo 'Phone：'; break;
               case 'purpose': echo 'Purpose(Description)：'; break;
             } break;
           } break;

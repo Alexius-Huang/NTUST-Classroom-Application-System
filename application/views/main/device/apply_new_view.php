@@ -50,7 +50,7 @@
               </div>
 
               <!-- Input Organization -->
-              <div class="col-md-4 form-group">
+              <div class="col-md-6 form-group">
                 <label for="organization"><?php i18n($lang, 'page.device-apply-new.label.organization'); ?></label>
                 <div class="input-group">
                   <div class="input-group-addon"><i class="fa fa-fw fa-university"></i></div>
@@ -59,7 +59,7 @@
               </div>
 
               <!-- Input Applicant -->
-              <div class="col-md-4 form-group">
+              <div class="col-md-6 form-group">
                 <label for="applicant"><?php i18n($lang, 'page.device-apply-new.label.applicant'); ?></label>
                 <div class="input-group">
                   <div class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></div>
@@ -68,7 +68,7 @@
               </div>
 
               <!-- Input Applicant Position -->
-              <div class="col-md-4 form-group">
+              <div class="col-md-6 form-group">
                 <label for="applicant"><?php i18n($lang, 'page.device-apply-new.label.applicant-position'); ?></label>
                 <div class="input-group">
                   <div class="input-group-addon"><i class="fa fa-fw fa-user"></i></div>
@@ -82,15 +82,6 @@
                 <div class="input-group">
                   <div class="input-group-addon"><i class="fa fa-fw fa-phone"></i></div>
                   <input id="phone" name="phone" class="form-control" required />
-                </div>
-              </div>
-
-              <!-- Input Venue's participant count number -->
-              <div class="col-md-6 form-group">
-                <label for="participant-count"><?php i18n($lang, 'page.device-apply-new.label.participant-count'); ?></label>
-                <div class="input-group">
-                  <div class="input-group-addon"><i class="fa fa-fw fa-users"></i></div>
-                  <input id="participant-count" name="participant-count" class="form-control" required />
                 </div>
               </div>
 
