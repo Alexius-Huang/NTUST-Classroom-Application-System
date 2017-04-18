@@ -83,6 +83,18 @@ if ( ! function_exists('i18n')) {
               case 'purpose': echo '場地借用目的（請簡述）：'; break;
             } break;
           } break;
+          case 'classroom-apply-record': switch($params[2]) {
+            case 'title': echo '場地申請紀錄'; break;
+            case 'table-title': echo '以下為您的場地借用紀錄：'; break;
+            case 'no-record': echo '您尚未有任何場地借用紀錄'; break;
+            case 'table-headers': switch($params[3]) {
+              case 'status': echo '申請狀態'; break;
+              case 'place': echo '借用地點'; break;
+              case 'date': echo '借用日期'; break;
+              case 'time': echo '借用時段'; break;
+              case 'apply-at': echo '申請時間'; break;
+            } break;
+          } break;
           case 'device-apply-new': switch($params[2]) {
             case 'title': echo '申請借用'; break;
             case 'apply-fail': echo '申請失敗！'; break;
@@ -204,6 +216,18 @@ if ( ! function_exists('i18n')) {
               case 'phone': echo 'Phone：'; break;
               case 'participant-count': echo 'Number of Participant：'; break;
               case 'purpose': echo 'Purpose(Description)：'; break;
+            } break;
+          } break;
+          case 'classroom-apply-record': switch($params[2]) {
+            case 'title': echo 'Record'; break;
+            case 'table-title': echo 'Applied applications are listed below：'; break;
+            case 'no-record': echo 'You haven\'t applied any application yet'; break;
+            case 'table-headers': switch($params[3]) {
+              case 'status': echo 'Status'; break;
+              case 'place': echo 'Place'; break;
+              case 'date': echo 'Date'; break;
+              case 'time': echo 'Time'; break;
+              case 'apply-at': echo 'Apply Time'; break;
             } break;
           } break;
           case 'device-apply-new': switch($params[2]) {

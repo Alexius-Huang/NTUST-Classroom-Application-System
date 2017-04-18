@@ -1,11 +1,9 @@
-<?php if ($lang === 'zh-TW'): ?>
-
-<title>借用紀錄 - 學生活動中心場地借用系統</title>
+<title><?php i18n($lang, 'page.classroom-apply-record.title'); ?> - <?php i18n($lang, 'general.classroom.leasing-system'); ?></title>
 <section class="content-header">
-  <h1>借用紀錄</h1>
+  <h1><?php i18n($lang, 'page.classroom-apply-record.title'); ?></h1>
   <ol class="breadcrumb">
-    <li><a href="<?php echo base_url(); ?>main/apply_record/zh-TW">學生活動中心場地借用系統</a></li>
-    <li class="active"><a href="<?php echo base_url(); ?>main/apply_record/zh-TW">借用紀錄</a></li>
+    <li><a href="<?php echo base_url(); ?>main/apply_record/zh-TW"><?php i18n($lang, 'general.classroom.leasing-system'); ?></a></li>
+    <li class="active"><a href="<?php echo base_url(); ?>main/apply_record/zh-TW"><?php i18n($lang, 'page.classroom-apply-record.title'); ?></a></li>
   </ol>
 </section>
 <section class="content">
@@ -13,13 +11,19 @@
     <div class="col-md-12">
       <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">以下為您的借用紀錄：</h3>
+          <h3 class="box-title"><?php i18n($lang, 'page.classroom-apply-record.table-title'); ?></h3>
         </div>
         <div id="record" class="box-body">
-          <?php if (count($applies) === 0): ?>您尚未有任何教室借用紀錄。<?php else: ?>
+          <?php if (count($applies) === 0): ?><?php i18n($lang, 'page.classroom-apply-record.no-record'); ?><?php else: ?>
             <table id="datatable" class="table table-bordered table-striped">
               <thead>
-                <tr><th>申請狀態</th> <th>借用地點</th> <th>借用日期</th> <th>借用時段</th> <th>申請時間</th></tr>
+                <tr>
+                  <th><?php i18n($lang, 'page.classroom-apply-record.table-headers.status') ?></th>
+                  <th><?php i18n($lang, 'page.classroom-apply-record.table-headers.place') ?></th>
+                  <th><?php i18n($lang, 'page.classroom-apply-record.table-headers.date') ?></th>
+                  <th><?php i18n($lang, 'page.classroom-apply-record.table-headers.time') ?></th>
+                  <th><?php i18n($lang, 'page.classroom-apply-record.table-headers.apply-at') ?></th>
+                </tr>
               </thead>
               <tbody>
                 <?php foreach ($applies as $apply): ?>
@@ -47,55 +51,3 @@
   </div>
   <?php $this->load->view('main/js/apply_record_js', array('lang' => $lang)); ?>
 </section>
-
-<?php elseif ($lang === 'en-us'): ?>
-
-<title>Record - Classroom Leasing System</title>
-<section class="content-header">
-  <h1>Record</h1>
-  <ol class="breadcrumb">
-    <li><a href="<?php echo base_url(); ?>main/apply_record/en-us">Classroom Leasing System</a></li>
-    <li class="active"><a href="<?php echo base_url(); ?>main/apply_record/en-us">Record</a></li>
-  </ol>
-</section>
-<section class="content">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="box box-default">
-        <div class="box-header with-border">
-          <h3 class="box-title">Applications are listed below：</h3>
-        </div>
-        <div id="record" class="box-body">
-          <?php if (count($applies) === 0): ?>You havn't applied yet.<?php else: ?>
-            <table id="datatable" class="table table-bordered table-striped">
-              <thead>
-                <tr><th>Status</th> <th>Place</th> <th>Date</th> <th>Time</th> <th>Apply Time</th></tr>
-              </thead>
-              <tbody>
-                <?php foreach ($applies as $apply): ?>
-                  <tr>
-                    <?php switch((int)$apply['status']):
-                            case 0:
-                              if ( ! $apply['past']) { echo '<td class="label-primary">'.render_icon('hourglass-start').'Pending</td>'; }
-                              else echo '<td class="label-warning">'.render_icon('clock-o').'Outdated</td>'; break;
-                            case 1: echo '<td class="label-success">'.render_icon('check').'Accepted</td>';  break;
-                            case 2: echo '<td class="label-default">'.render_icon('trash').'Cancelled</td>';  break;
-                            case 4: echo '<td class="label-danger">'.render_icon('times').'Not Allowed</td>';   break;
-                          endswitch; ?>
-                    <td><?php echo $apply['classroom']['name']; ?></td>
-                    <td><?php echo $apply['date']; ?></td>
-                    <td><?php echo classroom_rule_display_time($apply); ?></td>
-                    <td><?php echo get_datetime_from_timestamp($apply['created_at']); ?></td>
-                  </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
-          <?php endif; ?>
-        </div>
-      </div>
-    </div>
-  </div>
-  <?php $this->load->view('main/js/apply_record_js', array('lang' => $lang)); ?>
-</section>
-
-<?php endif; ?>
