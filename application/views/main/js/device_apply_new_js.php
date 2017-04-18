@@ -47,6 +47,7 @@ $(document).ready(function() {
     startDate: moment().add(1, 'days').format('YYYY-MM-DD'),
     endDate: moment().add(1, 'month').format('YYYY-MM-DD'), // Restrict selectable date in 2 months
     language: '<?php echo $lang; ?>',
+    daysOfWeekDisabled: [0, 6],
     beforeShowDay: function(date) {
       var today = moment().format('YYYY-MM-DD');
       var currentDate = moment(date).format('YYYY-MM-DD');
@@ -93,8 +94,12 @@ $(document).ready(function() {
           var optionTag = document.createElement('option');
           optionTag.setAttribute('value', device.id);
           optionTag.setAttribute('data-max', device.max_lease_count);
+          optionTag.setAttribute('data-available', device.current_available);
           optionTag.setAttribute('data-name', device['name_<?php echo $lang; ?>']);
           optionTag.innerHTML = deviceOptionTitle(device);
+          if (device.current_available <= 0) {
+            optionTag.setAttribute('disabled', true);
+          }
           $deviceSelect.append(optionTag);
         }
       },
@@ -102,6 +107,7 @@ $(document).ready(function() {
     });
   });
 
+  /* Option onclick event */
   $deviceSelect.on('change', function(event) {
     event.preventDefault();
     var selectedId = event.target.value;
@@ -111,6 +117,7 @@ $(document).ready(function() {
     var inputGroup = document.createElement('div');
     inputGroup.className = 'input-group';
     inputGroup.setAttribute('data-max', $deviceTable[Number(selectedId)].max_lease_count);
+    inputGroup.setAttribute('data-available', $deviceTable[Number(selectedId)].current_available);
     inputGroup.setAttribute('data-name', $deviceTable[Number(selectedId)]['name_<?php echo $lang; ?>']);
 
     var addOn = document.createElement('div');
@@ -185,9 +192,17 @@ $(document).ready(function() {
             var error = false;
             $deviceList.children().each(function() {
               var deviceId = $(this).find('input[name="device_ids[]"]').val();
+              console.log($(this).data('available'))
               var leasing_count = $(this).find('input[name="leasing_counts[]"]').val();
-              if (leasing_count && leasing_count > 0 && /^\d+$/g.test(leasing_count) && leasing_count <= $(this).data('max') ) {
+              if (leasing_count && leasing_count > 0 && /^\d+$/g.test(leasing_count) && leasing_count <= $(this).data('max') && leasing_count <= $(this).data('available') ) {
                 data['device'][deviceId] = parseInt(leasing_count, 10);
+              } else if (leasing_count > $(this).data('available')) {
+                <?php if ($lang === 'zh-TW'): ?>
+                  show_error_message('請檢查器材數量項目！', '器材借用數量有誤！' + $(this).data('name') + ' 當日剩餘借用數量為 ' + $(this).data('available') + '！');
+                <?php elseif ($lang === 'en-us'): ?>
+                  show_error_message('Please check your input！', 'Device leasing count isn\'t correct. Remaining quantity of device : ' + $(this).data('name').toLowerCase() + ' is ' + $(this).data('available') + ' !');
+                <?php endif; ?>
+                reject();
               } else if (leasing_count == 0) {
                 <?php if ($lang === 'zh-TW'): ?>
                   show_error_message('請檢查器材數量項目！', '器材借用數量有誤！' + $(this).data('name') + '最多只能借用數量為 ' + $(this).data('max') + ' 但不可為零或者空！');

@@ -99,7 +99,7 @@ if ( ! function_exists('i18n')) {
               case 'device': echo '器材：'; break;
               case 'device-list': echo '申請借用器材列表：'; break;
               case 'select-device': echo '請選擇器材'; break;
-              case 'current-available': echo '剩餘器材數量：'; break;
+              case 'current-available': echo '當日剩餘器材數量：'; break;
               case 'max-lease-count': echo '單次最多借用數量：'; break;
               case 'date': echo '日期（請先選擇日期再指定借用器材）：'; break;
               case 'organization': echo '單位（社團）名稱：'; break;

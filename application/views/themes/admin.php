@@ -127,19 +127,50 @@
         <ul class="sidebar-menu">
           <li class="header">後台選單</li>
           <li<?php echo ($page === 'main'                                    ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/main"><?php echo render_icon('dashboard'); ?> 後台首頁</a></li>
-          <li class="header">場地後台選單</li>
-          <li<?php echo ($page === 'apply'                                   ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/apply"><?php echo render_icon('sticky-note-o'); ?> 審核場地申請</a></li>
-          <li<?php echo ($page === 'application'                             ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/application"><?php echo render_icon('history'); ?> 場地申請記錄</a></li>
-          <li<?php echo ($page === 'classroom' || $page === 'classroom_edit' ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/classroom"><?php echo render_icon('cog'); ?> 場地設定</a></li>
-          <li<?php echo ($page === 'notice'                                  ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/notice_edit"><?php echo render_icon('info-circle'); ?> 編輯場地申請須知</a></li>
-          <li class="header">器材後台選單</li>
-          <li<?php echo ($page === 'device_apply'                            ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/device_apply"><?php echo render_icon('sticky-note-o'); ?> 審合器材申請</a></li>
-          <li<?php echo ($page === 'device_application'                      ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/device_application"><?php echo render_icon('history'); ?> 器材申核記錄</a></li>
-          <li<?php echo ($page === 'device'    || $page === 'device_edit'    ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/device"><?php echo render_icon('cog'); ?> 器材設定</a></li>
-          <li<?php echo ($page === 'device_notice'                           ?  ' class="active"' : ''); ?>><a href="<?php echo base_url(); ?>admin/device_notice_edit"><?php echo render_icon('info-circle'); ?> 編輯器材申請須知</a></li>
+        </ul>
+        <ul class="sidebar-menu">
+          <li class="header toggle-header" id="classroom-nav"><?php echo render_icon('navicon') ?> 場地後台選單</li>
+          <li class="classroom-nav-item <?php echo ($page === 'apply'                                   ?  'active' : ''); ?>"><a href="<?php echo base_url(); ?>admin/apply"><?php echo render_icon('sticky-note-o'); ?> 審核場地申請</a></li>
+          <li class="classroom-nav-item <?php echo ($page === 'application'                             ?  'active' : ''); ?>"><a href="<?php echo base_url(); ?>admin/application"><?php echo render_icon('history'); ?> 場地申請記錄</a></li>
+          <li class="classroom-nav-item <?php echo ($page === 'classroom' || $page === 'classroom_edit' ?  'active' : ''); ?>"><a href="<?php echo base_url(); ?>admin/classroom"><?php echo render_icon('cog'); ?> 場地設定</a></li>
+          <li class="classroom-nav-item <?php echo ($page === 'notice'                                  ?  'active' : ''); ?>"><a href="<?php echo base_url(); ?>admin/notice_edit"><?php echo render_icon('info-circle'); ?> 編輯場地申請須知</a></li>
+          <li class="header toggle-header" id="device-nav"><?php echo render_icon('navicon') ?> 器材後台選單</li>
+          <li class="device-nav-item <?php echo ($page === 'device_apply'                            ?  'active' : ''); ?>"><a href="<?php echo base_url(); ?>admin/device_apply"><?php echo render_icon('sticky-note-o'); ?> 審合器材申請</a></li>
+          <li class="device-nav-item <?php echo ($page === 'device_application'                      ?  'active' : ''); ?>"><a href="<?php echo base_url(); ?>admin/device_application"><?php echo render_icon('history'); ?> 器材申核記錄</a></li>
+          <li class="device-nav-item <?php echo ($page === 'device'    || $page === 'device_edit'    ?  'active' : ''); ?>"><a href="<?php echo base_url(); ?>admin/device"><?php echo render_icon('cog'); ?> 器材設定</a></li>
+          <li class="device-nav-item <?php echo ($page === 'device_notice'                           ?  'active' : ''); ?>"><a href="<?php echo base_url(); ?>admin/device_notice_edit"><?php echo render_icon('info-circle'); ?> 編輯器材申請須知</a></li>
           <li class="header">返回借用系統</li>
           <li><a href="/"><i class="fa fa-fw fa-angle-double-left"></i> 返回借用系統</a></li>
         </ul>
+        <style>
+          /*li.header.toggle-header:hover {
+            background-color: #3c8dbc;
+            color: white;
+          }*/
+          <?php // if ( ! $this->session->userdata('classroom_nav')): ?>
+            /*li.classroom-nav-item { display: none; }*/
+          <?php // endif; ?>
+          <?php // if ( ! $this->session->userdata('device_nav')): ?>
+            /*li.device-nav-item { display: none; }*/
+          <?php // endif; ?>
+        </style>
+        <script>
+          // var classroomHeaderAnimation = false;
+          // $('#classroom-nav').on('click', function() {
+          //   if (!classroomHeaderAnimation) {
+          //     classroomHeaderAnimation = true;
+          //     $('.classroom-nav-item').fadeToggle(500, function() { classroomHeaderAnimation = false; } );
+          //   }
+          // });
+
+          // var deviceHeaderAnimation = false;
+          // $('#device-nav').on('click', function() {
+          //   if (!deviceHeaderAnimation) {
+          //     deviceHeaderAnimation = true;
+          //     $('.device-nav-item').fadeToggle(500, function() { deviceHeaderAnimation = false; });    
+          //   }
+          // });
+        </script>
       </section>
       <!-- /.sidebar -->
     </aside>
