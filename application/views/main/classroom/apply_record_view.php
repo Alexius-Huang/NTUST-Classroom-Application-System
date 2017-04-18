@@ -2,8 +2,8 @@
 <section class="content-header">
   <h1><?php i18n($lang, 'page.classroom-apply-record.title'); ?></h1>
   <ol class="breadcrumb">
-    <li><a href="<?php echo base_url(); ?>main/apply_record/zh-TW"><?php i18n($lang, 'general.classroom.leasing-system'); ?></a></li>
-    <li class="active"><a href="<?php echo base_url(); ?>main/apply_record/zh-TW"><?php i18n($lang, 'page.classroom-apply-record.title'); ?></a></li>
+    <li><a href="<?php echo base_url(); ?>main/apply_record/<?php i18n($lang, 'general.link.current-lang') ?>"><?php i18n($lang, 'general.classroom.leasing-system'); ?></a></li>
+    <li class="active"><a href="<?php echo base_url(); ?>main/apply_record/<?php i18n($lang, 'general.link.current-lang') ?>"><?php i18n($lang, 'page.classroom-apply-record.title'); ?></a></li>
   </ol>
 </section>
 <section class="content">
@@ -31,10 +31,10 @@
                     <?php switch((int)$apply['status']):
                             case 0:
                               if ( ! $apply['past']) { echo '<td class="label-primary">'.render_icon('hourglass-start').'審核中</td>'; }
-                              else echo '<td class="label-warning">'.render_icon('clock-o').'已過期</td>'; break;
-                            case 1: echo '<td class="label-success">'.render_icon('check').'已通過</td>';  break;
-                            case 2: echo '<td class="label-default">'.render_icon('trash').'已取消</td>';  break;
-                            case 4: echo '<td class="label-danger">'.render_icon('times').'已駁回</td>';   break;
+                              else echo '<td class="label-warning">'.render_icon('clock-o').apply_state_type('0', $lang).'</td>'; break;
+                            case 1: echo '<td class="label-success">'.render_icon('check').apply_state_type('1', $lang).'</td>';  break;
+                            case 2: echo '<td class="label-default">'.render_icon('trash').apply_state_type('2', $lang).'</td>';  break;
+                            case 4: echo '<td class="label-danger">'.render_icon('times').apply_state_type('4', $lang).'</td>';   break;
                           endswitch; ?>
                     <td><?php echo $apply['classroom']['name']; ?></td>
                     <td><?php echo $apply['date']; ?></td>

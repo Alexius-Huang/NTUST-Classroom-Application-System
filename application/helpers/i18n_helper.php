@@ -25,6 +25,8 @@ if ( ! function_exists('i18n')) {
           case 'system': switch($params[2]) {
             case 'notify-title': echo '學生活動中心場地暨器材借用系統更新通知'; break;
             case 'notify-content': echo '本系統分為場地借用以及器材借用系統'; break;
+            case 'error-title': echo '錯誤！'; break;
+            case 'error-message': echo '系統內部似乎出錯，請聯絡相關負責人員！'; break;
           } break;
         }  break;
 
@@ -95,6 +97,30 @@ if ( ! function_exists('i18n')) {
               case 'apply-at': echo '申請時間'; break;
             } break;
           } break;
+          case 'classroom-apply-delete': switch($params[2]) {
+            case 'title': echo '取消場地借用申請'; break;
+            case 'table-title': echo '以下為您正在審核以及通過之場地借用申請：'; break;
+            case 'no-record': echo '您尚未有任何審核以及通過之場地借用申請'; break;
+            case 'cancel-apply': echo '取消申請'; break;
+            case 'table-headers': switch($params[3]) {
+              case 'apply-at': echo '提出申請時間'; break;
+              case 'status': echo '申請狀態'; break;
+              case 'place': echo '借用地點'; break;
+              case 'date': echo '借用日期'; break;
+              case 'time': echo '借用時段'; break;
+              case 'cancel-apply': echo '取消申請'; break;
+            } break;
+            case 'swal': switch($params[2]) {
+              case 'title': echo '您即將要取消此場地申請'; break;
+              case 'status': echo '申請狀態：'; break;
+              case 'place': echo '申請場地：'; break;
+              case 'date': echo '申請日期：'; break;
+              case 'time': echo '申請時段：'; break;
+              case 'ask': echo '確定要取消以上申請嗎？'; break;
+              case 'confirm': echo '確定'; break;
+              case 'cancel': echo '取消'; break;
+            } break;
+          } break;
           case 'device-apply-new': switch($params[2]) {
             case 'title': echo '申請借用'; break;
             case 'apply-fail': echo '申請失敗！'; break;
@@ -160,6 +186,8 @@ if ( ! function_exists('i18n')) {
           case 'system': switch($params[2]) {
             case 'notify-title': echo 'Classroom and Device Leasing System Update Notice'; break;
             case 'notify-content': echo 'This system provides two different service, classroom or device leasing.'; break;
+            case 'error-title': echo 'Internal Error Occurred！'; break;
+            case 'error-message': echo 'Internal system error occurred, please contact relevant personnel.'; break;
           } break;
         }  break;
         
@@ -228,6 +256,30 @@ if ( ! function_exists('i18n')) {
               case 'date': echo 'Date'; break;
               case 'time': echo 'Time'; break;
               case 'apply-at': echo 'Apply Time'; break;
+            } break;
+          } break;
+          case 'classroom-apply-delete': switch($params[2]) {
+            case 'title': echo 'Apply Cancel'; break;
+            case 'table-title': echo 'The following are the details of the pending or approved applications：'; break;
+            case 'no-record': echo 'You haven\'t had any applications yet.'; break;
+            case 'cancel-apply': echo 'Cancel Apply'; break;
+            case 'table-headers': switch($params[3]) {
+              case 'apply-at': echo 'Apply Timing'; break;
+              case 'status': echo 'Status'; break;
+              case 'place': echo 'Place'; break;
+              case 'date': echo 'Date'; break;
+              case 'time': echo 'Time'; break;
+              case 'cancel-apply': echo 'Cancel Apply'; break;
+            } break;
+            case 'swal': switch($params[2]) {
+              case 'title': echo 'You are going to cancel application'; break;
+              case 'status': echo 'Status：'; break;
+              case 'place': echo 'Place：'; break;
+              case 'date': echo 'Date：'; break;
+              case 'time': echo 'Time：'; break;
+              case 'ask': echo 'Are you sure to cancel down the application？'; break;
+              case 'confirm': echo 'Confirm'; break;
+              case 'cancel': echo 'Cancel'; break;
             } break;
           } break;
           case 'device-apply-new': switch($params[2]) {
