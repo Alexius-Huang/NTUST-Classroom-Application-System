@@ -13,6 +13,18 @@ class Device_apply_model extends CI_Model {
     return $query->result_array();
   }
 
+  function get_device_applies_by_student_id($where = array()) {
+    if ( ! $id = $this->session->userdata('studentID')) {
+      return FALSE;
+    } else {
+      $this->db->where('student_id', $id);
+      $this->db->where($where);
+      $this->db->order_by('id', 'asc');
+      $query = $this->db->get('DeviceApply');
+      return $query->result_array();
+    }
+  }
+
   function get_device_logs($where = array()) {
     $this->db->where($where);
     $this->db->order_by('id', 'asc');
@@ -85,6 +97,14 @@ class Device_apply_model extends CI_Model {
     $this->db->insert('DeviceLog', $insert);
     $id = $this->db->insert_id();
     return $id;
+  }
+
+  function delete_device_apply_along_with_logs($id) {
+    $device_logs = $this->get_device_logs_by_device_apply($id);
+    foreach ($device_logs as $log) {
+      $this->delete_device_log($log['id']);
+    }
+    $this->delete_device_apply($id);
   }
 
   function delete_device_apply($id) {

@@ -340,4 +340,23 @@ class Main extends WEB_Controller {
     } else redirect('main/index');
   }
 
+  public function get_device_details() {
+    if (  $apply_id = $this->input->post('id')
+      AND $device_logs = $this->device_apply_model->get_device_logs_by_device_apply($apply_id)
+    ) {
+      $device_info = array();
+      foreach($device_logs as $log) {
+        $device = $this->device_model->get_device($log['device_id']);
+        $device_info[$device['id']] = $device;
+        $device_info[$device['id']]['lease_count'] = $log['lease_count'];
+      }
+      echo json_encode($device_info);
+    }
+  }
+
+  public function device_apply_cancel() {
+    if ($apply_id = $this->input->post('id')) {
+      $this->device_apply_model->delete_device_apply_along_with_logs($apply_id);
+    }
+  }
 }

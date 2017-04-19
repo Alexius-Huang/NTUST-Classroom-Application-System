@@ -88,7 +88,7 @@ class Main extends WEB_Controller {
       'page' => 'apply_delete',
       'type' => 'classroom', 
       'lang' => $lang,
-      'applies' => $this->apply_model->get_applies_by_student_id($this->session->userdata('studentID'))
+      'applies' => $this->apply_model->get_applies_by_student_id()
     );
 
     foreach ($view['applies'] as $index => $apply) {
@@ -107,7 +107,7 @@ class Main extends WEB_Controller {
       'page' => 'apply_record',
       'type' => 'classroom', 
       'lang' => $lang,
-      'applies' => $this->apply_model->get_applies_by_student_id($this->session->userdata('studentID'))
+      'applies' => $this->apply_model->get_applies_by_student_id()
     );
 
     foreach ($view['applies'] as $index => $apply) {
@@ -169,7 +169,20 @@ class Main extends WEB_Controller {
   }
   
   public function device_apply_delete($lang = 'zh-TW') {
-    $view = array('page' => 'device_apply_delete', 'type' => 'device', 'lang' => $lang);
+    $view = array(
+      'page' => 'device_apply_delete',
+      'type' => 'device',
+      'lang' => $lang,
+      'applies' => $this->device_apply_model->get_device_applies_by_student_id()
+    );
+
+    foreach ($view['applies'] as $index => $apply) {
+      if ($apply['status'] == '0') { $view['applies'][$index]['past'] = today() >= $apply['date']; }
+    }
+
+    $this->load->css('assets/css/pending.css');
+    $this->load->js('assets/plugins/datatables/jquery.dataTables.min.js');
+    $this->load->js('assets/plugins/datatables/dataTables.bootstrap.min.js');
     $this->load->view('main/device/apply_delete_view', $view);
   }
   

@@ -97,6 +97,7 @@ if ( ! function_exists('i18n')) {
               case 'apply-at': echo '申請時間'; break;
             } break;
           } break;
+
           case 'classroom-apply-delete': switch($params[2]) {
             case 'title': echo '取消場地借用申請'; break;
             case 'table-title': echo '以下為您正在審核以及通過之場地借用申請：'; break;
@@ -110,7 +111,7 @@ if ( ! function_exists('i18n')) {
               case 'time': echo '借用時段'; break;
               case 'cancel-apply': echo '取消申請'; break;
             } break;
-            case 'swal': switch($params[2]) {
+            case 'swal': switch($params[3]) {
               case 'title': echo '您即將要取消此場地申請'; break;
               case 'status': echo '申請狀態：'; break;
               case 'place': echo '申請場地：'; break;
@@ -121,6 +122,7 @@ if ( ! function_exists('i18n')) {
               case 'cancel': echo '取消'; break;
             } break;
           } break;
+
           case 'device-apply-new': switch($params[2]) {
             case 'title': echo '申請借用'; break;
             case 'apply-fail': echo '申請失敗！'; break;
@@ -154,6 +156,33 @@ if ( ! function_exists('i18n')) {
               case 'applicant-position': echo '申請人職稱：'; break;
               case 'phone'; echo '申請人聯絡電話：'; break;
               case 'purpose': echo '器材使用目的：'; break;
+            } break;
+          } break;
+
+          case 'device-apply-delete': switch($params[2]) {
+            case 'title': echo '取消器材借用申請'; break;
+            case 'table-title': echo '以下為您正在審核以及通過之器材借用申請：'; break;
+            case 'no-record': echo '您尚未有任何審核以及通過之器材借用申請'; break;
+            case 'cancel-apply': echo '取消申請'; break;
+            case 'inspect': echo '檢視'; break;
+            case 'table-headers': switch($params[3]) {
+              case 'apply-at': echo '提出申請時間'; break;
+              case 'status': echo '申請狀態'; break;
+              case 'date': echo '借用日期'; break;
+              case 'action': echo '工具'; break;
+            } break;
+            case 'swal': switch($params[3]) {
+              case 'title': echo '您即將要取消此器材申請'; break;
+              case 'date': echo '申請日期：'; break;
+              case 'status': echo '申請狀態：'; break;
+              case 'device-list': echo '申請之器材清單：'; break;
+              case 'organization': echo '申請單位：'; break;
+              case 'applicant': echo '申請人姓名：'; break;
+              case 'phone': echo '申請人電話：'; break;
+              case 'purpose': echo '申請目的：'; break;
+              case 'ask': echo '確定要取消以上申請嗎？'; break;
+              case 'confirm': echo '確定'; break;
+              case 'cancel': echo '取消'; break;
             } break;
           } break;
           case 'device': switch($params[2]) {
