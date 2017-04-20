@@ -33,6 +33,7 @@
               <button
                 class="btn btn-xs btn-primary btn-inspect"
                 onclick="clicked(
+                  '<?php echo $apply['id'] ?>',
                   '<?php echo date('Y-m-d H:i:s', $apply['created_at']); ?>',
                   '<?php echo apply_state_type($apply['status']); ?>',
                   '<?php echo $apply['date']; ?>',
@@ -52,22 +53,41 @@
 </div>
 
 <script>
-  function clicked(created, status, date, organization, applicant, phone, purpose) {
+  function clicked(id, created, status, date, organization, applicant, phone, purpose) {
     var data = $(this).data();
-    swal({
-      title: '檢視申請紀錄',
-      html: '<div class="box box-primary">' +
-              '<div class="box-body text-left">' +
-                '<p>提出申請時間：' + created + '</p>' +
-                '<p>狀態：' + status + '</p>' +
-                '<p>借用日期：' + date + '</p>' +
-                '<p>申請單位（社團）：' + organization + '</p>' +
-                '<p>申請人員：' + applicant + '</p>' +
-                '<p>申請人電話：' + phone + '</p>' +
-                '<p>申請目的：' + purpose + '</p>' +
-              '</div>' +
-            '</div>',
-      confirmButtonText: '關閉'
-    }).then(function () { /* DO NOTHING */ });
+
+    $.ajax({
+      url: '<?php echo base_url(); ?>ajax/admin/get_device_info',
+      type: 'post',
+      data: { id: id },
+      dataType: 'json',
+      cache: false,
+      success: function(deviceInfo) {
+        var html = '<div class="box box-primary pre-scrollable">' +
+                     '<div class="box-body text-left">' +
+                       '<p>提出申請時間：' + created + '</p>' +
+                       '<p>狀態：' + status + '</p>' +
+                       '<p>借用日期：' + date + '</p>' +
+                       '<p>器材借用列表：' +
+                         '<ul class="list-group">';
+        for (var index of Object.keys(deviceInfo)) {
+          var info = deviceInfo[index];
+          html +=          '<li class="list-group-item">' + info['name_zh-TW'] + '（' + info['name_en-us'] + '）</li>'
+        }
+        html +=          '</ul>' +
+                       '</p>' +
+                       '<p>申請單位（社團）：' + organization + '</p>' +
+                       '<p>申請人員：' + applicant + '</p>' +
+                       '<p>申請人電話：' + phone + '</p>' +
+                       '<p>申請目的：' + purpose + '</p>' +
+                     '</div>' +
+                   '</div>';
+        swal({
+          title: '檢視申請紀錄',
+          html: html,
+          confirmButtonText: '關閉'
+        }).then(function () { /* DO NOTHING */ });
+      }
+    });
   }
 </script>
