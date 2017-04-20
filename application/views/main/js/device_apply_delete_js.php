@@ -55,15 +55,15 @@ $(document).ready(function() {
       dataType: 'json',
       data: { id: data.id },
       cache: false,
-      success: function(device_info) {
+      success: function(deviceInfo) {
         var html = '<div class="box box-primary">' +
                      '<div class="box-body pre-scrollable">' +
                        '<p class="text-left"><?php i18n($lang, 'page.device-apply-delete.swal.date'); ?> ' + data.date + '</p>' +
                        '<p class="text-left"><?php i18n($lang, 'page.device-apply-delete.swal.status'); ?> ' + data.status + '</p>' +
                        '<p class="text-left"><?php i18n($lang, 'page.device-apply-delete.swal.device-list'); ?>' +
                          '<ul class="list-group">';
-        for (var index of Object.keys(device_info)) {
-          var info = device_info[index];
+        for (var index of Object.keys(deviceInfo)) {
+          var info = deviceInfo[index];
           html +=          '<li class="list-group-item text-left">' + info['name_<?php echo $lang; ?>'] + ' - ' + parseInt(info.lease_count, 10) + '</li>';
         }
         html +=          '</ul>' +

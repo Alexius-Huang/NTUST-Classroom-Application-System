@@ -385,17 +385,21 @@ class Admin extends WEB_Controller {
       'applies' => $this->device_apply_model->get_device_applies(array('status' => '0', 'date >' => date('Y-m-d')))
     );
 
-    // $outdated = $this->apply_model->get_applies(array('status' => '0', 'date <=' => date('Y-m-d')));
-    // if ( ! empty($outdated)) {
-    //   foreach ($outdated as $apply) {
-    //     $this->apply_model->check_apply($apply['id'], 'reject');
-    //   } 
-    // }
+    $outdated = $this->apply_model->get_applies(array('status' => '0', 'date <=' => date('Y-m-d')));
+    if ( ! empty($outdated)) {
+      foreach ($outdated as $apply) {
+        $this->apply_model->check_apply($apply['id'], 'reject');
+      }
+    }
 
     // foreach ($view['applies'] as $index => $apply) {
-    //   if ($classroom = $this->classroom_model->get_classroom($apply['classroom_id'])) {
-    //     $view['applies'][$index]['classroom'] = $classroom;
-    //   } else $view['applies'][$index]['classroom']['name'] = 'N/A';
+    //   $view['applies'][$index]['devices'] = array();
+    //   $logs = $this->device_apply_model->get_device_logs_by_device_apply($apply['id']);
+    //   foreach ($logs as $log) {
+    //     $device = $this->device_model->get_device($log['device_id']);
+    //     $view['applies'][$index]['devices'][$device['id']] = $device;
+    //     $view['applies'][$index]['devices'][$device['id']]['lease_count'] = $log['lease_count'];
+    //   }
     // }
 
     $this->load->js('assets/plugins/datatables/jquery.dataTables.min.js');

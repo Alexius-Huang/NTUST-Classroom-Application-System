@@ -327,6 +327,7 @@ class Main extends WEB_Controller {
 
       /* Calculate each device count in corresponding day */
       foreach ($device_applies as $device_apply) {
+        if ($device_apply['status'] == '2' OR $device_apply['status'] == '4') { continue; }
         $device_logs = $this->device_apply_model->get_device_logs_by_device_apply($device_apply['id']);
         foreach ($device_logs as $log) {
           if ($device_table[$log['device_id']]) {
