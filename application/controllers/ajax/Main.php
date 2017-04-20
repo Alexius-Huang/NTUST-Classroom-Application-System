@@ -13,6 +13,8 @@ class Main extends WEB_Controller {
 
     $this->load->model('classroom_model');
     $this->load->model('apply_model');
+    $this->load->model('device_model');
+    $this->load->model('device_apply_model');
   }
 
   public function get_classroom_name() {
@@ -310,4 +312,51 @@ class Main extends WEB_Controller {
     echo json_encode($datepicker_classes);
   }
 
+  public function get_available_device_state_by_date() {
+    if ($date = $this->input->post('date')) {
+      /* Get all of the enabled devices */
+      $devices = $this->device_model->get_devices(array('disabled' => 0));
+      $device_table = array();
+      foreach ($devices as $device) {
+        $device['current_available'] = $device['total_count'];
+        $device_table[$device['id']] = $device;
+      }
+
+      /* Get all of the device application with the same date in status of pending or success */
+      $device_applies = $this->device_apply_model->get_device_applies(array('date' => $date));
+
+      /* Calculate each device count in corresponding day */
+      foreach ($device_applies as $device_apply) {
+        $device_logs = $this->device_apply_model->get_device_logs_by_device_apply($device_apply['id']);
+        foreach ($device_logs as $log) {
+          if ($device_table[$log['device_id']]) {
+            $device_table[$log['device_id']]['current_available'] -= $log['lease_count'];
+            if ($device_table[$log['device_id']]['current_available'] < 0) $device_table[$log['device_id']]['current_available'] = 0;
+          }
+        }
+      }
+
+      echo json_encode($device_table);
+    } else redirect('main/index');
+  }
+
+  public function get_device_details() {
+    if (  $apply_id = $this->input->post('id')
+      AND $device_logs = $this->device_apply_model->get_device_logs_by_device_apply($apply_id)
+    ) {
+      $device_info = array();
+      foreach($device_logs as $log) {
+        $device = $this->device_model->get_device($log['device_id']);
+        $device_info[$device['id']] = $device;
+        $device_info[$device['id']]['lease_count'] = $log['lease_count'];
+      }
+      echo json_encode($device_info);
+    }
+  }
+
+  public function device_apply_cancel() {
+    if ($apply_id = $this->input->post('id')) {
+      $this->device_apply_model->delete_device_apply_along_with_logs($apply_id);
+    }
+  }
 }

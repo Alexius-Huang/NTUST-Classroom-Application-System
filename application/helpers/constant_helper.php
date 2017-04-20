@@ -50,12 +50,12 @@ if ( ! function_exists('classroom_rule_type')) {
   }
 
   if ( ! function_exists('apply_state_type')) {
-    function apply_state_type($type_id, $with_icon = FALSE) {   
+    function apply_state_type($type_id, $lang = 'zh-TW', $with_icon = FALSE) {   
       $type_list = array(
-        '0' => '審核中',
-        '1' => '已通過',
-        '2' => '已取消',
-        '4' => '已駁回'
+        '0' => $lang === 'zh-TW' ? '審核中' : 'Pending',
+        '1' => $lang === 'zh-TW' ? '已通過' : 'Approved',
+        '2' => $lang === 'zh-TW' ? '已取消' : 'Cancelled',
+        '4' => $lang === 'zh-TW' ? '已駁回' : 'Rejected'
       );
 
       if ($with_icon) {

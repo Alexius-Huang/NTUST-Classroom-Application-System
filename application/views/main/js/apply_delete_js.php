@@ -39,37 +39,29 @@ $('table#datatable').dataTable({
 
 $(document).ready(function() {
   function show_error_message(title, content) {
-    <?php if ($lang === 'zh-TW'): ?>
-      swal({
-        title: title ? title : '錯誤！',
-        type: 'error',
-        text: content ? content : '系統內部似乎出錯，請聯絡相關負責人員！'
-      });
-    <?php elseif ($lang === 'en-us'): ?>
-      swal({
-        title: title ? title : 'Internal Error Occurred！',
-        type: 'error',
-        text: content ? content : 'Internal system error occurred, please contact relevant personnel.'
-      });
-    <?php endif; ?>
+    swal({
+      title: title ? title : "<?php i18n($lang, 'general.system.error-title'); ?>",
+      type: 'error',
+      text: content ? content : '<?php i18n($lang, 'general.system.error-message'); ?>'
+    });
   }
   
   $('table#datatable').on('click', '.btn-delete', function(event) {
     event.preventDefault();
     var data = $(this).data();
     swal({
-      title: '<?php echo ($lang === 'zh-TW' ? '您即將要取消此場地申請' : 'You are going to cancel apply' ); ?>',
+      title: '<?php i18n($lang, 'page.classroom-apply-delete.swal.title'); ?>',
       html: '<div class="box box-primary">' +
               '<div class="box-body">' +
-                '<p class="text-left"><?php echo ($lang === 'zh-TW' ? '申請狀態' : 'Status' ); ?>：' + data.status + '</p>' +
-                '<p class="text-left"><?php echo ($lang === 'zh-TW' ? '申請場地' : 'Place' ); ?>：' + data.classroom + '</p>' +
-                '<p class="text-left"><?php echo ($lang === 'zh-TW' ? '借用日期' : 'Date' ); ?>：' + data.date + '</p>' +
-                '<p class="text-left"><?php echo ($lang === 'zh-TW' ? '借用時段' : 'Time' ); ?>：' + data.time + '</p>' +
+                '<p class="text-left"><?php i18n($lang, 'page.classroom-apply-delete.swal.status') ?>' + data.status + '</p>' +
+                '<p class="text-left"><?php i18n($lang, 'page.classroom-apply-delete.swal.place') ?>' + data.classroom + '</p>' +
+                '<p class="text-left"><?php i18n($lang, 'page.classroom-apply-delete.swal.date') ?>' + data.date + '</p>' +
+                '<p class="text-left"><?php i18n($lang, 'page.classroom-apply-delete.swal.time') ?>' + data.time + '</p>' +
               '</div>' +
-            '</div><p><?php echo ($lang === 'zh-TW' ? '確定要取消以上申請嗎？' : 'Are you sure to cancel down the application?' ); ?></p>',
+            '</div><p><?php i18n($lang, 'page.classroom-apply-delete.swal.ask'); ?></p>',
       showCancelButton: true,
-      confirmButtonText: '<?php echo ($lang === 'zh-TW' ? '確定' : 'Comfirm' ); ?>',
-      cancelButtonText: '<?php echo ($lang === 'zh-TW' ? '取消' : 'Close' ); ?>',
+      confirmButtonText: '<?php i18n($lang, 'page.classroom-apply-delete.swal.confirm'); ?>',
+      cancelButtonText: '<?php i18n($lang, 'page.classroom-apply-delete.swal.cancel'); ?>',
       confirmButtonColor: '#dd4b39',
       cancelButtonColor: '#3c8dbc'
     }).then(function() {

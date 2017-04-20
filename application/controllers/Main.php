@@ -16,6 +16,8 @@ class Main extends WEB_Controller {
 
     $this->load->model('classroom_model');
     $this->load->model('apply_model');
+    $this->load->model('device_model');
+    $this->load->model('device_apply_model');
   }
 
   public function index($lang = 'zh-TW') {
@@ -52,7 +54,7 @@ class Main extends WEB_Controller {
       }
       
       if ($this->apply_model->create_apply($insert)) {
-        ( ! $post['ajax']) ? redirect('main/apply_record/'.$lang) : null;
+        ( ! $post['ajax']) ? redirect('main/classroom/apply_record/'.$lang) : null;
       } else $view['apply_failure'] = TRUE;
     }
 
@@ -86,7 +88,7 @@ class Main extends WEB_Controller {
       'page' => 'apply_delete',
       'type' => 'classroom', 
       'lang' => $lang,
-      'applies' => $this->apply_model->get_applies_by_student_id($this->session->userdata('studentID'))
+      'applies' => $this->apply_model->get_applies_by_student_id()
     );
 
     foreach ($view['applies'] as $index => $apply) {
@@ -105,7 +107,7 @@ class Main extends WEB_Controller {
       'page' => 'apply_record',
       'type' => 'classroom', 
       'lang' => $lang,
-      'applies' => $this->apply_model->get_applies_by_student_id($this->session->userdata('studentID'))
+      'applies' => $this->apply_model->get_applies_by_student_id()
     );
 
     foreach ($view['applies'] as $index => $apply) {
@@ -132,12 +134,55 @@ class Main extends WEB_Controller {
   }
   
   public function device_apply_new($lang = 'zh-TW') {
-    $view = array('page' => 'device_apply_new', 'type' => 'device', 'lang' => $lang);
+    $view = array('page' => 'device_apply_new', 'type' => 'device', 'lang' => $lang, 'apply_failure' => FALSE);
+
+    if ($post = $this->input->post()) {
+      /* Add Device Application Record */
+      $insert = array(
+        'student_id'        => $this->session->userdata('studentID'),
+        'status'            => '0',
+        'date'              => $post['date'],
+        'organization'      => $post['organization'],
+        'applicant'         => $post['applicant'],
+        'applicantPosition' => $post['applicantPosition'],
+        'phone'             => $post['phone'],
+        'purpose'           => $post['purpose']
+      );
+      $id = $this->device_apply_model->create_device_apply($insert);
+
+      /* Create device leasing log */
+      foreach ($post['device'] as $deviceID => $deviceCount) {
+        $insert = array(
+          'device_apply_id' => $id,
+          'device_id'       => $deviceID,
+          'lease_count'     => $deviceCount
+        );
+        $this->device_apply_model->create_device_log($insert);
+      }
+    }
+    $view['device_available'] = $this->device_model->get_devices(array('disabled' => '0'));
+
+    $this->load->js('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js');
+    $this->load->js('assets/datepicker/js/bootstrap-datepicker.min.js');
+    $this->load->js('assets/datepicker/locales/bootstrap-datepicker.zh-TW.min.js');
     $this->load->view('main/device/apply_new_view', $view);
   }
   
   public function device_apply_delete($lang = 'zh-TW') {
-    $view = array('page' => 'device_apply_delete', 'type' => 'device', 'lang' => $lang);
+    $view = array(
+      'page' => 'device_apply_delete',
+      'type' => 'device',
+      'lang' => $lang,
+      'applies' => $this->device_apply_model->get_device_applies_by_student_id()
+    );
+
+    foreach ($view['applies'] as $index => $apply) {
+      if ($apply['status'] == '0') { $view['applies'][$index]['past'] = today() >= $apply['date']; }
+    }
+
+    $this->load->css('assets/css/pending.css');
+    $this->load->js('assets/plugins/datatables/jquery.dataTables.min.js');
+    $this->load->js('assets/plugins/datatables/dataTables.bootstrap.min.js');
     $this->load->view('main/device/apply_delete_view', $view);
   }
   

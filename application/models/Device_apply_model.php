@@ -13,11 +13,34 @@ class Device_apply_model extends CI_Model {
     return $query->result_array();
   }
 
+  function get_device_applies_by_student_id($where = array()) {
+    if ( ! $id = $this->session->userdata('studentID')) {
+      return FALSE;
+    } else {
+      $this->db->where('student_id', $id);
+      $this->db->where($where);
+      $this->db->order_by('id', 'asc');
+      $query = $this->db->get('DeviceApply');
+      return $query->result_array();
+    }
+  }
+
   function get_device_logs($where = array()) {
     $this->db->where($where);
     $this->db->order_by('id', 'asc');
     $query = $this->db->get('DeviceLog');
     return $query->result_array();
+  }
+
+  function get_device_logs_by_device_apply($device_apply_id = '0') {
+    if ($device_apply_id == '0') {
+      return FALSE;
+    } else {
+      $this->db->where('device_apply_id', $device_apply_id);
+      $this->db->order_by('id', 'asc');
+      $query = $this->db->get('DeviceLog');
+      return $query->result_array();
+    }
   }
 
   function get_device_apply($id = '0') {
@@ -48,16 +71,17 @@ class Device_apply_model extends CI_Model {
 
   function create_device_apply($data) {
     $insert = array(
-      'student_id'   => $data['student_id'],
-      'status'       => $data['status'],
-      'date'         => $data['date'],
-      'organization' => $data['organization'],
-      'applicant'    => $data['applicant'],
-      'phone'        => $data['phone'],
-      'purpose'      => $data['purpose'],
-      'ip'           => isset($data['ip']) ? $data['ip'] : get_ip(),
-      'created_at'   => time(),
-      'updated_at'   => time()
+      'student_id'        => $data['student_id'],
+      'status'            => $data['status'],
+      'date'              => $data['date'],
+      'organization'      => $data['organization'],
+      'applicant'         => $data['applicant'],
+      'applicantPosition' => $data['applicantPosition'],
+      'phone'             => $data['phone'],
+      'purpose'           => $data['purpose'],
+      'ip'                => isset($data['ip']) ? $data['ip'] : get_ip(),
+      'created_at'        => time(),
+      'updated_at'        => time()
     );
     $this->db->insert('DeviceApply', $insert);
     $id = $this->db->insert_id();
@@ -73,6 +97,14 @@ class Device_apply_model extends CI_Model {
     $this->db->insert('DeviceLog', $insert);
     $id = $this->db->insert_id();
     return $id;
+  }
+
+  function delete_device_apply_along_with_logs($id) {
+    $device_logs = $this->get_device_logs_by_device_apply($id);
+    foreach ($device_logs as $log) {
+      $this->delete_device_log($log['id']);
+    }
+    $this->delete_device_apply($id);
   }
 
   function delete_device_apply($id) {

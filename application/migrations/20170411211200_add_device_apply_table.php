@@ -29,6 +29,9 @@ class Migration_Add_device_apply_table extends CI_Migration {
       'applicant' => array(
         'type' => 'TEXT'
       ),
+      'applicantPosition' => array(
+        'type' => 'TEXT'
+      ),
       'phone' => array(
         'type' => 'TEXT'
       ),

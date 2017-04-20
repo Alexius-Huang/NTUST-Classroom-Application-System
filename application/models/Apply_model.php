@@ -14,7 +14,7 @@ class Apply_model extends CI_Model {
   }
 
   function get_applies_by_student_id($id = '0') {
-    if ($id === '0' OR $id !== $this->session->userdata('studentID')) {
+    if ( ! $id = $this->session->userdata('studentID')) {
       return FALSE;
     }
     $this->db->where('student_id', $id);
