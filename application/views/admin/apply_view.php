@@ -1,6 +1,6 @@
 <div class="box box-primary">
   <div class="box-header" id="page-header">
-    <h3 class="box-title">檢視與審核申請</h3>
+    <h3 class="box-title">檢視與審核場地申請</h3>
   </div>
   <div class="box-body">
     <table id="datatable" class="table table-striped table-bordered">

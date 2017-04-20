@@ -177,7 +177,7 @@ class Main extends WEB_Controller {
     );
 
     foreach ($view['applies'] as $index => $apply) {
-      if ($apply['status'] == '0') { $view['applies'][$index]['past'] = today() >= $apply['date']; }
+      if ($apply['status'] == '0' OR $apply['status'] == '1') { $view['applies'][$index]['past'] = today() >= $apply['date']; }
     }
 
     $this->load->css('assets/css/pending.css');

@@ -14,6 +14,7 @@ class Admin extends WEB_Controller {
     $this->load->model('classroom_model');
     $this->load->model('device_model');
     $this->load->model('apply_model');
+    $this->load->model('device_apply_model');
   }
 
   public function create_classroom() {
@@ -167,6 +168,25 @@ class Admin extends WEB_Controller {
       }
 
       echo json_encode($result);
+    } else redirect('admin/main');
+  }
+
+  public function get_device_info() {
+    if ($device_apply_id = $this->input->post('id')) {
+      $logs = $this->device_apply_model->get_device_logs_by_device_apply($device_apply_id);
+      $devices = array();
+      foreach ($logs as $log) {
+        $device = $this->device_model->get_device($log['device_id']);
+        $devices[$device['id']] = $device;
+        $devices[$device['id']]['lease_count'] = $log['lease_count'];
+      }
+      echo json_encode($devices);
+    }
+  }
+
+  public function check_device_application() {
+    if ($id = $this->input->post('id') AND $mode = $this->input->post('mode')) {
+      $this->device_apply_model->check_device_apply($id, $mode);
     } else redirect('admin/main');
   }
 

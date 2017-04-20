@@ -17,6 +17,7 @@ class Admin extends WEB_Controller {
     $this->load->model('classroom_model');
     $this->load->model('device_model');
     $this->load->model('apply_model');
+    $this->load->model('device_apply_model');
   }
 
   public function index() {
@@ -61,18 +62,6 @@ class Admin extends WEB_Controller {
     $this->load->js('assets/plugins/datatables/jquery.dataTables.min.js');
     $this->load->js('assets/plugins/datatables/dataTables.bootstrap.min.js');
     $this->load->view('admin/apply_view', $view);
-  }
-
-  public function device_apply() {
-    $view = array(
-      'username' => 'admin',
-      'page' => 'device_apply',
-      // 'applies' => $this->apply_model->get_applies(array('status' => '0', 'date >' => date('Y-m-d')))
-    );
-
-    $this->load->js('assets/plugins/datatables/jquery.dataTables.min.js');
-    $this->load->js('assets/plugins/datatables/dataTables.bootstrap.min.js');
-    $this->load->view('admin/device_apply_view', $view);
   }
 
   public function application($year_month = '0') {
@@ -387,6 +376,35 @@ class Admin extends WEB_Controller {
     }
 
     $this->load->view('admin/device_edit_view', $view);
+  }
+
+  public function device_apply() {
+    $view = array(
+      'username' => 'admin',
+      'page' => 'device_apply',
+      'applies' => $this->device_apply_model->get_device_applies(array('status' => '0', 'date >' => date('Y-m-d')))
+    );
+
+    $outdated = $this->apply_model->get_applies(array('status' => '0', 'date <=' => date('Y-m-d')));
+    if ( ! empty($outdated)) {
+      foreach ($outdated as $apply) {
+        $this->apply_model->check_apply($apply['id'], 'reject');
+      }
+    }
+
+    // foreach ($view['applies'] as $index => $apply) {
+    //   $view['applies'][$index]['devices'] = array();
+    //   $logs = $this->device_apply_model->get_device_logs_by_device_apply($apply['id']);
+    //   foreach ($logs as $log) {
+    //     $device = $this->device_model->get_device($log['device_id']);
+    //     $view['applies'][$index]['devices'][$device['id']] = $device;
+    //     $view['applies'][$index]['devices'][$device['id']]['lease_count'] = $log['lease_count'];
+    //   }
+    // }
+
+    $this->load->js('assets/plugins/datatables/jquery.dataTables.min.js');
+    $this->load->js('assets/plugins/datatables/dataTables.bootstrap.min.js');
+    $this->load->view('admin/device_apply_view', $view);
   }
 
   public function notice_edit() {

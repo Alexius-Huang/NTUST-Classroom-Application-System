@@ -99,6 +99,22 @@ class Device_apply_model extends CI_Model {
     return $id;
   }
 
+  function check_device_apply($id = '0', $mode = NULL) {
+    if ($id === '0') {
+      return FALSE;
+    } else if ($apply = $this->get_device_apply($id)) {
+      $this->db->where('id', $id);
+      switch($mode) {
+        case 'approve': $update = array('status' => '1'); break;
+        case 'reject':  $update = array('status' => '4'); break;
+        case 'cancel':  $update = array('status' => '2'); break;
+        default: continue;
+      }
+      $update['updated_at'] = time();
+      $this->db->update('DeviceApply', $update);
+    }
+  }
+
   function delete_device_apply_along_with_logs($id) {
     $device_logs = $this->get_device_logs_by_device_apply($id);
     foreach ($device_logs as $log) {
