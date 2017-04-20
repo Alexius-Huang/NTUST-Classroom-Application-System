@@ -136,7 +136,7 @@
           <li class="classroom-nav-item <?php echo ($page === 'notice'                                  ?  'active' : ''); ?>"><a href="<?php echo base_url(); ?>admin/notice_edit"><?php echo render_icon('info-circle'); ?> 編輯場地申請須知</a></li>
           <li class="header toggle-header" id="device-nav"><?php echo render_icon('navicon') ?> 器材後台選單</li>
           <li class="device-nav-item <?php echo ($page === 'device_apply'                            ?  'active' : ''); ?>"><a href="<?php echo base_url(); ?>admin/device_apply"><?php echo render_icon('sticky-note-o'); ?> 審合器材申請</a></li>
-          <li class="device-nav-item <?php echo ($page === 'device_application'                      ?  'active' : ''); ?>"><a href="<?php echo base_url(); ?>admin/device_application"><?php echo render_icon('history'); ?> 器材申核記錄</a></li>
+          <li class="device-nav-item <?php echo ($page === 'device_application'                      ?  'active' : ''); ?>"><a href="<?php echo base_url(); ?>admin/device_application"><?php echo render_icon('history'); ?> 器材申請記錄</a></li>
           <li class="device-nav-item <?php echo ($page === 'device'    || $page === 'device_edit'    ?  'active' : ''); ?>"><a href="<?php echo base_url(); ?>admin/device"><?php echo render_icon('cog'); ?> 器材設定</a></li>
           <li class="device-nav-item <?php echo ($page === 'device_notice'                           ?  'active' : ''); ?>"><a href="<?php echo base_url(); ?>admin/device_notice_edit"><?php echo render_icon('info-circle'); ?> 編輯器材申請須知</a></li>
           <li class="header">返回借用系統</li>
