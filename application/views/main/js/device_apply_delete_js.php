@@ -74,7 +74,7 @@ $(document).ready(function() {
                        '<p class="text-left"><?php i18n($lang, 'page.device-apply-delete.swal.purpose'); ?> ' + data.purpose + '</p>' +
                      '</div>' +
                    '</div>' +            
-                   '<div><p><?php i18n($lang, 'page.device-apply-delete.swal.ask'); ?></p></div>';
+                   '<div><p style="color: red"><strong><?php i18n($lang, 'page.device-apply-delete.swal.ask'); ?></strong></p></div>';
 
         swal({
           title: '<?php i18n($lang, 'page.device-apply-delete.swal.title'); ?>',

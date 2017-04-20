@@ -164,7 +164,6 @@ if ( ! function_exists('i18n')) {
             case 'table-title': echo '以下為您正在審核以及通過之器材借用申請：'; break;
             case 'no-record': echo '您尚未有任何審核以及通過之器材借用申請'; break;
             case 'cancel-apply': echo '取消申請'; break;
-            case 'inspect': echo '檢視'; break;
             case 'table-headers': switch($params[3]) {
               case 'apply-at': echo '提出申請時間'; break;
               case 'status': echo '申請狀態'; break;
@@ -311,6 +310,7 @@ if ( ! function_exists('i18n')) {
               case 'cancel': echo 'Cancel'; break;
             } break;
           } break;
+
           case 'device-apply-new': switch($params[2]) {
             case 'title': echo 'Apply Device Leasing'; break;
             case 'apply-fail': echo 'Failure Record！'; break;
@@ -344,6 +344,32 @@ if ( ! function_exists('i18n')) {
               case 'applicant-position': echo 'Applicant Position：'; break;
               case 'phone'; echo 'Phone：'; break;
               case 'purpose': echo 'Purpose(Description)：'; break;
+            } break;
+          } break;
+
+          case 'device-apply-delete': switch($params[2]) {
+            case 'title': echo 'Cancel Device Leasing Application'; break;
+            case 'table-title': echo 'Pending and approved leasing applications are listed below：'; break;
+            case 'no-record': echo 'You haven\'t have any applications yet.'; break;
+            case 'cancel-apply': echo 'Cancel Apply'; break;
+            case 'table-headers': switch($params[3]) {
+              case 'apply-at': echo 'Apply Timing'; break;
+              case 'status': echo 'Status'; break;
+              case 'date': echo 'Date'; break;
+              case 'action': echo 'Action'; break;
+            } break;
+            case 'swal': switch($params[3]) {
+              case 'title': echo 'You are going to cancel application'; break;
+              case 'date': echo 'Date：'; break;
+              case 'status': echo 'Status：'; break;
+              case 'device-list': echo 'Device List'; break;
+              case 'organization': echo 'Organization：'; break;
+              case 'applicant': echo 'Applicant：'; break;
+              case 'phone': echo 'Phone：'; break;
+              case 'purpose': echo 'Purpose：'; break;
+              case 'ask': echo 'Are you sure to cancel down application'; break;
+              case 'confirm': echo 'Confirm'; break;
+              case 'cancel': echo 'Cancel'; break;
             } break;
           } break;
           case 'device': switch($params[2]) {
