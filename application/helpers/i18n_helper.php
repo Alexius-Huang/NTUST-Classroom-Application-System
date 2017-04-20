@@ -61,11 +61,22 @@ if ( ! function_exists('i18n')) {
         } break;
 
         case 'page': switch($params[1]) {
+          case 'signin': switch($params[2]) {
+            case 'title': echo '登入'; break;
+            case 'failure': echo '登入失敗！'; break;
+            case 'failure-message': echo '請確認您輸入的登入資訊是否正確。'; break;
+            case 'student-id-placeholder': echo '請輸入您的學號'; break;
+            case 'password-placeholder': echo '請輸入學生資訊系統密碼'; break;
+            case 'signin': echo '登入'; break;
+            case 'remark': echo '備註：建議使用 IE 以及 Edge 以外的瀏覽器'; break;
+          } break;
+
           case 'classroom': switch($params[2]) {
             case 'apply-notice': switch($params[3]) {
               case 'read-notice': echo '使用本系統前，請閱讀以下場地借用須知：'; break;
             } break;
           } break;
+          
           case 'classroom-apply-new': switch($params[2]) {
             case 'title': echo '場地申請借用'; break;
             case 'apply-fail': echo '場地申請失敗！'; break;
@@ -85,6 +96,7 @@ if ( ! function_exists('i18n')) {
               case 'purpose': echo '場地借用目的（請簡述）：'; break;
             } break;
           } break;
+          
           case 'classroom-apply-record': switch($params[2]) {
             case 'title': echo '場地申請紀錄'; break;
             case 'table-title': echo '以下為您的場地借用紀錄：'; break;
@@ -250,11 +262,22 @@ if ( ! function_exists('i18n')) {
         } break;
 
         case 'page': switch($params[1]) {
+          case 'signin': switch($params[2]) {
+            case 'title': echo 'Sign In'; break;
+            case 'failure': echo 'Sign In Failure！'; break;
+            case 'failure-message': echo 'Please check your input and try again!'; break;
+            case 'student-id-placeholder': echo 'Please Enter your Student ID'; break;
+            case 'password-placeholder': echo 'Please Enter your Student Password'; break;
+            case 'signin': echo 'Sign In'; break;
+            case 'remark': echo 'Hint: It is recommended to use browsers other than IE or Edge'; break;
+          } break;
+
           case 'classroom': switch($params[2]) {
             case 'apply-notice': switch($params[3]) {
               case 'read-notice': echo 'Before using the system, please read the following classroom leasing notice :'; break;
             } break;
           } break;
+
           case 'classroom-apply-new': switch($params[2]) {
             case 'title': echo 'Apply Place Leasing'; break;
             case 'apply-fail': echo 'Failure Record！'; break;
@@ -274,6 +297,7 @@ if ( ! function_exists('i18n')) {
               case 'purpose': echo 'Purpose(Description)：'; break;
             } break;
           } break;
+
           case 'classroom-apply-record': switch($params[2]) {
             case 'title': echo 'Record'; break;
             case 'table-title': echo 'Applied applications are listed below：'; break;
