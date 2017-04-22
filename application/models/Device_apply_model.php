@@ -25,6 +25,18 @@ class Device_apply_model extends CI_Model {
     }
   }
 
+  function get_device_applies_by_date($date = '') {
+    if ($date === '') {
+      return FALSE;
+    } else {
+      $this->db->where('date <=', $date);
+      $this->db->where('end_date >=', $date);
+      $this->db->order_by('id', 'asc');
+      $query = $this->db->get('DeviceApply');
+      return $query->result_array();
+    }
+  }
+
   function get_device_logs($where = array()) {
     $this->db->where($where);
     $this->db->order_by('id', 'asc');
@@ -74,6 +86,7 @@ class Device_apply_model extends CI_Model {
       'student_id'        => $data['student_id'],
       'status'            => $data['status'],
       'date'              => $data['date'],
+      'end_date'          => $data['end_date'],
       'organization'      => $data['organization'],
       'applicant'         => $data['applicant'],
       'applicantPosition' => $data['applicantPosition'],
@@ -108,7 +121,6 @@ class Device_apply_model extends CI_Model {
         case 'approve': $update = array('status' => '1'); break;
         case 'reject':  $update = array('status' => '4'); break;
         case 'cancel':  $update = array('status' => '2'); break;
-        default: continue;
       }
       $update['updated_at'] = time();
       $this->db->update('DeviceApply', $update);

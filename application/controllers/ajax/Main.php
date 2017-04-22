@@ -323,7 +323,7 @@ class Main extends WEB_Controller {
       }
 
       /* Get all of the device application with the same date in status of pending or success */
-      $device_applies = $this->device_apply_model->get_device_applies(array('date' => $date));
+      $device_applies = $this->device_apply_model->get_device_applies_by_date($date);
 
       /* Calculate each device count in corresponding day */
       foreach ($device_applies as $device_apply) {
