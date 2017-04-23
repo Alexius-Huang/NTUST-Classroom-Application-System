@@ -95,6 +95,21 @@ if ( ! function_exists('i18n')) {
               case 'participant-count': echo '場地人數：'; break;
               case 'purpose': echo '場地借用目的（請簡述）：'; break;
             } break;
+            case 'swal': switch($params[3]) {
+              case 'ready': echo '場地借用申請資料即將送出'; break;
+              case 'place': echo '申請場地：'; break;
+              case 'date': echo '申請日期：'; break;
+              case 'time': echo '申請時段：'; break;
+              case 'organization': echo '申請單位：'; break;
+              case 'applicant': echo '申請人姓名：'; break;
+              case 'applicant-position': echo '申請人職稱：'; break;
+              case 'phone': echo '申請人聯絡電話：'; break;
+              case 'participant-count': echo '場地人數：'; break;
+              case 'purpose': echo '場地申請目的：'; break;
+              case 'confirm-message': echo '請再次確認送出之場地申請資料！<br/><span style="color: red">系學會申請場地均需至社團管理系統登錄活動申請</span>'; break;
+              case 'confirm': echo '確認送出'; break;
+              case 'cancel': echo '取消申請'; break;
+            } break;
           } break;
           
           case 'classroom-apply-record': switch($params[2]) {
@@ -330,6 +345,21 @@ if ( ! function_exists('i18n')) {
               case 'phone': echo 'Phone：'; break;
               case 'participant-count': echo 'Number of Participant：'; break;
               case 'purpose': echo 'Purpose(Description)：'; break;
+            } break;
+            case 'swal': switch($params[3]) {
+              case 'ready': echo 'Application is going to submit'; break;
+              case 'place': echo 'Apply Location：'; break;
+              case 'date': echo 'Date：'; break;
+              case 'time': echo 'Time：'; break;
+              case 'organization': echo 'Organization：'; break;
+              case 'applicant': echo 'Applicant：'; break;
+              case 'applicant-position': echo 'Applicant Position：'; break;
+              case 'phone': echo 'Phone：'; break;
+              case 'participant-count': echo 'Participant Count：'; break;
+              case 'purpose': echo 'Purpose：'; break;
+              case 'confirm-message': echo 'Please check your application again!'; break;
+              case 'confirm': echo 'Submit'; break;
+              case 'cancel': echo 'Cancel'; break;
             } break;
           } break;
 

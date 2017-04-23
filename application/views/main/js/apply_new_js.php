@@ -1,19 +1,11 @@
 <script>
 $(document).ready(function() {
   function show_error_message(title, content) {
-    <?php if ($lang === 'zh-TW'): ?>
-      swal({
-        title: title ? title : '錯誤！',
-        type: 'error',
-        text: content ? content : '系統內部似乎出錯，請聯絡相關負責人員！'
-      });
-    <?php elseif ($lang === 'en-us'): ?>
-      swal({
-        title: title ? title : 'Internal Error Occurred！',
-        type: 'error',
-        text: content ? content : 'Internal system error occurred, please contact relevant personnel.'
-      });
-    <?php endif; ?>
+    swal({
+      title: title ? title : '<?php i18n($lang, 'general.system.error-title'); ?>',
+      type: 'error',
+      text: content ? content : '<?php i18n($lang, 'general.system.error-message'); ?>'
+    });
   }
 
   function get_time_state() {
@@ -278,26 +270,27 @@ $(document).ready(function() {
         dataType: 'json',
         url: '<?php echo base_url(); ?>ajax/main/get_classroom_name',
         success: function(query) {
+          <?php $i18n_str = 'page.classroom-apply-new.swal.'; ?>
           swal({
-            title: '<?php echo ($lang === 'zh-TW' ? '場地借用申請資料即將送出' : 'Application is going to submit'); ?>',
+            title: '<?php i18n($lang, $i18n_str.'ready'); ?>',
             html: '<div class="box box-primary">' +
                     '<div class="box-body">' +
                       '<span class="text-left">' +
-                        '<p><?php echo ($lang === 'zh-TW' ? '申請場地' : 'Apply Location') ?>：' + query.classroomName + '</p>' +
-                        '<p><?php echo ($lang === 'zh-TW' ? '申請日期' : 'Date'); ?>：' + data.date + '</p>' +
-                        '<p><?php echo ($lang === 'zh-TW' ? '申請時段' : 'Time'); ?>：' + data.times.join('、') + '</p>' +
-                        '<p><?php echo ($lang === 'zh-TW' ? '申請單位' : 'Organization'); ?>：' + data.organization + '</p>' +
-                        '<p><?php echo ($lang === 'zh-TW' ? '申請人姓名' : 'Applicant'); ?>：' + data.applicant + '</p>' +
-                        '<p><?php echo ($lang === 'zh-TW' ? '申請人職稱' : 'Applicant Position'); ?>：' + data.applicantPosition + '</p>' +
-                        '<p><?php echo ($lang === 'zh-TW' ? '申請人聯絡電話' : 'Phone'); ?>：' + data.phone + '</p>' +
-                        '<p><?php echo ($lang === 'zh-TW' ? '場地人數' : 'Participant Count'); ?>：' + data.participantCount + '</p>' +
-                        '<p><?php echo ($lang === 'zh-TW' ? '場地使用目的' : 'Purpose'); ?>：' + data.purpose + '</p>' +
+                        '<p><?php i18n($lang, $i18n_str.'place') ?>' + query.classroomName + '</p>' +
+                        '<p><?php i18n($lang, $i18n_str.'date') ?>' + data.date + '</p>' +
+                        '<p><?php i18n($lang, $i18n_str.'time') ?>' + data.times.join('、') + '</p>' +
+                        '<p><?php i18n($lang, $i18n_str.'organization') ?>' + data.organization + '</p>' +
+                        '<p><?php i18n($lang, $i18n_str.'applicant') ?>' + data.applicant + '</p>' +
+                        '<p><?php i18n($lang, $i18n_str.'applicant-position') ?>' + data.applicantPosition + '</p>' +
+                        '<p><?php i18n($lang, $i18n_str.'phone') ?>' + data.phone + '</p>' +
+                        '<p><?php i18n($lang, $i18n_str.'participant-count') ?>' + data.participantCount + '</p>' +
+                        '<p><?php i18n($lang, $i18n_str.'purpose') ?>' + data.purpose + '</p>' +
                       '</span>' +
                     '</div>' +
-                  '</div><p><strong><?php echo ($lang === 'zh-TW' ? '請再次確認送出之場地申請資料！<br/><span style="color: red">系學會申請場地均需至社團管理系統登錄活動申請</span>' : 'Please check your application again!' ); ?></strong></p>',
+                  '</div><p><strong><?php i18n($lang, $i18n_str.'confirm-message'); ?></strong></p>',
             showCancelButton: true,
-            confirmButtonText: '<?php echo ($lang === 'zh-TW' ? '送出' : 'Submit' ) ?>',
-            cancelButtonText: '<?php echo ($lang === 'zh-TW' ? '取消' : 'Cancel' ); ?>',
+            confirmButtonText: '<?php echo render_icon('check'); ?> <?php i18n($lang, $i18n_str.'confirm'); ?>',
+            cancelButtonText: '<?php echo render_icon('times'); ?> <?php i18n($lang, $i18n_str.'cancel'); ?>',
             cancelButtonColor: '#dd4b39'
           }).then(function() {
             data.ajax = true;
