@@ -21,6 +21,7 @@
                   <th class="text-center"><?php i18n($lang, 'page.device-apply-delete.table-headers.apply-at') ?></th>
                   <th class="text-center"><?php i18n($lang, 'page.device-apply-delete.table-headers.status') ?></th>
                   <th class="text-center"><?php i18n($lang, 'page.device-apply-delete.table-headers.date') ?></th>
+                  <th class="text-center"><?php i18n($lang, 'page.device-apply-delete.table-headers.end-date') ?></th>
                   <th class="text-center"><?php i18n($lang, 'page.device-apply-delete.table-headers.action') ?></th>
                 </tr>
               </thead>
@@ -37,11 +38,13 @@
                       }
                     ?>
                     <td><?php echo $apply['date']; ?></td>
+                    <td><?php echo $apply['end_date']; ?></td>
                     <td>
                       <button
                         data-id="<?php echo $apply['id']; ?>"
                         data-status="<?php echo apply_state_type($apply['status'] == 0 ? '0' : '1', $lang); ?>"
                         data-date="<?php echo $apply['date']; ?>"
+                        data-end="<?php echo $apply['end_date']; ?>"
                         data-organization="<?php echo $apply['organization']; ?>"
                         data-applicant="<?php echo $apply['applicant'].'（'.$apply['applicantPosition'].'）'; ?>"
                         data-phone="<?php echo $apply['phone']; ?>"

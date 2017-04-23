@@ -142,6 +142,7 @@ class Main extends WEB_Controller {
         'student_id'        => $this->session->userdata('studentID'),
         'status'            => '0',
         'date'              => $post['date'],
+        'end_date'          => $post['end_date'],
         'organization'      => $post['organization'],
         'applicant'         => $post['applicant'],
         'applicantPosition' => $post['applicantPosition'],
