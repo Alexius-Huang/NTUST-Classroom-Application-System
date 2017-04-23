@@ -1,19 +1,11 @@
 <script>
 $(document).ready(function() {
   function show_error_message(title, content) {
-    <?php if ($lang === 'zh-TW'): ?>
-      swal({
-        title: title ? title : '錯誤！',
-        type: 'error',
-        text: content ? content : '系統內部似乎出錯，請聯絡相關負責人員！'
-      });
-    <?php elseif ($lang === 'en-us'): ?>
-      swal({
-        title: title ? title : 'Internal Error Occurred！',
-        type: 'error',
-        text: content ? content : 'Internal system error occurred, please contact relevant personnel.'
-      });
-    <?php endif; ?>
+    swal({
+      title: title ? title : '<?php i18n($lang, 'general.system.error-title'); ?>',
+      type: 'error',
+      text: content ? content : '<?php i18n($lang, 'general.system.error-message'); ?>'
+    });
   }
   
   /* Geenerating Device Selection Object */
