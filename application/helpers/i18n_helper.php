@@ -135,6 +135,30 @@ if ( ! function_exists('i18n')) {
             } break;
           } break;
 
+          case 'classroom-status': switch($params[2]) {
+            case 'title': echo '場地借用狀態查詢'; break;
+            case 'pending': echo '審核中'; break;
+            case 'approved': echo '已通過'; break;
+            case 'banned': echo '不開放'; break;
+            case 'checked-info': switch($params[3]) {
+              case 'place': echo '借用場地：'; break;
+              case 'participant-count': echo '借用人數：'; break;
+              case 'date': echo '借用日期：'; break;
+              case 'time': echo '借用時段：'; break;
+              case 'organization': echo '借用單位（社團）：'; break;
+              case 'applicant': echo '申請人：'; break;
+              case 'purpose': echo '申請目的：'; break;  
+            } break;
+            case 'banned-info': switch($params[3]) {
+              case 'place': echo '不開放場地：'; break;
+              case 'type': echo '不開放類型：'; break;
+              case 'date': echo '日期：'; break;
+              case 'time': echo '時段：'; break;
+              case 'weekday': echo '每週：'; break;
+              case 'purpose': echo '目的：'; break;
+            } break;
+          } break;
+
           case 'device-apply-new': switch($params[2]) {
             case 'title': echo '申請借用'; break;
             case 'apply-fail': echo '申請失敗！'; break;
@@ -314,6 +338,7 @@ if ( ! function_exists('i18n')) {
               case 'apply-at': echo 'Apply Time'; break;
             } break;
           } break;
+
           case 'classroom-apply-delete': switch($params[2]) {
             case 'title': echo 'Apply Cancel'; break;
             case 'table-title': echo 'The following are the details of the pending or approved applications：'; break;
@@ -336,6 +361,30 @@ if ( ! function_exists('i18n')) {
               case 'ask': echo 'Are you sure to cancel down the application？'; break;
               case 'confirm': echo 'Confirm'; break;
               case 'cancel': echo 'Cancel'; break;
+            } break;
+          } break;
+
+          case 'classroom-status': switch($params[2]) {
+            case 'title': echo 'Status of Classroom Leasing'; break;
+            case 'pending': echo 'Pending'; break;
+            case 'approved': echo 'Accepted'; break;
+            case 'banned': echo 'Not Allowed'; break;
+            case 'checked-info': switch($params[3]) {
+              case 'place': echo 'Place：'; break;
+              case 'participant-count': echo 'Participant Count：'; break;
+              case 'date': echo 'Date：'; break;
+              case 'time': echo 'Time：'; break;
+              case 'organization': echo 'Organization(Club)：'; break;
+              case 'applicant': echo 'Applicant：'; break;
+              case 'purpose': echo 'Purpose：'; break;  
+            } break;
+            case 'banned-info': switch($params[3]) {
+              case 'place': echo 'Place Not Leasing：'; break;
+              case 'type': echo 'Type：'; break;
+              case 'date': echo 'Date：'; break;
+              case 'time': echo 'Time：'; break;
+              case 'weekday': echo 'Weekday：'; break;
+              case 'purpose': echo 'Purpose：'; break;
             } break;
           } break;
 
