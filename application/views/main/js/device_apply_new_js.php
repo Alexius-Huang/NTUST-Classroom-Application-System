@@ -41,53 +41,88 @@ $(document).ready(function() {
            " / <?php i18n($lang, 'page.device-apply-new.label.max-lease-count'); ?>" + device.max_lease_count + " )"
   }
 
-  $('#date').datepicker({
-    format: "yyyy-mm-dd",
-    weekStart: 0,
-    startDate: moment().add(1, 'days').format('YYYY-MM-DD'),
-    endDate: moment().add(1, 'month').format('YYYY-MM-DD'), // Restrict selectable date in 2 months
-    language: '<?php echo $lang; ?>',
-    daysOfWeekDisabled: [0, 6],
-    beforeShowDay: function(date) {
-      var today = moment().format('YYYY-MM-DD');
-      var currentDate = moment(date).format('YYYY-MM-DD');
-      var currentMonth = moment(date).format('MM');
+  var $dateConfig = function(beforeShowDayCallback){
+    return  {
+      format: "yyyy-mm-dd",
+      weekStart: 0,
+      startDate: moment().add(1, 'days').format('YYYY-MM-DD'),
+      endDate: moment().add(2, 'weeks').format('YYYY-MM-DD'), // Restrict selectable date in 2 months
+      language: '<?php echo $lang; ?>',
+      daysOfWeekDisabled: [0, 6],
+      beforeShowDay: function(date) { beforeShowDayCallback(date); }
+    };
+  };
 
-      // if (currentDate > today && $classroomID != 0 && data[$classroomID] && data[$classroomID][currentDate]) {
-      //   if (data[$classroomID][currentDate].disable) { return { classes: 'disabled date-full' }; }
-      //   if (data[$classroomID][currentDate].status)  { return { classes: 'date-status' };        }
-      // } else return;
-    }
-  }).datepicker('setDate', moment().format('YYYY-MM-DD')).on('changeDate.datepicker', function(event) {
-    var date = moment(event.date).format('YYYY-MM-DD');
-    
-    /* Enable device list if originally disabled */
-    if ($deviceSelect.is(':disabled')) { $deviceSelect.attr('disabled', false); }
-    
+  var $endDateConfig = function(beforeShowDayCallback) {
+    return {
+      format: 'yyyy-mm-dd',
+      weekStart: 0,
+      startDate: moment().add(1, 'days').format('YYYY-MM-DD'),
+      endDate: moment().add(1, 'days').format('YYYY-MM-DD'),
+      language: '<?php echo $lang; ?>',
+      daysOfWeekDisabled: [0, 6],
+      beforeShowDay: function(date) { beforeShowDayCallback(date); }
+    };
+  };
+
+  function resetEndDateRange(startDate) {
+    $('#end_date').datepicker('clearDates')
+                  .datepicker('setStartDate', moment(startDate).add(1, 'day').format('YYYY-MM-DD'))
+                  .datepicker('setEndDate', moment(startDate).add(7, 'days').format('YYYY-MM-DD'));
+  };
+
+  function getAvailableDeviceInfo(date, endDate, callback) {
     $.ajax({
-      url: '<?php echo base_url(); ?>ajax/main/get_available_device_state_by_date',
-      data: { date: date },
+      url: '<?php echo base_url(); ?>ajax/main/get_available_device_info_by_date_range',
+      data: { date: date, end_date: endDate },
       dataType: 'json',
       type: 'post',
       cache: false,
-      success: function(deviceTable) {
-        console.log(Object.keys(deviceTable));
-        $deviceTable = JSON.parse(JSON.stringify(deviceTable));
-        
-        /* Remove original options if appears */
-        if ($('select#device > option').first().siblings().length != 0) {
-          $('select#device > option').first().siblings().each(function() {
-            $(this).remove();
-          });
-        }
+      success: function(deviceInfo) { callback(deviceInfo) },
+      error: function() { show_error_message(); }
+    });
+  }
 
-        /* Remove selected leased device if appears */
-        if ($deviceList.children().length != 0) {
-          $deviceList.children().each(function() {
-            $(this).remove()
-          });
-          $deviceList.text('<?php i18n($lang, 'page.device-apply-new.no-device-selected'); ?>');
-        }
+  function clearDeviceOption() {
+    /* Remove original options if appears */
+    if ($('select#device > option').first().siblings().length != 0) {
+      $('select#device > option').first().siblings().each(function() {
+        $(this).remove();
+      });
+    }
+  }
+
+  function clearDeviceList() {
+    /* Remove selected leased device if appears */
+    if ($deviceList.children().length != 0) {
+      $deviceList.children().each(function() {
+        $(this).remove()
+      });
+      $deviceList.text('<?php i18n($lang, 'page.device-apply-new.no-device-selected'); ?>');
+    }
+  }
+
+  $('#date').datepicker($dateConfig(function(date) {
+    var today = moment().format('YYYY-MM-DD');
+    var currentDate = moment(date).format('YYYY-MM-DD');
+    var currentMonth = moment(date).format('MM');
+  })).datepicker('setDate', moment().format('YYYY-MM-DD')).on('changeDate.datepicker', function(event) {
+    var date = moment(event.date).format('YYYY-MM-DD');
+    if ($('#end_date').is(':disabled')) { $('#end_date').prop('disabled', false); }
+    resetEndDateRange(date);
+    $deviceSelect.attr('disabled', true);
+    clearDeviceOption();
+    clearDeviceList();
+  });
+
+  $('#end_date').datepicker($endDateConfig(function(date) {
+    clearDeviceOption();
+    clearDeviceList();
+  })).datepicker('setDate', moment().format('YYYY-MM-DD')).on('changeDate.datepicker', function(event) {
+    var date = $('#date').val(), endDate = $('#end_date').val();
+    if (date && endDate) {
+      getAvailableDeviceInfo(date, endDate, function(deviceTable) {
+        $deviceTable = JSON.parse(JSON.stringify(deviceTable));
 
         for (var id of Object.keys(deviceTable)) {
           var device = deviceTable[id];
@@ -102,10 +137,13 @@ $(document).ready(function() {
           }
           $deviceSelect.append(optionTag);
         }
-      },
-      error: function() { show_error_message(); }
-    });
+
+        if ($deviceSelect.is(":disabled")) { $deviceSelect.attr('disabled', false); }
+      });
+    }
   });
+
+  $('input#end_date').prop('disabled', true);
 
   /* Option onclick event */
   $deviceSelect.on('change', function(event) {
@@ -159,8 +197,6 @@ $(document).ready(function() {
     });
   });
 
-  var $date = '', $classroomID = 0, $datepciker_classes = [];
-
   /* When submit */
   $('button#application-submit-btn').on('click', function(event) {
     event.preventDefault();
@@ -172,9 +208,22 @@ $(document).ready(function() {
             data['date'] = $('input#date').val();
             resolve();
           } else <?php if ($lang === 'zh-TW'): ?>
-            show_error_message('請檢查未填項目！', '請選擇借用場地日期');
+            show_error_message('請檢查未填項目！', '請選擇借用器材日期');
           <?php elseif ($lang === 'en-us'): ?>
             show_error_message('Please check your input！', 'Remember to select date.')
+          <?php endif; ?>
+        });
+      };
+
+      var assertEndDateFieldShouldFilled = function() {
+        return new Promise(function(resolve, reject){
+          if ($('input#end_date').val() != '') {
+            data['end_date'] = $('input#end_date').val();
+            resolve();
+          } else <?php if ($lang === 'zh-TW'): ?>
+            show_error_message('請檢查未填項目！', '請選擇結束借用日期');
+          <?php elseif ($lang === 'en-us'): ?>
+            show_error_message('Please check your input！', 'Remember to select expiration date.')
           <?php endif; ?>
         });
       };
@@ -303,6 +352,7 @@ $(document).ready(function() {
     /* ASSERT FIELDS */
 
     assertDateFieldShouldFilled()
+    .then(assertEndDateFieldShouldFilled)
     .then(assertAtLeastOneDeviceSelected)
     .then(assertOrganizationShouldFilled)
     .then(assertApplicantShouldFilled)
@@ -318,6 +368,7 @@ $(document).ready(function() {
                   '<span class="text-left">' +
                     '<p><?php i18n($lang, 'page.device-apply-new.more-info'); ?></p>' +
                     '<p><?php i18n($lang, 'page.device-apply-new.submit-info.date'); ?>' + data.date + '</p>' +
+                    '<p><?php i18n($lang, 'page.device-apply-new.submit-info.end-date'); ?>' + data.end_date + '</p>' +
                     '<p><?php i18n($lang, 'page.device-apply-new.submit-info.device-list'); ?>' +
                       '<ul class="list-group">';
       

@@ -24,11 +24,20 @@
             <div class="row">
 
               <!-- Select Date -->
-              <div class="col-md-12 form-group">
+              <div class="col-md-6 form-group">
                 <label for="date"><?php i18n($lang, 'page.device-apply-new.label.date'); ?></label>
                 <div class="input-group">
                   <div class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></div>
                   <input id="date" name="date" class="form-control" required />
+                </div>
+              </div>
+
+              <!-- Select Date -->
+              <div class="col-md-6 form-group">
+                <label for="date"><?php i18n($lang, 'page.device-apply-new.label.end-date'); ?></label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></div>
+                  <input id="end_date" name="end_date" class="form-control" required />
                 </div>
               </div>
 

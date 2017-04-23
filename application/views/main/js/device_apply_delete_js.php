@@ -59,6 +59,7 @@ $(document).ready(function() {
         var html = '<div class="box box-primary">' +
                      '<div class="box-body pre-scrollable">' +
                        '<p class="text-left"><?php i18n($lang, 'page.device-apply-delete.swal.date'); ?> ' + data.date + '</p>' +
+                       '<p class="text-left"><?php i18n($lang, 'page.device-apply-delete.swal.end-date'); ?> ' + data.end + '</p>' +
                        '<p class="text-left"><?php i18n($lang, 'page.device-apply-delete.swal.status'); ?> ' + data.status + '</p>' +
                        '<p class="text-left"><?php i18n($lang, 'page.device-apply-delete.swal.device-list'); ?>' +
                          '<ul class="list-group">';

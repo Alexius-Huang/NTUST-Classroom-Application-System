@@ -312,8 +312,8 @@ class Main extends WEB_Controller {
     echo json_encode($datepicker_classes);
   }
 
-  public function get_available_device_state_by_date() {
-    if ($date = $this->input->post('date')) {
+  public function get_available_device_info_by_date_range() {
+    if ($date = $this->input->post('date') AND $end_date = $this->input->post('end_date')) {
       /* Get all of the enabled devices */
       $devices = $this->device_model->get_devices(array('disabled' => 0));
       $device_table = array();
@@ -323,7 +323,11 @@ class Main extends WEB_Controller {
       }
 
       /* Get all of the device application with the same date in status of pending or success */
-      $device_applies = $this->device_apply_model->get_device_applies_by_date($date);
+      $device_applies = array();
+      while (strtotime($date) <= strtotime($end_date)) {
+        $device_applies += $this->device_apply_model->get_device_applies_by_date($date);
+        $date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
+      }
 
       /* Calculate each device count in corresponding day */
       foreach ($device_applies as $device_apply) {
