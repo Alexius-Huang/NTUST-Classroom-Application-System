@@ -58,7 +58,6 @@ class Main_authentication extends WEB_Controller {
     redirect('main_authentication/signin/'.$lang);
   }
 
-  // 教室借用狀態
   public function classroom_status($lang = 'zh-TW') {
     $view = array('page' => 'classroom_status', 'type' => 'classroom', 'lang' => $lang);
 
@@ -71,6 +70,9 @@ class Main_authentication extends WEB_Controller {
   public function device_status($lang = 'zh-TW') {
     $view = array('page' => 'device_status', 'type' => 'device', 'lang' => $lang);
 
+    $this->load->js('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js');
+    $this->load->js('assets/datepicker/js/bootstrap-datepicker.min.js');
+    $this->load->js('assets/datepicker/locales/bootstrap-datepicker.zh-TW.min.js');
     $this->load->view('main/device_status_view', $view);
   }
 }

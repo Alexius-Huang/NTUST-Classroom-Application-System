@@ -135,6 +135,30 @@ if ( ! function_exists('i18n')) {
             } break;
           } break;
 
+          case 'classroom-status': switch($params[2]) {
+            case 'title': echo '場地借用狀態查詢'; break;
+            case 'pending': echo '審核中'; break;
+            case 'approved': echo '已通過'; break;
+            case 'banned': echo '不開放'; break;
+            case 'checked-info': switch($params[3]) {
+              case 'place': echo '借用場地：'; break;
+              case 'participant-count': echo '借用人數：'; break;
+              case 'date': echo '借用日期：'; break;
+              case 'time': echo '借用時段：'; break;
+              case 'organization': echo '借用單位（社團）：'; break;
+              case 'applicant': echo '申請人：'; break;
+              case 'purpose': echo '申請目的：'; break;  
+            } break;
+            case 'banned-info': switch($params[3]) {
+              case 'place': echo '不開放場地：'; break;
+              case 'type': echo '不開放類型：'; break;
+              case 'date': echo '日期：'; break;
+              case 'time': echo '時段：'; break;
+              case 'weekday': echo '每週：'; break;
+              case 'purpose': echo '目的：'; break;
+            } break;
+          } break;
+
           case 'device-apply-new': switch($params[2]) {
             case 'title': echo '申請借用'; break;
             case 'apply-fail': echo '申請失敗！'; break;
@@ -200,6 +224,13 @@ if ( ! function_exists('i18n')) {
               case 'cancel': echo '取消'; break;
             } break;
           } break;
+
+          case 'device-status': switch($params[2]) {
+            case 'title': echo '器材借用狀態查詢'; break;
+            case 'total-count': echo '總數目：'; break;
+            case 'available-count': echo '當日剩餘數目：'; break;
+          } break;
+
           case 'device': switch($params[2]) {
             case 'apply-notice': switch($params[3]) {
               case 'read-notice': echo '使用本系統前，請閱讀以下器材借用須知：'; break;
@@ -314,6 +345,7 @@ if ( ! function_exists('i18n')) {
               case 'apply-at': echo 'Apply Time'; break;
             } break;
           } break;
+
           case 'classroom-apply-delete': switch($params[2]) {
             case 'title': echo 'Apply Cancel'; break;
             case 'table-title': echo 'The following are the details of the pending or approved applications：'; break;
@@ -336,6 +368,30 @@ if ( ! function_exists('i18n')) {
               case 'ask': echo 'Are you sure to cancel down the application？'; break;
               case 'confirm': echo 'Confirm'; break;
               case 'cancel': echo 'Cancel'; break;
+            } break;
+          } break;
+
+          case 'classroom-status': switch($params[2]) {
+            case 'title': echo 'Status of Classroom Leasing'; break;
+            case 'pending': echo 'Pending'; break;
+            case 'approved': echo 'Accepted'; break;
+            case 'banned': echo 'Not Allowed'; break;
+            case 'checked-info': switch($params[3]) {
+              case 'place': echo 'Place：'; break;
+              case 'participant-count': echo 'Participant Count：'; break;
+              case 'date': echo 'Date：'; break;
+              case 'time': echo 'Time：'; break;
+              case 'organization': echo 'Organization(Club)：'; break;
+              case 'applicant': echo 'Applicant：'; break;
+              case 'purpose': echo 'Purpose：'; break;  
+            } break;
+            case 'banned-info': switch($params[3]) {
+              case 'place': echo 'Place Not Leasing：'; break;
+              case 'type': echo 'Type：'; break;
+              case 'date': echo 'Date：'; break;
+              case 'time': echo 'Time：'; break;
+              case 'weekday': echo 'Weekday：'; break;
+              case 'purpose': echo 'Purpose：'; break;
             } break;
           } break;
 
@@ -404,6 +460,13 @@ if ( ! function_exists('i18n')) {
               case 'cancel': echo 'Cancel'; break;
             } break;
           } break;
+
+          case 'device-status': switch($params[2]) {
+            case 'title': echo 'Status of Device Leasing'; break;
+            case 'total-count': echo 'Total：'; break;
+            case 'available-count': echo 'Remaining：'; break;
+          } break;
+
           case 'device': switch($params[2]) {
             case 'apply-notice': switch($params[3]) {
               case 'read-notice': echo 'Before using the system, please read the following device leasing notice :'; break;
