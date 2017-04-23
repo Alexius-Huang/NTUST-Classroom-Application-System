@@ -364,4 +364,29 @@ class Main extends WEB_Controller {
       $this->device_apply_model->delete_device_apply_along_with_logs($apply_id);
     }
   }
+
+  public function get_device_state_table() {
+    if ($date = $this->input->post('date')) {
+      $device_state_table = array();
+      $devices = $this->device_model->get_devices(array('disabled' => '0'));
+      foreach ($devices as $device) {
+        $device['current_available'] = $device['total_count'];
+        $device_state_table[$device['id']] = $device;
+      }
+      $device_applies = $this->device_apply_model->get_device_applies_by_date($date);
+      
+      foreach ($device_applies as $apply) {
+        if ($apply['status'] == '2' OR $apply['status'] == '4') { continue; }
+        $logs = $this->device_apply_model->get_device_logs_by_device_apply($apply['id']);
+        foreach ($logs as $log) {
+          if ($device_state_table[$log['device_id']]) {
+            $device_state_table[$log['device_id']]['current_available'] -= $log['lease_count'];
+            if ($device_state_table[$log['device_id']]['current_available'] < 0) $device_table[$log['device_id']]['current_available'] = 0;
+          }
+        }
+      }
+
+      echo json_encode($device_state_table);
+    }
+  }
 }

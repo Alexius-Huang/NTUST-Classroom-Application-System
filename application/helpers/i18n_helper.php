@@ -224,6 +224,13 @@ if ( ! function_exists('i18n')) {
               case 'cancel': echo '取消'; break;
             } break;
           } break;
+
+          case 'device-status': switch($params[2]) {
+            case 'title': echo '器材借用狀態查詢'; break;
+            case 'total-count': echo '總數目：'; break;
+            case 'available-count': echo '當日剩餘數目：'; break;
+          } break;
+
           case 'device': switch($params[2]) {
             case 'apply-notice': switch($params[3]) {
               case 'read-notice': echo '使用本系統前，請閱讀以下器材借用須知：'; break;
@@ -453,6 +460,13 @@ if ( ! function_exists('i18n')) {
               case 'cancel': echo 'Cancel'; break;
             } break;
           } break;
+
+          case 'device-status': switch($params[2]) {
+            case 'title': echo 'Status of Device Leasing'; break;
+            case 'total-count': echo 'Total：'; break;
+            case 'available-count': echo 'Remaining：'; break;
+          } break;
+
           case 'device': switch($params[2]) {
             case 'apply-notice': switch($params[3]) {
               case 'read-notice': echo 'Before using the system, please read the following device leasing notice :'; break;

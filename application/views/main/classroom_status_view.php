@@ -2,8 +2,8 @@
 <section class="content-header">
   <h1><?php i18n($lang, 'page.classroom-status.title'); ?></h1>
   <ol class="breadcrumb">
-    <li><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW"><?php i18n($lang, 'general.classroom.leasing-system'); ?></a></li>
-    <li class="active"><a href="<?php echo base_url(); ?>main_authentication/classroom_status/zh-TW"><?php i18n($lang, 'page.classroom-status.title'); ?></a></li>
+    <li><a href="<?php echo base_url(); ?>main_authentication/classroom_status/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php i18n($lang, 'general.classroom.leasing-system'); ?></a></li>
+    <li class="active"><a href="<?php echo base_url(); ?>main_authentication/classroom_status/<?php i18n($lang, 'general.link.current-lang'); ?>"><?php i18n($lang, 'page.classroom-status.title'); ?></a></li>
   </ol>
 </section>
 <section class="content">
