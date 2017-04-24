@@ -40,6 +40,7 @@ if ( ! function_exists('i18n')) {
           case 'account-facility': echo '帳號功能'; break;
           case 'signin': echo '登入'; break;
           case 'signout': echo '登出'; break;
+          case 'switch-system': echo '切換系統'; break;
           case 'classroom': switch($params[2]) {
             case 'go-to-leasing-system': echo '前往場地借用系統'; break;
             case 'leasing-system': echo '場地借用系統'; break;
@@ -304,6 +305,7 @@ if ( ! function_exists('i18n')) {
           case 'account-facility': echo 'Account'; break;
           case 'signin': echo 'Sign In'; break;
           case 'signout': echo 'Sign Out'; break;
+          case 'switch-system': echo 'Switch System'; break;
           case 'classroom': switch($params[2]) {
             case 'go-to-leasing-system': echo 'Go to Classroom Leasing System'; break;
             case 'leasing-system': echo 'Classroom Leasing System'; break;

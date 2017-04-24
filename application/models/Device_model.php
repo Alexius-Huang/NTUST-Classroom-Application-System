@@ -6,18 +6,20 @@ class Device_model extends CI_Model {
     parent::__construct();
   }
 
-  function get_devices($where = array()) {
+  function get_devices($where = array(), $include_deleted = FALSE) {
     $this->db->where($where);
+    if ( ! $include_deleted) $this->db->where('disabled !=', '9');
     $this->db->order_by('id', 'asc');
     $query = $this->db->get('Device');
     return $query->result_array();
   }
 
-  function get_device($id = '0') {
+  function get_device($id = '0', $include_deleted = FALSE) {
     if ($id == '0') {
       return FALSE;
     } else {
       $this->db->where('id', $id);
+      if ( ! $include_deleted) $this->db->where('disabled !=', '9');
       $this->db->limit(1);
       $query = $this->db->get('Device');
       if ($query->num_rows() == 1) {

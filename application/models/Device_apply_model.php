@@ -135,7 +135,7 @@ class Device_apply_model extends CI_Model {
     $device = $this->device_model->get_device($device_id);
 
     $update = array(
-      'reject_info_zh-TW' => '器材「'.$device['name_zh-TW'].'」有被更動設定，請嘗試在申請一次！',
+      'reject_info_zh-TW' => '器材「'.$device['name_zh-TW'].'」有被更動設定，請再嘗試申請一次！',
       'reject_info_en-us' => 'The settings of device "'.$device['name_en-us'].'" has been edited, please try and apply again!'
     );
 
@@ -151,7 +151,7 @@ class Device_apply_model extends CI_Model {
     $device = $this->device_model->get_device($device_id);
 
     $update = array(
-      'reject_info_zh-TW' => '器材「'.$device['name_zh-TW'].'」已被刪除，請嘗試在另訂申請！',
+      'reject_info_zh-TW' => '器材「'.$device['name_zh-TW'].'」已從系統中移除，請嘗試另訂申請！',
       'reject_info_en-us' => 'Sorry for the inconvenience, however the device："'.$device['name_en-us'].'" has been removed from the system!'
     );
 
