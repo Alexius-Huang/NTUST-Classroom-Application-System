@@ -40,6 +40,7 @@ if ( ! function_exists('i18n')) {
           case 'account-facility': echo '帳號功能'; break;
           case 'signin': echo '登入'; break;
           case 'signout': echo '登出'; break;
+          case 'switch-system': echo '切換系統'; break;
           case 'classroom': switch($params[2]) {
             case 'go-to-leasing-system': echo '前往場地借用系統'; break;
             case 'leasing-system': echo '場地借用系統'; break;
@@ -240,6 +241,19 @@ if ( ! function_exists('i18n')) {
             } break;
           } break;
 
+          case 'device-apply-record': switch($params[2]) {
+            case 'title': echo '器材申請紀錄'; break;
+            case 'table-title': echo '以下為您的器材借用紀錄：'; break;
+            case 'no-record': echo '您尚未有任何器材借用紀錄'; break;
+            case 'table-headers': switch($params[3]) {
+              case 'status': echo '申請狀態'; break;
+              case 'date': echo '借用日期'; break;
+              case 'end-date': echo '結束日期'; break;
+              case 'remark': echo '備註'; break;
+              case 'apply-at': echo '申請時間'; break;
+            } break;
+          } break;
+
           case 'device-status': switch($params[2]) {
             case 'title': echo '器材借用狀態查詢'; break;
             case 'total-count': echo '總數目：'; break;
@@ -291,6 +305,7 @@ if ( ! function_exists('i18n')) {
           case 'account-facility': echo 'Account'; break;
           case 'signin': echo 'Sign In'; break;
           case 'signout': echo 'Sign Out'; break;
+          case 'switch-system': echo 'Switch System'; break;
           case 'classroom': switch($params[2]) {
             case 'go-to-leasing-system': echo 'Go to Classroom Leasing System'; break;
             case 'leasing-system': echo 'Classroom Leasing System'; break;
@@ -488,6 +503,19 @@ if ( ! function_exists('i18n')) {
               case 'ask': echo 'Are you sure to cancel down application'; break;
               case 'confirm': echo 'Confirm'; break;
               case 'cancel': echo 'Cancel'; break;
+            } break;
+          } break;
+
+          case 'device-apply-record': switch($params[2]) {
+            case 'title': echo 'Device Leasing Application Records'; break;
+            case 'table-title': echo 'List of your device leasing applications：'; break;
+            case 'no-record': echo 'You haven\'t have any device leasing applications yet.'; break;
+            case 'table-headers': switch($params[3]) {
+              case 'status': echo 'Status'; break;
+              case 'date': echo 'Date'; break;
+              case 'end-date': echo 'Expired'; break;
+              case 'remark': echo 'Remark'; break;
+              case 'apply-at': echo 'Applied Timing'; break;
             } break;
           } break;
 

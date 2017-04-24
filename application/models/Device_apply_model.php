@@ -127,6 +127,54 @@ class Device_apply_model extends CI_Model {
     }
   }
 
+  function update_device_reject_due_to_edit($id, $device_id) {
+    $apply = $this->get_device_apply($id);
+    
+    $CI =& get_instance();
+    $CI->load->model('device_model');
+    $device = $this->device_model->get_device($device_id);
+
+    $update = array(
+      'reject_info_zh-TW' => '器材「'.$device['name_zh-TW'].'」有被更動設定，請再嘗試申請一次！',
+      'reject_info_en-us' => 'The settings of device "'.$device['name_en-us'].'" has been edited, please try and apply again!'
+    );
+
+    $this->db->where('id', $apply['id']);
+    $this->db->update('DeviceApply', $update);
+  }
+
+  function update_device_reject_due_to_deleted($id, $device_id) {
+    $apply = $this->get_device_apply($id);
+    
+    $CI =& get_instance();
+    $CI->load->model('device_model');
+    $device = $this->device_model->get_device($device_id);
+
+    $update = array(
+      'reject_info_zh-TW' => '器材「'.$device['name_zh-TW'].'」已從系統中移除，請嘗試另訂申請！',
+      'reject_info_en-us' => 'Sorry for the inconvenience, however the device："'.$device['name_en-us'].'" has been removed from the system!'
+    );
+
+    $this->db->where('id', $apply['id']);
+    $this->db->update('DeviceApply', $update);
+  }
+
+  function update_device_reject_due_to_disabled($id, $device_id) {
+    $apply = $this->get_device_apply($id);
+    
+    $CI =& get_instance();
+    $CI->load->model('device_model');
+    $device = $this->device_model->get_device($device_id);
+
+    $update = array(
+      'reject_info_zh-TW' => '器材「'.$device['name_zh-TW'].'」已從系統中切換為不開放狀態，請嘗試另訂申請！',
+      'reject_info_en-us' => 'Sorry for the inconvenience, however the device："'.$device['name_en-us'].'" is not available now!'
+    );
+
+    $this->db->where('id', $apply['id']);
+    $this->db->update('DeviceApply', $update);
+  }
+
   function delete_device_apply_along_with_logs($id) {
     $device_logs = $this->get_device_logs_by_device_apply($id);
     foreach ($device_logs as $log) {

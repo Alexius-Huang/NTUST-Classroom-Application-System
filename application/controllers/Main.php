@@ -188,7 +188,16 @@ class Main extends WEB_Controller {
   }
   
   public function device_apply_record($lang = 'zh-TW') {
-    $view = array('page' => 'device_apply_record', 'type' => 'device', 'lang' => $lang);
+    $view = array(
+      'page' => 'device_apply_record',
+      'type' => 'device',
+      'lang' => $lang,
+      'applies' => $this->device_apply_model->get_device_applies_by_student_id()
+    );
+
+    $this->load->css('assets/css/pending.css');
+    $this->load->js('assets/plugins/datatables/jquery.dataTables.min.js');
+    $this->load->js('assets/plugins/datatables/dataTables.bootstrap.min.js');
     $this->load->view('main/device/apply_record_view', $view);
   }
 

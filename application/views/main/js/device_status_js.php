@@ -22,9 +22,9 @@ $(document).ready(function() {
         $('ul#device-list').html("");
         for (var deviceID of Object.keys(deviceTable)) {
           var device = deviceTable[deviceID];
-          var html = '<li class="list-group-item">' + device['name_zh-TW'] + '（' + device['name_en-us'] + '） ' +
+          var html = '<li class="list-group-item"' + (device['current_available'] == 0 ? 'style="color: red"' : '') + '>' + device['name_zh-TW'] + '（' + device['name_en-us'] + '） ' +
                        '<?php i18n($lang, 'page.device-status.total-count'); ?>' + device['total_count'] + ' | ' +
-                       '<?php i18n($lang, 'page.device-status.available-count'); ?>' + device['current_available'] +
+                       '<?php i18n($lang, 'page.device-status.available-count'); ?>' + (device['current_available'] < 0 ? '0' : device['current_available']) +
                      '</li>';
           $('ul#device-list').append(html);
         }

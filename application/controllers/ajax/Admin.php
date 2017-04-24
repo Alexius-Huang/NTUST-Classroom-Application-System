@@ -36,9 +36,17 @@ class Admin extends WEB_Controller {
     if ($device_id === '0' || ! $device = $this->device_model->get_device($device_id)) {
       redirect(base_url() . 'admin');
     } else {
-      echo($device_id);
       $update = array('disabled' => ($device['disabled'] == 0 ? 1 : 0));
       $this->device_model->update_device($update, $device_id);
+
+      $device_logs = $this->device_apply_model->get_device_logs(array('device_id' => $device['id']));
+      foreach ($device_logs as $log) {
+        $apply = $this->device_apply_model->get_device_apply($log['device_apply_id']);
+        if ($apply['status'] == 0) {
+          $this->device_apply_model->check_device_apply($apply['id'], 'reject');
+          $this->device_apply_model->update_device_reject_due_to_disabled($apply['id'], $device['id']);
+        }
+      }
     }
   }
 
@@ -63,7 +71,19 @@ class Admin extends WEB_Controller {
   public function delete_device() {
     if ( ! $device = $this->device_model->get_device($this->input->post('id'))) {
       redirect(base_url() . 'admin');
-    } else $this->device_model->delete_device($device['id']);
+    } else {
+      /* Should reject the pending applications which contains the device */
+      $device_logs = $this->device_apply_model->get_device_logs(array('device_id' => $device['id']));
+      foreach ($device_logs as $log) {
+        $apply = $this->device_apply_model->get_device_apply($log['device_apply_id']);
+        if ($apply['status'] == '0' AND $apply['date'] > today()) {
+          $this->device_apply_model->check_device_apply($apply['id'], 'reject');
+          $this->device_apply_model->update_device_reject_due_to_deleted($apply['id'], $device['id']);
+        }
+      }
+
+      $this->device_model->delete_device($device['id']); 
+    }
   }
 
   public function delete_classroom_rules_by_classroom_id() {
@@ -176,7 +196,7 @@ class Admin extends WEB_Controller {
       $logs = $this->device_apply_model->get_device_logs_by_device_apply($device_apply_id);
       $devices = array();
       foreach ($logs as $log) {
-        $device = $this->device_model->get_device($log['device_id']);
+        $device = $this->device_model->get_device($log['device_id'], TRUE);
         $devices[$device['id']] = $device;
         $devices[$device['id']]['lease_count'] = $log['lease_count'];
       }

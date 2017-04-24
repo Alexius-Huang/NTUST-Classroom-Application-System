@@ -72,7 +72,7 @@
                          '<ul class="list-group">';
         for (var index of Object.keys(deviceInfo)) {
           var info = deviceInfo[index];
-          html +=          '<li class="list-group-item">' + info['name_zh-TW'] + '（' + info['name_en-us'] + '）</li>'
+          html +=          '<li class="list-group-item">' + info['name_zh-TW'] + '（' + info['name_en-us'] + '）- ' + info['lease_count'] + '</li>'
         }
         html +=          '</ul>' +
                        '</p>' +
