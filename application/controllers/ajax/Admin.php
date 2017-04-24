@@ -36,9 +36,17 @@ class Admin extends WEB_Controller {
     if ($device_id === '0' || ! $device = $this->device_model->get_device($device_id)) {
       redirect(base_url() . 'admin');
     } else {
-      echo($device_id);
       $update = array('disabled' => ($device['disabled'] == 0 ? 1 : 0));
       $this->device_model->update_device($update, $device_id);
+
+      $device_logs = $this->device_apply_model->get_device_logs(array('device_id' => $device['id']));
+      foreach ($device_logs as $log) {
+        $apply = $this->device_apply_model->get_device_apply($log['device_apply_id']);
+        if ($apply['status'] == 0) {
+          $this->device_apply_model->check_device_apply($apply['id'], 'reject');
+          $this->device_apply_model->update_device_reject_due_to_disabled($apply['id'], $device['id']);
+        }
+      }
     }
   }
 
