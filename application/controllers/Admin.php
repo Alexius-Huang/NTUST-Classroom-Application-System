@@ -28,7 +28,7 @@ class Admin extends WEB_Controller {
     $view = array(
       'username' => 'admin',
       'page' => 'main',
-      'await_applies' => $this->apply_model->get_applies(array('status' => '0', 'date >' => date('Y-m-d'))),
+      'await_applies' => $this->apply_model->get_applies(array('status' => '0', 'date >' => today())),
       'available_classroom' => $this->classroom_model->get_classrooms(array('disabled' => '0')),
       'classrooms' => $this->classroom_model->get_classrooms(),
       'applies_in_current_month' => $this->apply_model->get_applies(array('month(date)' => date('m'), 'year(date)' => date('Y'))),
@@ -43,10 +43,11 @@ class Admin extends WEB_Controller {
     $view = array(
       'username' => 'admin',
       'page' => 'apply',
-      'applies' => $this->apply_model->get_applies(array('status' => '0', 'date >' => date('Y-m-d')))
+      'applies' => $this->apply_model->get_applies(array('status' => '0', 'date >' => today()))
     );
 
-    $outdated = $this->apply_model->get_applies(array('status' => '0', 'date <=' => date('Y-m-d')));
+    /* Outdated classroom applications should be rejected */
+    $outdated = $this->apply_model->get_applies(array('status' => '0', 'date <=' => today()));
     if ( ! empty($outdated)) {
       foreach ($outdated as $apply) {
         $this->apply_model->check_apply($apply['id'], 'reject');
@@ -393,13 +394,14 @@ class Admin extends WEB_Controller {
     $view = array(
       'username' => 'admin',
       'page' => 'device_apply',
-      'applies' => $this->device_apply_model->get_device_applies(array('status' => '0', 'date >' => date('Y-m-d')))
+      'applies' => $this->device_apply_model->get_device_applies(array('status' => '0', 'date >' => today()))
     );
 
-    $outdated = $this->apply_model->get_applies(array('status' => '0', 'date <=' => date('Y-m-d')));
+    /* Outdated device applications should be rejected */
+    $outdated = $this->device_apply_model->get_device_applies(array('status' => '0', 'date <=' => today()));
     if ( ! empty($outdated)) {
       foreach ($outdated as $apply) {
-        $this->apply_model->check_apply($apply['id'], 'reject');
+        $this->device_apply_model->check_device_apply($apply['id'], 'reject');
       }
     }
 
