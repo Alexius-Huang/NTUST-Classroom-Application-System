@@ -59,8 +59,10 @@ class Device_model extends CI_Model {
   }
 
   function delete_device($id) {
-    $this->db->where('id', $id);
-    $this->db->limit(1);
-    $this->db->delete('Device');
+    /* Update device to disabled status which can keep device data instead of wiping out logs */
+    $this->update_device(array('disabled' => '9'), $id);
+    // $this->db->where('id', $id);
+    // $this->db->limit(1);
+    // $this->db->delete('Device');
   }
 }

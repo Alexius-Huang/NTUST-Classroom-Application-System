@@ -372,6 +372,17 @@ class Admin extends WEB_Controller {
       );
       $this->device_model->update_device($update, $id);
 
+      /* When device updated, check the application which contains the device */
+      $device_logs = $this->device_apply_model->get_device_logs(array('device_id' => $device['id']));
+      $device_applies = array();
+      foreach ($device_logs as $log) {
+        $apply = $this->device_apply_model->get_device_apply($log['device_apply_id']);
+        if ($apply['status'] == 0 AND $apply['date'] > today()) {
+          $this->device_apply_model->check_device_apply($apply['id'], 'reject');
+          $this->device_apply_model->update_device_reject_due_to_edit($apply['id'], $device['id']);
+        }
+      }
+
       redirect('admin/device');
     }
 
