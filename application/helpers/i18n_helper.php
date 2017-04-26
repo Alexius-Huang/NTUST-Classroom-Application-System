@@ -245,6 +245,7 @@ if ( ! function_exists('i18n')) {
             case 'title': echo '器材申請紀錄'; break;
             case 'table-title': echo '以下為您的器材借用紀錄：'; break;
             case 'no-record': echo '您尚未有任何器材借用紀錄'; break;
+            case 'print-pdf': echo ' 列印器材借用表 '; break;
             case 'table-headers': switch($params[3]) {
               case 'status': echo '申請狀態'; break;
               case 'date': echo '借用日期'; break;
@@ -510,6 +511,7 @@ if ( ! function_exists('i18n')) {
             case 'title': echo 'Device Leasing Application Records'; break;
             case 'table-title': echo 'List of your device leasing applications：'; break;
             case 'no-record': echo 'You haven\'t have any device leasing applications yet.'; break;
+            case 'print-pdf': echo ' Print Device List PDF '; break;
             case 'table-headers': switch($params[3]) {
               case 'status': echo 'Status'; break;
               case 'date': echo 'Date'; break;
