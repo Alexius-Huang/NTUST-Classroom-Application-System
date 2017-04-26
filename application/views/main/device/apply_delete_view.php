@@ -27,7 +27,7 @@
               </thead>
               <tbody>
                 <?php foreach ($applies as $apply): ?>
-                  <?php if ($apply['status'] == 2 OR $apply['status'] == 4 OR $apply['past']): continue; endif; ?>
+                  <?php if ($apply['status'] == 2 OR $apply['status'] == 4 OR today() >= $apply['date']): continue; endif; ?>
                   <tr>
                     <td><?php echo date('Y-m-d, H:i:s', $apply['created_at']) ?></td>
                     <?php 

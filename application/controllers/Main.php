@@ -184,7 +184,10 @@ class Main extends WEB_Controller {
     );
 
     foreach ($view['applies'] as $index => $apply) {
-      if ($apply['status'] == '0' OR $apply['status'] == '1') { $view['applies'][$index]['past'] = today() >= $apply['date']; }
+      if ($apply['status'] == '0' AND today() >= $apply['date']) {
+        $this->device_apply_model->check_device_apply($apply['id'], 'reject');
+        $view['applies'][$index]['status'] = '4';
+      }
     }
 
     $this->load->css('assets/css/pending.css');
@@ -200,6 +203,13 @@ class Main extends WEB_Controller {
       'lang' => $lang,
       'applies' => $this->device_apply_model->get_device_applies_by_student_id()
     );
+
+    foreach ($view['applies'] as $index => $apply) {
+      if ($apply['status'] == '0' AND today() >= $apply['date']) {
+        $this->device_apply_model->check_device_apply($apply['id'], 'reject');
+        $view['applies'][$index]['status'] = '4';
+      }
+    }
 
     $this->load->css('assets/css/pending.css');
     $this->load->js('assets/plugins/datatables/jquery.dataTables.min.js');
