@@ -29,9 +29,7 @@
                 <?php foreach ($applies as $apply): ?>
                   <tr>
                     <?php switch((int)$apply['status']):
-                            case 0:
-                              if ( ! $apply['past']) { echo '<td class="label-primary">'.render_icon('hourglass-start').($lang === 'zh-TW' ? '審核中' : 'Pending').'</td>'; }
-                              else echo '<td class="label-warning">'.render_icon('clock-o').apply_state_type('0', $lang).'</td>'; break;
+                            case 0: echo '<td class="label-primary">'.render_icon('hourglass-start').($lang === 'zh-TW' ? '審核中' : 'Pending').'</td>'; break;
                             case 1: echo '<td class="label-success">'.render_icon('check').apply_state_type('1', $lang).'</td>';  break;
                             case 2: echo '<td class="label-default">'.render_icon('trash').apply_state_type('2', $lang).'</td>';  break;
                             case 4: echo '<td class="label-danger">'.render_icon('times').apply_state_type('4', $lang).'</td>';   break;

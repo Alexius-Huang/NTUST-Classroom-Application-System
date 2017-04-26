@@ -32,7 +32,7 @@
                   <tr>
                     <td><?php echo date('Y-m-d, H:i:s', $apply['created_at']) ?></td>
                     <?php
-                      if ($apply['status'] == 0 AND ( ! $apply['past'])) {
+                      if ($apply['status'] == 0) {
                         echo '<td class="label-primary">'.render_icon('hourglass-start').apply_state_type('0', $lang).'</td>';
                       } else if ($apply['status'] == 1) echo '<td class="label-success">'.render_icon('check').apply_state_type('1', $lang).'</td>';
                     ?>
