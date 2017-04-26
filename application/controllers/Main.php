@@ -92,7 +92,10 @@ class Main extends WEB_Controller {
     );
 
     foreach ($view['applies'] as $index => $apply) {
-      if ($apply['status'] == '0') { $view['applies'][$index]['past'] = today() >= $apply['date']; }
+      if ($apply['status'] == '0' AND today() >= $apply['date']) {
+        $this->apply_model->check_apply($apply['id'], 'reject');
+        $view['applies'][$index]['status'] = '4';  
+      }
       $view['applies'][$index]['classroom'] = $this->classroom_model->get_classroom($apply['classroom_id']);
     }
     
@@ -111,7 +114,10 @@ class Main extends WEB_Controller {
     );
 
     foreach ($view['applies'] as $index => $apply) {
-      if ($apply['status'] == '0') { $view['applies'][$index]['past'] = today() >= $apply['date']; }
+      if ($apply['status'] == '0' AND today() >= $apply['date']) {
+        $this->apply_model->check_apply($apply['id'], 'reject');
+        $view['applies'][$index]['status'] = '4';
+      }
       $view['applies'][$index]['classroom'] = $this->classroom_model->get_classroom($apply['classroom_id']);
     }
 
