@@ -87,7 +87,7 @@ if ( ! function_exists('classroom_rule_display_weekday')) {
     if ((int)$weekdayNum !== 0) {
       $weekday = (string)decbin($weekdayNum);
       while(strlen($weekday) < 7) { $weekday = '0'.$weekday; }
-      $weekdayBitArr = str_split($weekday);
+      $weekdayBitArr = array_reverse(str_split($weekday));
       $weekdayArr = array();
       foreach ($weekdayBitArr as $index => $weekdayBit) {
         if ($weekdayBit == 1) { $weekdayArr[] = get_weekday($index); }
