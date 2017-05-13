@@ -59,6 +59,7 @@ $(document).ready(function() {
                      '<div class="box-body text-left">' +
                        '<p>提出申請時間：' + data.created + '</p>' +
                        '<p>借用日期：' + data.date + '</p>' +
+                       '<p>預計歸還日期：' + data.end + '</p>' +
                        '<p>借用單位：' + data.organization + '</p>' +
                        '<p>借用申請人：' + data.applicant + '</p>' +
                        '<p>借用器材清單：' +
