@@ -43,11 +43,11 @@ class Admin extends WEB_Controller {
     $view = array(
       'username' => 'admin',
       'page' => 'apply',
-      'applies' => $this->apply_model->get_applies(array('status' => '0', 'date >' => today()))
+      'applies' => $this->apply_model->get_applies(array('status' => '0', 'date >=' => today()))
     );
 
     /* Outdated classroom applications should be rejected */
-    $outdated = $this->apply_model->get_applies(array('status' => '0', 'date <=' => today()));
+    $outdated = $this->apply_model->get_applies(array('status' => '0', 'date <' => today()));
     if ( ! empty($outdated)) {
       foreach ($outdated as $apply) {
         $this->apply_model->check_apply($apply['id'], 'reject');

@@ -10,8 +10,10 @@
         <tr>
           <th class="text-center">提出申請時間</th>
           <th class="text-center">借用日期</th>
+          <th class="text-center">預計歸還日期</th>
           <th class="text-center">申請人員</th>
           <th class="text-center">狀態</th>
+          <th class="text-center">列印PDF</th>
           <th class="text-center">檢視</th>
         </tr>
       </thead>
@@ -20,6 +22,7 @@
           <tr>
             <td class="text-center"><?php echo date('Y-m-d H:i:s', $apply['created_at']); ?></td>
             <td class="text-center"><?php echo $apply['date']; ?></td>
+            <td class="text-center"><?php echo $apply['end_date']; ?></td>
             <td class="text-center"><?php echo $apply['applicant'].'（'.$apply['applicantPosition'].'）'; ?></td>
             <?php
               switch((int)$apply['status']):
@@ -27,8 +30,15 @@
                 case 1: echo '<td class="text-center label-success">'.render_icon('check').' 已通過</td>'; break;
                 case 2: echo '<td class="text-center label-default">'.render_icon('trash').' 已取消</td>'; break;
                 case 4: echo '<td class="text-center label-danger">'.render_icon('times').' 已駁回</td>'; break;
-              endswitch;    
+              endswitch;
             ?>
+            <td class="text-center">
+              <?php if ($apply['status'] == '1'): ?>
+                <a href="<?php echo base_url(); ?>pdf_download/device_pdf/zh-TW/<?php echo $apply['id']; ?>" class="btn btn-xs btn-success">下載器材檢核 PDF</a>
+              <?php else: ?>
+                N/A
+              <?php endif; ?>
+            </td>
             <td class="text-center">
               <button
                 class="btn btn-xs btn-primary btn-inspect"
@@ -37,6 +47,7 @@
                   '<?php echo date('Y-m-d H:i:s', $apply['created_at']); ?>',
                   '<?php echo apply_state_type($apply['status']); ?>',
                   '<?php echo $apply['date']; ?>',
+                  '<?php echo $apply['end_date']; ?>',
                   '<?php echo $apply['organization']; ?>',
                   '<?php echo $apply['applicant'].'（'.$apply['applicantPosition'].'）'; ?>',
                   '<?php echo $apply['phone']; ?>',
@@ -53,7 +64,7 @@
 </div>
 
 <script>
-  function clicked(id, created, status, date, organization, applicant, phone, purpose) {
+  function clicked(id, created, status, date, endDate, organization, applicant, phone, purpose) {
     var data = $(this).data();
 
     $.ajax({
@@ -68,6 +79,7 @@
                        '<p>提出申請時間：' + created + '</p>' +
                        '<p>狀態：' + status + '</p>' +
                        '<p>借用日期：' + date + '</p>' +
+                       '<p>預計歸還日期：' + endDate + '</p>' +
                        '<p>器材借用列表：' +
                          '<ul class="list-group">';
         for (var index of Object.keys(deviceInfo)) {

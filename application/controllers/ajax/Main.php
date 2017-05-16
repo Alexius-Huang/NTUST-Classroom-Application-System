@@ -313,32 +313,38 @@ class Main extends WEB_Controller {
   }
 
   public function get_available_device_info_by_date_range() {
-    if ($date = $this->input->post('date') AND $end_date = $this->input->post('end_date')) {
+    if ($start_date = $this->input->post('date') AND $end_date = $this->input->post('end_date')) {
       /* Get all of the enabled devices */
       $devices = $this->device_model->get_devices(array('disabled' => 0));
       $device_table = array();
       foreach ($devices as $device) {
-        $device['current_available'] = $device['total_count'];
         $device_table[$device['id']] = $device;
-      }
+        $device_available_by_dates = array();
 
-      /* Get all of the device application with the same date in status of pending or success */
-      $device_applies = array();
-      while (strtotime($date) <= strtotime($end_date)) {
-        $device_applies += $this->device_apply_model->get_device_applies_by_date($date);
-        $date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
-      }
-
-      /* Calculate each device count in corresponding day */
-      foreach ($device_applies as $device_apply) {
-        if ($device_apply['status'] == '2' OR $device_apply['status'] == '4') { continue; }
-        $device_logs = $this->device_apply_model->get_device_logs_by_device_apply($device_apply['id']);
-        foreach ($device_logs as $log) {
-          if (isset($device_table[$log['device_id']])) {
-            $device_table[$log['device_id']]['current_available'] -= $log['lease_count'];
-            if ($device_table[$log['device_id']]['current_available'] < 0) $device_table[$log['device_id']]['current_available'] = 0;
+        /* Get all of the device application with the same date in status of pending or success */
+        $date = $start_date;
+        while (strtotime($date) <= strtotime($end_date)) {
+          $available_count = $device['total_count'];
+          
+          $device_applies = $this->device_apply_model->get_device_applies_by_date($date);
+          foreach ($device_applies as $device_apply) {
+            if ($device_apply['status'] == '2' OR $device_apply['status'] == '4') { continue; }
+            $device_logs = $this->device_apply_model->get_device_logs(array(
+              'device_apply_id' => $device_apply['id'],
+              'device_id' => $device['id']
+            ));
+            foreach ($device_logs as $device_log) {
+              if (isset($device_table[$device_log['device_id']])) {
+                $available_count -= $device_log['lease_count'];
+                if ($available_count < 0) { $available_count = 0; }
+              }
+            }
           }
+          array_push($device_available_by_dates, $available_count);
+
+          $date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
         }
+        $device_table[$device['id']]['current_available'] = min($device_available_by_dates);
       }
 
       echo json_encode($device_table);

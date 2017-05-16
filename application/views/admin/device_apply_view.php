@@ -8,6 +8,7 @@
         <tr>
           <th class="text-center">提出申請時間</th>
           <th class="text-center">借用日期</th>
+          <th class="text-center">預計歸還日期</th>
           <th class="text-center">借用申請人</th>
           <th class="text-center">借用單位</th>
           <th class="text-center">檢視</th>
@@ -18,6 +19,7 @@
           <tr data-id="<?php echo $apply['id']; ?>" class="appliance">
             <td class="text-center"><?php echo date('Y-m-d H:i:s', $apply['created_at']) ?></td>
             <td class="text-center"><?php echo $apply['date']; ?></td>
+            <td class="text-center"><?php echo $apply['end_date']; ?></td>
             <td class="text-center"><?php echo $apply['applicant'].'（'.$apply['applicantPosition'].'）'; ?></td>
             <td class="text-center"><?php echo $apply['organization']; ?></td>
             <td class="text-center">
@@ -25,6 +27,7 @@
                 data-id="<?php echo $apply['id']; ?>"
                 data-created="<?php echo date('Y-m-d H:i:s', $apply['created_at']); ?>"
                 data-date="<?php echo $apply['date']; ?>"
+                data-end="<?php echo $apply['end_date']; ?>"
                 data-organization="<?php echo $apply['organization']; ?>"
                 data-applicant="<?php echo $apply['applicant'].'（'.$apply['applicantPosition'].'）'; ?>"
                 data-phone="<?php echo $apply['phone']; ?>"

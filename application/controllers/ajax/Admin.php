@@ -207,6 +207,54 @@ class Admin extends WEB_Controller {
   public function check_device_application() {
     if ($id = $this->input->post('id') AND $mode = $this->input->post('mode')) {
       $this->device_apply_model->check_device_apply($id, $mode);
+
+      $device_apply = $this->device_apply_model->get_device_apply($id);
+      $device_logs = $this->device_apply_model->get_device_logs_by_device_apply($id);
+      foreach ($device_logs as $device_log) {
+        $device = $this->device_model->get_device($device_log['device_id']);
+        
+        $date = $device_apply['date'];
+        $end_date = $device_apply['end_date'];
+        while (strtotime($date) <= strtotime($end_date)) {
+          $available_count = $device['total_count'];
+
+          $approved_applies = $this->device_apply_model->get_device_applies(array(
+            'date <=' => $date,
+            'end_date >=' => $date,
+            'status' => '1'
+          ));
+          
+          foreach ($approved_applies as $apply) {
+            $logs = $this->device_apply_model->get_device_logs_by_device_apply($apply['id']);
+            foreach ($logs as $log) {
+              if ($log['device_id'] == $device['id']) {
+                $available_count -= $log['lease_count'];
+                break;
+              }
+            }
+          }
+
+          $pending_applies = $this->device_apply_model->get_device_applies(array(
+            'date <=' => $date,
+            'end_date >=' => $date,
+            'status' => '0'
+          ));
+
+          foreach ($pending_applies as $apply) {
+            $logs = $this->device_apply_model->get_device_logs_by_device_apply($apply['id']);
+            foreach ($logs as $log) {
+              if ($log['device_id'] == $device['id']) {
+                if ($available_count < $log['lease_count']) {
+                  $this->device_apply_model->check_device_apply($apply['id'], 'reject');
+                }
+                break;
+              }
+            }
+          }
+
+          $date = date('Y-m-d', strtotime("+1 day", strtotime($date)));
+        }
+      }
     } else redirect('admin/main');
   }
 

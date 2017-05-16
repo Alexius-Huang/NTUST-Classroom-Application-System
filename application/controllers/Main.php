@@ -92,7 +92,7 @@ class Main extends WEB_Controller {
     );
 
     foreach ($view['applies'] as $index => $apply) {
-      if ($apply['status'] == '0' AND today() >= $apply['date']) {
+      if ($apply['status'] == '0' AND today() > $apply['date']) {
         $this->apply_model->check_apply($apply['id'], 'reject');
         $view['applies'][$index]['status'] = '4';  
       }
@@ -114,7 +114,7 @@ class Main extends WEB_Controller {
     );
 
     foreach ($view['applies'] as $index => $apply) {
-      if ($apply['status'] == '0' AND today() >= $apply['date']) {
+      if ($apply['status'] == '0' AND today() > $apply['date']) {
         $this->apply_model->check_apply($apply['id'], 'reject');
         $view['applies'][$index]['status'] = '4';
       }
