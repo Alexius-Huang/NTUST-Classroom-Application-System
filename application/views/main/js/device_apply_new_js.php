@@ -220,6 +220,25 @@ $(document).ready(function() {
         });
       };
 
+      var assertShouldNotLeaseAtWeekend = function() {
+        return new Promise(function(resolve, reject) {
+          var weekday_of_start_date = moment(data['date']).weekday();
+          var weekday_of_end_date   = moment(data['end_date']).weekday();
+          if (
+            weekday_of_start_date === 6 ||
+            weekday_of_start_date === 0 ||
+            weekday_of_end_date   === 0 ||
+            weekday_of_end_date   === 0
+          ) {
+            <?php if ($lang === 'zh-TW'): ?>
+              show_error_message('請注意！', '請勿在週六日借用器材！');
+            <?php elseif($lang === 'en-us'): ?>
+              show_error_message('Warning!', 'Please do not lease device in weekend!');
+            <?php endif; ?>
+          } else resolve();
+        });
+      }
+
       var assertAtLeastOneDeviceSelected = function() {
         return new Promise(function(resolve, reject) {
           if ($deviceList.children().length === 0) {
@@ -345,6 +364,7 @@ $(document).ready(function() {
 
     assertDateFieldShouldFilled()
     .then(assertEndDateFieldShouldFilled)
+    .then(assertShouldNotLeaseAtWeekend)
     .then(assertAtLeastOneDeviceSelected)
     .then(assertOrganizationShouldFilled)
     .then(assertApplicantShouldFilled)
@@ -353,8 +373,6 @@ $(document).ready(function() {
     .then(assertPhoneShouldBeMatchNumberTypeRegex)
     .then(assertPurposeShouldFilled)
     .then(function() {
-      console.log(data.device);
-      // return;
       var html = '<div class="box box-primary">' +
                 '<div class="box-body pre-scrollable">' +
                   '<span class="text-left">' +
@@ -389,7 +407,6 @@ $(document).ready(function() {
         cancelButtonText: '<?php i18n($lang, 'page.device-apply-new.cancel-submit'); ?>',
         cancelButtonColor: '#dd4b39'
       }).then(function() {
-        // data.ajax = true;
         $.ajax({
           type: 'post',
           cache: false,
