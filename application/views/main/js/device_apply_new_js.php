@@ -152,8 +152,10 @@ $(document).ready(function() {
 
     var addOn = document.createElement('div');
     addOn.className = 'input-group-addon';
-    addOn.innerHTML = '<span data-id="' + selectedId + '"><?php echo render_icon('times'); ?></span> ' + $deviceTable[selectedId]['name_<?php echo $lang; ?>'];
-    
+    var content = '<span data-id="' + selectedId + '"><?php echo render_icon('times'); ?></span> ' + $deviceTable[selectedId]['name_<?php echo $lang; ?>'];
+    if ($deviceTable[selectedId]['remark']) content += ' (' + $deviceTable[selectedId]['remark']  + ')'; 
+    addOn.innerHTML = content;
+
     var deviceIDInput = document.createElement('input');
     deviceIDInput.setAttribute('name', 'device_ids[]');
     deviceIDInput.setAttribute('type', 'hidden');
