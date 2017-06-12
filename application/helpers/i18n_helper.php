@@ -194,22 +194,22 @@ if ( ! function_exists('i18n')) {
               case 'current-available': echo '當日剩餘器材數量：'; break;
               case 'max-lease-count': echo '單次最多借用數量：'; break;
               case 'date': echo '日期（請先選擇日期再指定借用器材）：'; break;
-              case 'end-date': echo '結束借用日期：'; break;
+              case 'end-date': echo '結束借用日期（預計歸還日期）：'; break;
               case 'organization': echo '單位（社團）名稱：'; break;
               case 'applicant': echo '申請人姓名：'; break;
               case 'applicant-position': echo '申請人（社團）職稱：'; break;
               case 'phone': echo '申請人聯絡電話：'; break;
-              case 'purpose': echo '器材借用目的（請簡述）：'; break;
+              case 'purpose': echo '器材借用目的以及使用地點（請簡述）：'; break;
             } break;
             case 'submit-info': switch($params[3]) {
               case 'date': echo '借用日期：'; break;
-              case 'end-date': echo '結束借用日期：'; break;
+              case 'end-date': echo '預計歸還日期：'; break;
               case 'device-list': echo '借用器材列表'; break;
               case 'organization': echo '借用單位：'; break;
               case 'applicant': echo '申請人姓名：'; break;
               case 'applicant-position': echo '申請人職稱：'; break;
               case 'phone'; echo '申請人聯絡電話：'; break;
-              case 'purpose': echo '器材使用目的：'; break;
+              case 'purpose': echo '器材使用目的以及地點：'; break;
             } break;
           } break;
 
@@ -222,13 +222,13 @@ if ( ! function_exists('i18n')) {
               case 'apply-at': echo '提出申請時間'; break;
               case 'status': echo '申請狀態'; break;
               case 'date': echo '借用日期'; break;
-              case 'end-date': echo '結束借用日期'; break;
+              case 'end-date': echo '預計歸還日期'; break;
               case 'action': echo '工具'; break;
             } break;
             case 'swal': switch($params[3]) {
               case 'title': echo '您即將要取消此器材申請'; break;
               case 'date': echo '借用日期：'; break;
-              case 'end-date': echo '結束借用日期：'; break;
+              case 'end-date': echo '預計歸還日期：'; break;
               case 'status': echo '申請狀態：'; break;
               case 'device-list': echo '申請之器材清單：'; break;
               case 'organization': echo '申請單位：'; break;
@@ -460,22 +460,22 @@ if ( ! function_exists('i18n')) {
               case 'current-available': echo 'Available：'; break;
               case 'max-lease-count': echo 'Max Lease per Application：'; break;
               case 'date': echo 'Date(Please choose the date first and then appoint leasing devices)：'; break;
-              case 'end-date': echo 'Expiration Time：'; break;
+              case 'end-date': echo 'Return Device Date：'; break;
               case 'organization': echo 'Organization(Club)：'; break;
               case 'applicant': echo 'Applicant：'; break;
               case 'applicant-position': echo 'Applicant Position in Organization(Club)：'; break;
               case 'phone': echo 'Phone：'; break;
-              case 'purpose': echo 'Purpose(Description)：'; break;
+              case 'purpose': echo 'Purpose and location to use devices(Description)：'; break;
             } break;
             case 'submit-info': switch($params[3]) {
               case 'date': echo 'Date：'; break;
-              case 'end-date': echo 'Expiration Time：'; break;
+              case 'end-date': echo 'Return Device Date：'; break;
               case 'device-list': echo 'Device List'; break;
               case 'organization': echo 'Organization：'; break;
               case 'applicant': echo 'Applicant：'; break;
               case 'applicant-position': echo 'Applicant Position：'; break;
               case 'phone'; echo 'Phone：'; break;
-              case 'purpose': echo 'Purpose(Description)：'; break;
+              case 'purpose': echo 'Purpose and Location(Description)：'; break;
             } break;
           } break;
 
@@ -488,13 +488,13 @@ if ( ! function_exists('i18n')) {
               case 'apply-at': echo 'Apply Timing'; break;
               case 'status': echo 'Status'; break;
               case 'date': echo 'Date'; break;
-              case 'end-date': echo 'Expiration Date'; break;
+              case 'end-date': echo 'Return Device Date'; break;
               case 'action': echo 'Action'; break;
             } break;
             case 'swal': switch($params[3]) {
               case 'title': echo 'You are going to cancel application'; break;
               case 'date': echo 'Date：'; break;
-              case 'end-date': echo 'Expiration Date：'; break;
+              case 'end-date': echo 'Return Device Date：'; break;
               case 'status': echo 'Status：'; break;
               case 'device-list': echo 'Device List'; break;
               case 'organization': echo 'Organization：'; break;
