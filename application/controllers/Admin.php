@@ -394,11 +394,11 @@ class Admin extends WEB_Controller {
     $view = array(
       'username' => 'admin',
       'page' => 'device_apply',
-      'applies' => $this->device_apply_model->get_device_applies(array('status' => '0', 'date >' => today()))
+      'applies' => $this->device_apply_model->get_device_applies(array('status' => '0', 'date >=' => today()))
     );
 
     /* Outdated device applications should be rejected */
-    $outdated = $this->device_apply_model->get_device_applies(array('status' => '0', 'date <=' => today()));
+    $outdated = $this->device_apply_model->get_device_applies(array('status' => '0', 'date <' => today()));
     if ( ! empty($outdated)) {
       foreach ($outdated as $apply) {
         $this->device_apply_model->check_device_apply($apply['id'], 'reject');
