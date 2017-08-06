@@ -165,6 +165,12 @@ $(document).ready(function() {
     input.className = 'form-control';
     input.setAttribute('name', 'leasing_counts[]');
     input.setAttribute('type', 'text');
+
+    <?php if ($lang === 'zh-TW'): ?>
+      input.setAttribute('placeholder', '請填入借用數量');
+    <?php elseif ($lang === 'en-us'): ?>
+      input.setAttribute('placeholder', 'Please Fill Device Lease Quantity');
+    <?php endif; ?>
     
     inputGroup.appendChild(addOn);
     inputGroup.appendChild(deviceIDInput);
