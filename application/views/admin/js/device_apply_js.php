@@ -36,7 +36,7 @@ $(document).ready(function() {
   function post_check_application(data) {
     $.ajax({
       type: 'post',
-      data: { 'id': data.id, 'mode': data.mode },
+      data: data,
       url: '<?php echo base_url(); ?>ajax/admin/check_device_application',
       cache: false,
       success: function() { location.reload(); },
@@ -73,6 +73,7 @@ $(document).ready(function() {
                        '<p>借用目的：' + data.purpose + '</p>' +
                        '<p>聯絡電話：' + data.phone + '</p>' +
                      '</div>' +
+                     '<textarea style="box-sizing: border-box; padding: 10px; width: 95%; border: 1px solid #ddd; border-radius: 5px;" id="remark" placeholder="填入審核意見"></textarea>' +
                    '</div>' +
                    '</div><br/><p>您即將審核此申請，<span style="color:red">若有其他申請其時段衝突到本申請時段，則此申請通過後其他的申請將自動駁回</span></p>';
 
@@ -84,9 +85,9 @@ $(document).ready(function() {
           cancelButtonText: '<?php echo render_icon('times'); ?> 駁回申請',
           cancelButtonColor: '#dd4b39'
         }).then(function() {
-          post_check_application({ id: data.id, mode: 'approve' });
+          post_check_application({ id: data.id, mode: 'approve', remark: $('textarea#remark').val() });
         }, function(dismiss) {
-          if (dismiss === 'cancel') { post_check_application({ id: data.id, mode: 'reject' }); }
+          if (dismiss === 'cancel') { post_check_application({ id: data.id, mode: 'reject', remark: $('textarea#remark').val() }); }
         });
       },
       error: function() { show_error_message(); }

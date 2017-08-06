@@ -206,7 +206,8 @@ class Admin extends WEB_Controller {
 
   public function check_device_application() {
     if ($id = $this->input->post('id') AND $mode = $this->input->post('mode')) {
-      $this->device_apply_model->check_device_apply($id, $mode);
+      $remark = $this->input->post('remark');
+      $this->device_apply_model->check_device_apply($id, $mode, $remark);
 
       $device_apply = $this->device_apply_model->get_device_apply($id);
       $device_logs = $this->device_apply_model->get_device_logs_by_device_apply($id);

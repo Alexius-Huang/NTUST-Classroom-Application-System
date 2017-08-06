@@ -112,7 +112,7 @@ class Device_apply_model extends CI_Model {
     return $id;
   }
 
-  function check_device_apply($id = '0', $mode = NULL) {
+  function check_device_apply($id = '0', $mode = NULL, $remark = '') {
     if ($id === '0') {
       return FALSE;
     } else if ($apply = $this->get_device_apply($id)) {
@@ -123,6 +123,8 @@ class Device_apply_model extends CI_Model {
         case 'cancel':  $update = array('status' => '2'); break;
       }
       $update['updated_at'] = time();
+      $update['reject_info_zh-TW'] = $remark;
+      $update['reject_info_en-us'] = $remark;
       $this->db->update('DeviceApply', $update);
     }
   }

@@ -251,6 +251,7 @@ if ( ! function_exists('i18n')) {
               case 'date': echo '借用日期'; break;
               case 'end-date': echo '結束日期'; break;
               case 'remark': echo '備註'; break;
+              case 'download-pdf': echo '下載PDF'; break;
               case 'apply-at': echo '申請時間'; break;
             } break;
           } break;
@@ -517,6 +518,7 @@ if ( ! function_exists('i18n')) {
               case 'date': echo 'Date'; break;
               case 'end-date': echo 'Expired'; break;
               case 'remark': echo 'Remark'; break;
+              case 'download-pdf': echo 'Download PDF'; break;
               case 'apply-at': echo 'Applied Timing'; break;
             } break;
           } break;

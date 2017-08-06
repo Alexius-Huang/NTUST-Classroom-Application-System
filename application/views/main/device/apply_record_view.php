@@ -21,6 +21,7 @@
                   <th><?php i18n($lang, 'page.device-apply-record.table-headers.status') ?></th>
                   <th><?php i18n($lang, 'page.device-apply-record.table-headers.date') ?></th>
                   <th><?php i18n($lang, 'page.device-apply-record.table-headers.end-date') ?></th>
+                  <th><?php i18n($lang, 'page.device-apply-record.table-headers.download-pdf') ?></th>
                   <th><?php i18n($lang, 'page.device-apply-record.table-headers.remark') ?></th>
                   <th><?php i18n($lang, 'page.device-apply-record.table-headers.apply-at') ?></th>
                 </tr>
@@ -37,13 +38,20 @@
                     <td><?php echo $apply['date']; ?></td>
                     <td><?php echo $apply['end_date']; ?></td>
                     <td>
-                      <?php switch((int)$apply['status']):
-                              case 1: ?> <a class="btn btn-xs btn-success" href="<?php echo base_url(); ?>pdf_download/device_pdf/<?php echo $lang; ?>/<?php echo $apply['id']; ?>"><?php i18n($lang, 'page.device-apply-record.print-pdf'); ?></a>
-                      <?php     break;
-                              case 4: echo (empty($apply['reject_info_'.$lang]) ? 'N/A' : '<span style="color: red">'.$apply['reject_info_'.$lang].'</span>');
-                                break;
-                              default: echo 'N/A';
-                            endswitch; ?>
+                      <?php if ((int)$apply['status'] === 4): ?>
+                        <?php echo (empty($apply['reject_info_'.$lang]) ? 'N/A' : '<span style="color: red">'.$apply['reject_info_'.$lang].'</span>') ?>
+                      <?php else: ?>
+                        <?php echo ($apply['reject_info_'.$lang] == '') ? 'N/A' :  $apply['reject_info_'.$lang]; ?>
+                      <?php endif; ?>
+                    </td>
+                    <td>
+                      <?php if ((int)$apply['status'] === 1): ?>
+                        <a class="btn btn-xs btn-success" href="<?php echo base_url(); ?>pdf_download/device_pdf/<?php echo $lang; ?>/<?php echo $apply['id']; ?>">
+                          <?php i18n($lang, 'page.device-apply-record.print-pdf'); ?>
+                        </a>
+                      <?php else: ?>
+                        N/A
+                      <?php endif; ?>
                     </td>
                     <td><?php echo get_datetime_from_timestamp($apply['created_at']); ?></td>
                   </tr>

@@ -24,6 +24,7 @@ body_a.push([{ text: '借用單位', alignment: 'center', margin: [8, 5] }, { te
 body_a.push([{ text: '申請人員', alignment: 'center', margin: [8, 5] }, { text: "<?php echo $device_apply['applicant']; ?>", margin: [8, 5] }]);
 body_a.push([{ text: '聯絡電話', alignment: 'center', margin: [8, 5] }, { text: "<?php echo $device_apply['phone']; ?>", margin: [8, 5] }]);
 body_a.push([{ text: '借用目的及地點', alignment: 'center', margin: [8, 5] }, { text: "<?php echo $device_apply['purpose']; ?>", margin: [8, 5] }]);
+body_a.push([{ text: '備註',    alignment: 'center', margin: [8, 5] }, { text: "<?php echo $device_apply['reject_info_'.$lang]; ?>", margin: [8, 5] }]);
 
 var table_a = {
   table: {
