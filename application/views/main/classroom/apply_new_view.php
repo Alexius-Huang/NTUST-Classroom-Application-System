@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-md-12">
                   <div class="input-group btn-group" id="time-field" data-toggle="buttons">
-                    <?php foreach($timeArray as $time => $interval): ?>
+                    <?php foreach(CLASSROOM_TIME_ARRAY as $time => $interval): ?>
                       <label class="btn btn-flat btn-default" id="time<?php echo $time; ?>">
                         <input type="checkbox" name="times[]" id="time<?php echo $time; ?>" value="<?php echo $time; ?>" />
                         <span class="label-time-name"><?php echo $time; ?></span>

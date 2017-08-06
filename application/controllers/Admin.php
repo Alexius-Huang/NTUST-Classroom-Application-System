@@ -164,7 +164,7 @@ class Admin extends WEB_Controller {
 
       $this->load->model('apply_model');
 
-      foreach (TIME_ARRAY() as $time) {
+      foreach (CLASSROOM_TIME_ARRAY_KEYS as $time) {
         $insert['time'.$time] = in_array($time, $post['time']) ? 1 : 0;
         if ($insert['time'.$time] == 1) {
           switch($post['rule-type']) {
@@ -261,7 +261,7 @@ class Admin extends WEB_Controller {
 
       foreach ($classroom_ids as $id) {
         $insert['classroom_id'] = $id;
-        foreach (TIME_ARRAY() as $time) {
+        foreach (CLASSROOM_TIME_ARRAY_KEYS as $time) {
           $insert['time'.$time] = in_array($time, $post['time']) ? 1 : 0;
           if ($insert['time'.$time] == 1) {
             switch($post['rule-type']) {

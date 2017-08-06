@@ -83,12 +83,11 @@
           <div id="time-field" class="col-md-12 form-group rule-type fields field-times">
             <label>選擇時段</label>
             <div class="input-group btn-group" data-toggle="buttons">
-              <?php $renderTime = TIME_ARRAY(); ?>
-              <?php for ($j = 0; $j <= 13; $j++): ?>
+              <?php foreach (CLASSROOM_TIME_ARRAY_KEYS as $time): ?>
                 <label class="btn btn-default">
-                  <input type="checkbox" name="time[]" value="<?php echo $renderTime[$j]; ?>" /> <?php echo $renderTime[$j]; ?>
+                  <input type="checkbox" name="time[]" value="<?php echo $time; ?>" /> <?php echo $time; ?>
                 </label>
-              <?php endfor; ?>
+              <?php endforeach; ?>
               <a id="time-cancel-all" class="btn btn-info btn-select-none">全部取消</a>
             </div>
           </div>

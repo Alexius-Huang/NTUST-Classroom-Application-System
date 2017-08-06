@@ -22,7 +22,7 @@
             <thead>
               <tr>
                 <th>場地</th>
-                <?php foreach(TIME_ARRAY() as $time): ?>
+                <?php foreach(CLASSROOM_TIME_ARRAY_KEYS as $time): ?>
                   <th class="status-time"><?php echo $time; ?></th>
                 <?php endforeach; ?>
               </tr>

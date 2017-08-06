@@ -105,7 +105,7 @@ class Admin extends WEB_Controller {
       $application = $this->apply_model->get_apply($id);
       $conflicted_ids = array();
       $conflicted = array();
-      foreach (TIME_ARRAY() as $time) {
+      foreach (CLASSROOM_TIME_ARRAY_KEYS as $time) {
         $where = array(
           'classroom_id' => $application['classroom_id'],
           'time'.$time => '1',
@@ -137,7 +137,7 @@ class Admin extends WEB_Controller {
 
       if ($mode === 'approve') {
         /* Reject other conflict applies when approved */
-        foreach (TIME_ARRAY() as $time) {
+        foreach (CLASSROOM_TIME_ARRAY_KEYS as $time) {
           if ($apply['time'.$time] == 1) {
             $potential_applies = $this->apply_model->get_applies(array(
               'classroom_id' => $apply['classroom_id'],
@@ -167,7 +167,7 @@ class Admin extends WEB_Controller {
           $result['approved'][] = $id;
 
           /* Reject other conflict applies */
-          foreach (TIME_ARRAY() as $time) {
+          foreach (CLASSROOM_TIME_ARRAY_KEYS as $time) {
             if ($apply['time'.$time] == 1) {
               $potential_applies = $this->apply_model->get_applies(array(
                 'classroom_id' => $apply['classroom_id'],

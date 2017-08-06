@@ -85,7 +85,7 @@ class Classroom_model extends CI_Model {
       'updated_at'   => time()
     );
 
-    foreach (array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D') as $time) {
+    foreach (CLASSROOM_TIME_ARRAY_KEYS as $time) {
       $insert['time'.$time] = $data['time'.$time];
     }
 

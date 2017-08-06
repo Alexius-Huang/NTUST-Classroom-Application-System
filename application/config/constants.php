@@ -83,3 +83,23 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+/* Settings */
+defined('CLASSROOM_TIME_ARRAY') OR define('CLASSROOM_TIME_ARRAY', array(
+  '1' => '08:10 ~ 09:00',
+  '2' => '09:10 ~ 10:00',
+  '3' => '10:20 ~ 11:10',
+  '4' => '11:20 ~ 12:10',
+  '5' => '12:20 ~ 13:10',
+  '6' => '13:20 ~ 14:10',
+  '7' => '14:20 ~ 15:10',
+  '8' => '15:30 ~ 16:20',
+  '9' => '16:30 ~ 17:20',
+  '10'=> '17:30 ~ 18:20',
+  'A' => '18:25 ~ 19:15',
+  'B' => '19:20 ~ 20:10',
+  'C' => '20:15 ~ 21:05',
+  'D' => '21:10 ~ 22:00',
+));
+
+defined('CLASSROOM_TIME_ARRAY_KEYS') OR define('CLASSROOM_TIME_ARRAY_KEYS', array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'A', 'B', 'C', 'D'));
